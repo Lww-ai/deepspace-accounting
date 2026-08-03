@@ -39,18 +39,18 @@
       --gradient-end: #f0a3b8;
     }
 
-    /* 薄荷綠 */
+    /* 草綠色 (Grass Green) */
     [data-theme="green"] {
-      --bg-color: #f2f8f5;
+      --bg-color: #f3f9f2;
       --card-bg: #ffffff;
-      --primary-color: #5dae8b;
-      --primary-light: #e2f2eb;
-      --primary-dark: #3a7a5e;
-      --text-main: #3d5248;
-      --text-sub: #789487;
-      --border-color: #dcebe3;
-      --gradient-start: #5dae8b;
-      --gradient-end: #83cbb0;
+      --primary-color: #4caf50;
+      --primary-light: #e8f5e9;
+      --primary-dark: #2e7d32;
+      --text-main: #2e3d2f;
+      --text-sub: #688f6a;
+      --border-color: #c8e6c9;
+      --gradient-start: #4caf50;
+      --gradient-end: #81c784;
     }
 
     /* 向日葵黃 */
@@ -139,14 +139,46 @@
     header {
       position: relative;
       text-align: center;
-      padding: 8px 0 16px;
+      padding: 12px 0 16px;
     }
 
-    /* 左上角主題顏色選擇器 */
+    /* 左上角使用者頭像與暱稱 */
+    .user-profile {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 4px 10px;
+      border-radius: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .user-profile:active {
+      transform: scale(0.95);
+    }
+    .user-avatar {
+      font-size: 1.1rem;
+    }
+    .user-name {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      max-width: 90px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* 右上角主題顏色選擇器 */
     .theme-selector {
       position: absolute;
-      top: 4px;
-      left: 0;
+      top: 0;
+      right: 0;
       display: flex;
       align-items: center;
       gap: 4px;
@@ -180,7 +212,7 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      margin-top: 28px; /* 留出空隙給左上角選單 */
+      margin-top: 36px;
     }
     @media (min-width: 480px) {
       header h1 {
@@ -501,7 +533,7 @@
       cursor: pointer;
     }
 
-    /* 自訂對話框 (Modal) 樣式 */
+    /* 對話框 (Modal) 樣式 */
     .modal-overlay {
       position: fixed;
       top: 0;
@@ -564,7 +596,7 @@
       border: 1px solid var(--border-color);
     }
     .btn-modal-confirm {
-      background: var(--danger-color);
+      background: var(--primary-color);
       color: #fff;
     }
 
@@ -576,14 +608,17 @@
       transform: translateX(-50%) translateY(50px);
       background: var(--primary-dark);
       color: #fff;
-      padding: 10px 20px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      padding: 12px 22px;
+      border-radius: 25px;
+      font-size: 0.88rem;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
       opacity: 0;
       transition: all 0.3s ease;
       z-index: 10000;
       pointer-events: none;
+      text-align: center;
+      max-width: 85vw;
+      line-height: 1.4;
     }
     .toast.show {
       transform: translateX(-50%) translateY(0);
@@ -595,13 +630,19 @@
 
   <div class="app-container">
     <header>
-      <!-- 左上角顏色選擇器 -->
+      <!-- 左上角頭像與暱稱 -->
+      <div class="user-profile" onclick="editProfile()">
+        <span class="user-avatar" id="avatar-display">🌸</span>
+        <span class="user-name" id="username-display">獵人小姐</span>
+      </div>
+
+      <!-- 右上角顏色選擇器 -->
       <div class="theme-selector">
         <label for="theme-select">🎨 配色:</label>
         <select id="theme-select" class="theme-select" onchange="changeTheme(this.value)">
           <option value="default">深空紫</option>
           <option value="pink">櫻花粉</option>
-          <option value="green">薄荷綠</option>
+          <option value="green">草綠色</option>
           <option value="yellow">向日葵黃</option>
           <option value="blue">天空藍</option>
           <option value="dark">暗夜灰</option>
@@ -609,12 +650,12 @@
       </div>
 
       <h1>✨ 戀與深空專屬記帳 ✨</h1>
-      <p>獵人小姐，輕鬆記錄每一筆深空投入</p>
+      <p>輕鬆記錄每一筆深空投入</p>
     </header>
 
     <div class="backup-bar">
       <div class="backup-info">
-        <span>🔒 個人專屬雲端備份</span>
+        <span>🔒 個人專屬雲端備份 (Google 帳號可跨裝置同步)</span>
       </div>
       <div class="backup-actions">
         <button type="button" class="btn-backup" onclick="exportData()">☁️ 匯出備份</button>
@@ -737,7 +778,7 @@
     </div>
   </div>
 
-  <!-- 自訂確認彈窗 -->
+  <!-- 自訂對話框 -->
   <div class="modal-overlay" id="custom-modal">
     <div class="modal-card">
       <div class="modal-title" id="modal-title">提示</div>
@@ -749,7 +790,7 @@
     </div>
   </div>
 
-  <!-- Toast 消息 -->
+  <!-- Toast 訊息提示 -->
   <div class="toast" id="toast"></div>
 
   <script>
@@ -757,6 +798,34 @@
       '月卡', '週卡', '320元密約', '490元密約', '15元禮包', 
       '30元禮包', '150元禮包', '禮包', '150元活動密約', '鑽石', '其他'
     ];
+
+    // 12個開玩笑/吐槽語錄（隨機不重複出現）
+    const roastQuotes = [
+      "你怎麼又儲值了！？魔法卡再刷要刷爆啦！💳",
+      "記得好好吃飯捏！別只顧著給男主買禮物！🍚",
+      "男主們確實感受到你滿滿的誠意（與魔法卡）了！✨",
+      "手起刀落又是一筆！你的錢包正在哭泣！💸",
+      "這次又是為了哪一位男主課金呢？😏",
+      "再這樣課下去，下半個月只能吃泡麵了喔！🍜",
+      "沒關係，錢沒有不見，只是變成喜歡的樣子陪在身邊！💖",
+      "課金一時爽，一直課金一直爽！🤪",
+      "冷靜！請想想你的存款餘額！小小的錢包受不了啦！👛",
+      "愛他就要給他最好的，這筆錢花得值了！（大概吧？🤣）",
+      "警報！您的錢包厚度正在急速下降中！🚨",
+      "深空獵人小姐，請保持理性消費...算了你肯定停不下來！😂"
+    ];
+
+    let lastRoastIndex = -1;
+
+    function getRandomRoast() {
+      let randomIndex;
+      do {
+        randomIndex = Math.floor(Math.random() * roastQuotes.length);
+      } while (randomIndex === lastRoastIndex && roastQuotes.length > 1);
+      
+      lastRoastIndex = randomIndex;
+      return roastQuotes[randomIndex];
+    }
 
     let records = [];
     try {
@@ -768,7 +837,31 @@
       console.error("Failed to load records", e);
     }
 
-    // 主題顏色切換 logic
+    // 載入與變更暱稱/頭像
+    function loadProfile() {
+      const avatar = localStorage.getItem('deepspace_avatar') || '🌸';
+      const name = localStorage.getItem('deepspace_username') || '獵人小姐';
+      document.getElementById('avatar-display').innerText = avatar;
+      document.getElementById('username-display').innerText = name;
+    }
+
+    function editProfile() {
+      const currentName = document.getElementById('username-display').innerText;
+      const currentAvatar = document.getElementById('avatar-display').innerText;
+      
+      const newName = prompt('請輸入您的暱稱：', currentName);
+      if (newName !== null && newName.trim() !== '') {
+        const newAvatar = prompt('請輸入頭像 Emoji (例如: 🌸, 👑, 🐱, 💎):', currentAvatar);
+        localStorage.setItem('deepspace_username', newName.trim());
+        if (newAvatar !== null && newAvatar.trim() !== '') {
+          localStorage.setItem('deepspace_avatar', newAvatar.trim());
+        }
+        loadProfile();
+        showToast("個人資料更新成功！");
+      }
+    }
+
+    // 主題顏色切換
     function changeTheme(themeName) {
       if (themeName === 'default') {
         document.documentElement.removeAttribute('data-theme');
@@ -782,6 +875,7 @@
     const savedTheme = localStorage.getItem('deepspace_theme') || 'default';
     document.getElementById('theme-select').value = savedTheme;
     changeTheme(savedTheme);
+    loadProfile();
 
     function saveRecords() {
       try {
@@ -797,7 +891,7 @@
       toast.classList.add('show');
       setTimeout(() => {
         toast.classList.remove('show');
-      }, 2500);
+      }, 3000);
     }
 
     function showConfirmModal(title, msg, onConfirm) {
@@ -908,7 +1002,7 @@
       saveRecords();
       updateUI();
       input.value = "1";
-      showToast(`已新增 ${name}！`);
+      showToast(getRandomRoast());
     }
 
     function addCustomItem(name, inputId) {
@@ -929,7 +1023,7 @@
       saveRecords();
       updateUI();
       input.value = "";
-      showToast(`已新增 ${name}！`);
+      showToast(getRandomRoast());
     }
 
     function addOtherItem() {
@@ -954,7 +1048,7 @@
       updateUI();
       priceInput.value = "";
       noteInput.value = "";
-      showToast("已新增消費紀錄！");
+      showToast(getRandomRoast());
     }
 
     function deleteRecord(id) {
@@ -1000,7 +1094,7 @@
           URL.revokeObjectURL(url);
         }, 100);
         
-        showToast("備份檔已成功下載！");
+        showToast("備份檔已成功下載！可以傳到 Google 雲端硬碟喔！");
       } catch (err) {
         showToast("備份失敗：" + err.message);
       }
