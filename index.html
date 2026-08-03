@@ -5,24 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>戀與深空 專屬記帳系統</title>
   <style>
-    /* 預設主題：深空紫 */
+    /* 預設主題：夢幻淡紫 */
     :root {
-      --bg-color: #f7f4fa;
+      --bg-color: #f8f5fc;
       --card-bg: #ffffff;
-      --primary-color: #8a76ab;
-      --primary-light: #ece6f5;
-      --primary-dark: #675287;
+      --primary-color: #9d8ec7;
+      --primary-light: #f0ebf8;
+      --primary-dark: #705b9e;
       --accent-pink: #f3d5df;
       --accent-gold: #d8b368;
-      --text-main: #4a405a;
-      --text-sub: #8c829e;
-      --border-color: #e8e1f0;
+      --text-main: #433952;
+      --text-sub: #877b99;
+      --border-color: #e6e0f0;
       --danger-color: #e57373;
       --danger-light: #fbe9e7;
       --success-color: #66bb6a;
       --success-light: #e8f5e9;
-      --gradient-start: #8a76ab;
-      --gradient-end: #a291be;
+      --gradient-start: #a392cc;
+      --gradient-end: #c4b5e2;
     }
 
     /* 櫻花粉 */
@@ -39,18 +39,18 @@
       --gradient-end: #f0a3b8;
     }
 
-    /* 草綠色 (Grass Green) */
+    /* 淺草綠色 */
     [data-theme="green"] {
-      --bg-color: #f3f9f2;
+      --bg-color: #f4fbf5;
       --card-bg: #ffffff;
-      --primary-color: #4caf50;
-      --primary-light: #e8f5e9;
-      --primary-dark: #2e7d32;
-      --text-main: #2e3d2f;
-      --text-sub: #688f6a;
-      --border-color: #c8e6c9;
-      --gradient-start: #4caf50;
-      --gradient-end: #81c784;
+      --primary-color: #7bc67e;
+      --primary-light: #edf7ed;
+      --primary-dark: #3b8740;
+      --text-main: #2b3a2c;
+      --text-sub: #719b73;
+      --border-color: #d8eed9;
+      --gradient-start: #7bc67e;
+      --gradient-end: #a3e0a6;
     }
 
     /* 向日葵黃 */
@@ -81,18 +81,18 @@
       --gradient-end: #82b6e5;
     }
 
-    /* 暗夜灰 */
+    /* 星空黑 (質感深藍夜空) */
     [data-theme="dark"] {
-      --bg-color: #1e1e24;
-      --card-bg: #2b2b36;
-      --primary-color: #a08cc2;
-      --primary-light: #3a3848;
-      --primary-dark: #c4b5e0;
-      --text-main: #e0e0e8;
-      --text-sub: #a0a0b0;
-      --border-color: #3e3e4e;
-      --gradient-start: #483d60;
-      --gradient-end: #635480;
+      --bg-color: #12131a;
+      --card-bg: #1e202c;
+      --primary-color: #b59beb;
+      --primary-light: #2d2b3d;
+      --primary-dark: #d5c4f7;
+      --text-main: #e8e6f0;
+      --text-sub: #9da0b5;
+      --border-color: #2e3144;
+      --gradient-start: #322b48;
+      --gradient-end: #514275;
     }
 
     * {
@@ -142,7 +142,6 @@
       padding: 12px 0 16px;
     }
 
-    /* 左上角使用者頭像與暱稱 */
     .user-profile {
       position: absolute;
       top: 0;
@@ -156,14 +155,8 @@
       border-radius: 20px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.03);
       cursor: pointer;
-      transition: transform 0.2s;
     }
-    .user-profile:active {
-      transform: scale(0.95);
-    }
-    .user-avatar {
-      font-size: 1.1rem;
-    }
+    .user-avatar { font-size: 1.1rem; }
     .user-name {
       font-size: 0.8rem;
       font-weight: 700;
@@ -174,7 +167,6 @@
       text-overflow: ellipsis;
     }
 
-    /* 右上角主題顏色選擇器 */
     .theme-selector {
       position: absolute;
       top: 0;
@@ -215,16 +207,15 @@
       margin-top: 36px;
     }
     @media (min-width: 480px) {
-      header h1 {
-        margin-top: 0;
-      }
+      header h1 { margin-top: 0; }
     }
     header p {
       font-size: 0.88rem;
       color: var(--text-sub);
     }
 
-    .backup-bar {
+    /* 雲端備份與匯入工具列 */
+    .cloud-tools {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 14px;
@@ -233,22 +224,21 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.02);
-      gap: 8px;
-      flex-wrap: wrap;
     }
-    .backup-info {
+    .cloud-status {
       font-size: 0.8rem;
       color: var(--text-sub);
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
     }
-    .backup-actions {
+    .cloud-actions {
       display: flex;
-      gap: 8px;
+      gap: 6px;
     }
-    .btn-backup {
+    .btn-cloud {
       background: var(--primary-light);
       color: var(--primary-dark);
       border: 1px solid var(--border-color);
@@ -257,15 +247,9 @@
       font-size: 0.78rem;
       font-weight: 600;
       cursor: pointer;
-      display: inline-flex;
+      display: flex;
       align-items: center;
       gap: 4px;
-      transition: all 0.2s;
-    }
-    .btn-backup:active {
-      transform: scale(0.95);
-      background: var(--primary-color);
-      color: #fff;
     }
 
     .total-card {
@@ -273,19 +257,10 @@
       color: #ffffff;
       border-radius: 18px;
       padding: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
       margin-bottom: 20px;
       position: relative;
       overflow: hidden;
-    }
-    .total-card::after {
-      content: "✦";
-      position: absolute;
-      right: 15px;
-      bottom: 5px;
-      font-size: 4.5rem;
-      opacity: 0.15;
-      color: #fff;
     }
     .total-header {
       display: flex;
@@ -293,11 +268,7 @@
       align-items: center;
       margin-bottom: 6px;
     }
-    .total-title {
-      font-size: 0.95rem;
-      opacity: 0.95;
-      letter-spacing: 0.5px;
-    }
+    .total-title { font-size: 0.95rem; opacity: 0.95; }
     .btn-clear-all {
       background: rgba(255, 255, 255, 0.2);
       border: 1px solid rgba(255, 255, 255, 0.4);
@@ -306,14 +277,10 @@
       border-radius: 20px;
       font-size: 0.78rem;
       cursor: pointer;
-      backdrop-filter: blur(4px);
-      transition: all 0.2s ease;
-      font-weight: 500;
     }
     .total-amount-display {
       font-size: 2.4rem;
       font-weight: 700;
-      letter-spacing: 0.5px;
     }
 
     .section-title {
@@ -341,9 +308,7 @@
       margin-bottom: 24px;
     }
     @media (max-width: 400px) {
-      .items-grid {
-        grid-template-columns: 1fr;
-      }
+      .items-grid { grid-template-columns: 1fr; }
     }
     .item-card {
       background: var(--card-bg);
@@ -354,19 +319,14 @@
       flex-direction: column;
       justify-content: space-between;
     }
-    .item-card.full-width {
-      grid-column: 1 / -1;
-    }
+    .item-card.full-width { grid-column: 1 / -1; }
     .item-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 8px;
     }
-    .item-name {
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
+    .item-name { font-size: 0.9rem; font-weight: 600; }
     .item-price-tag {
       font-size: 0.75rem;
       color: var(--primary-color);
@@ -389,16 +349,10 @@
       color: var(--text-main);
       outline: none;
     }
-    .input-field:focus {
-      border-color: var(--primary-color);
-      background: var(--card-bg);
-    }
     textarea.input-field {
       height: 64px;
       resize: vertical;
       min-height: 48px;
-      font-size: 0.85rem;
-      line-height: 1.4;
     }
     .btn-add {
       background-color: var(--primary-light);
@@ -411,10 +365,8 @@
       cursor: pointer;
       white-space: nowrap;
     }
-    .btn-add:active {
-      transform: scale(0.95);
-    }
 
+    /* 階層式統計與歷史紀錄卡片 */
     .hierarchical-card, .history-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -427,10 +379,8 @@
       flex-direction: column;
       gap: 8px;
     }
-    .history-list {
-      max-height: 350px;
-      overflow-y: auto;
-    }
+    .history-list { max-height: 350px; overflow-y: auto; }
+    
     .tree-node {
       border: 1px solid var(--border-color);
       border-radius: 10px;
@@ -446,31 +396,15 @@
       font-weight: 600;
       font-size: 0.9rem;
     }
-    .tree-node-title {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .tree-toggle-icon {
-      font-size: 0.75rem;
-      color: var(--primary-color);
-      transition: transform 0.2s ease;
-    }
-    .tree-node.open .tree-toggle-icon {
-      transform: rotate(90deg);
-    }
-    .tree-node-subtotal {
-      color: var(--primary-dark);
-      font-weight: 700;
-    }
+    .tree-node-title { display: flex; align-items: center; gap: 8px; }
+    .tree-toggle-icon { font-size: 0.75rem; color: var(--primary-color); transition: transform 0.2s ease; }
+    .tree-node.open .tree-toggle-icon { transform: rotate(90deg); }
     .tree-children {
       display: none;
       padding: 8px 12px 10px 28px;
       border-top: 1px dashed var(--border-color);
     }
-    .tree-node.open .tree-children {
-      display: block;
-    }
+    .tree-node.open .tree-children { display: block; }
     .tree-child-item {
       display: flex;
       justify-content: space-between;
@@ -479,16 +413,8 @@
       font-size: 0.83rem;
       border-bottom: 1px dotted var(--border-color);
     }
-    .tree-child-item:last-child {
-      border-bottom: none;
-    }
-    
-    .history-empty {
-      text-align: center;
-      color: var(--text-sub);
-      font-size: 0.85rem;
-      padding: 20px 0;
-    }
+
+    .history-empty { text-align: center; color: var(--text-sub); font-size: 0.85rem; padding: 20px 0; }
     .history-item {
       display: flex;
       justify-content: space-between;
@@ -498,31 +424,11 @@
       border-radius: 10px;
       border-left: 3px solid var(--primary-color);
     }
-    .history-info {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      max-width: 70%;
-    }
-    .history-title {
-      font-size: 0.88rem;
-      font-weight: 600;
-    }
-    .history-note {
-      font-size: 0.78rem;
-      color: var(--text-sub);
-      word-break: break-all;
-    }
-    .history-right {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .history-amount {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--primary-dark);
-    }
+    .history-info { display: flex; flex-direction: column; gap: 2px; max-width: 70%; }
+    .history-title { font-size: 0.88rem; font-weight: 600; }
+    .history-note { font-size: 0.78rem; color: var(--text-sub); }
+    .history-right { display: flex; align-items: center; gap: 10px; }
+    .history-amount { font-size: 0.95rem; font-weight: 700; color: var(--primary-dark); }
     .btn-delete-single {
       background: var(--danger-light);
       color: var(--danger-color);
@@ -533,119 +439,57 @@
       cursor: pointer;
     }
 
-    /* 對話框 (Modal) 樣式 */
     .modal-overlay {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
+      top: 0; left: 0; width: 100vw; height: 100vh;
       background: rgba(0, 0, 0, 0.4);
       backdrop-filter: blur(3px);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      opacity: 0;
-      pointer-events: none;
+      display: flex; justify-content: center; align-items: center;
+      z-index: 9999; opacity: 0; pointer-events: none;
       transition: opacity 0.2s ease;
     }
-    .modal-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
+    .modal-overlay.active { opacity: 1; pointer-events: auto; }
     .modal-card {
-      background: var(--card-bg);
-      border-radius: 18px;
-      padding: 24px;
-      width: 88%;
-      max-width: 380px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      border: 1px solid var(--border-color);
-      text-align: center;
-    }
-    .modal-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--primary-dark);
-      margin-bottom: 8px;
-    }
-    .modal-msg {
-      font-size: 0.88rem;
-      color: var(--text-main);
-      margin-bottom: 20px;
-      line-height: 1.5;
-    }
-    .modal-actions {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-    }
-    .btn-modal {
-      flex: 1;
-      padding: 10px;
-      border-radius: 10px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-    }
-    .btn-modal-cancel {
-      background: var(--bg-color);
-      color: var(--text-sub);
+      background: var(--card-bg); border-radius: 18px; padding: 24px;
+      width: 88%; max-width: 380px; text-align: center;
       border: 1px solid var(--border-color);
     }
-    .btn-modal-confirm {
-      background: var(--primary-color);
-      color: #fff;
-    }
+    .modal-title { font-size: 1.1rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 8px; }
+    .modal-msg { font-size: 0.88rem; color: var(--text-main); margin-bottom: 20px; }
+    .modal-actions { display: flex; gap: 10px; justify-content: center; }
+    .btn-modal { flex: 1; padding: 10px; border-radius: 10px; font-size: 0.88rem; font-weight: 600; border: none; cursor: pointer; }
+    .btn-modal-cancel { background: var(--bg-color); color: var(--text-sub); border: 1px solid var(--border-color); }
+    .btn-modal-confirm { background: var(--primary-color); color: #fff; }
 
-    /* Toast 消息提示 */
     .toast {
-      position: fixed;
-      bottom: 30px;
-      left: 50%;
+      position: fixed; bottom: 30px; left: 50%;
       transform: translateX(-50%) translateY(50px);
-      background: var(--primary-dark);
-      color: #fff;
-      padding: 12px 22px;
-      border-radius: 25px;
-      font-size: 0.88rem;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.2);
-      opacity: 0;
-      transition: all 0.3s ease;
-      z-index: 10000;
-      pointer-events: none;
-      text-align: center;
-      max-width: 85vw;
-      line-height: 1.4;
+      background: var(--primary-dark); color: #fff;
+      padding: 12px 22px; border-radius: 25px; font-size: 0.88rem;
+      opacity: 0; transition: all 0.3s ease; z-index: 10000;
+      pointer-events: none; text-align: center; max-width: 85vw;
     }
-    .toast.show {
-      transform: translateX(-50%) translateY(0);
-      opacity: 1;
-    }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
   </style>
 </head>
 <body>
 
   <div class="app-container">
     <header>
-      <!-- 左上角頭像與暱稱 -->
       <div class="user-profile" onclick="editProfile()">
         <span class="user-avatar" id="avatar-display">🌸</span>
         <span class="user-name" id="username-display">獵人小姐</span>
       </div>
 
-      <!-- 右上角顏色選擇器 -->
       <div class="theme-selector">
         <label for="theme-select">🎨 配色:</label>
         <select id="theme-select" class="theme-select" onchange="changeTheme(this.value)">
-          <option value="default">深空紫</option>
+          <option value="default">淡雅紫</option>
           <option value="pink">櫻花粉</option>
-          <option value="green">草綠色</option>
+          <option value="green">淺草綠</option>
           <option value="yellow">向日葵黃</option>
           <option value="blue">天空藍</option>
-          <option value="dark">暗夜灰</option>
+          <option value="dark">星空黑</option>
         </select>
       </div>
 
@@ -653,16 +497,19 @@
       <p>輕鬆記錄每一筆深空投入</p>
     </header>
 
-    <div class="backup-bar">
-      <div class="backup-info">
-        <span>🔒 個人專屬雲端備份 (Google 帳號可跨裝置同步)</span>
+    <!-- 備份與匯入檔案工具列 -->
+    <div class="cloud-tools">
+      <div class="cloud-status">
+        <span id="cloud-status-text">💾 本地儲存備份</span>
       </div>
-      <div class="backup-actions">
-        <button type="button" class="btn-backup" onclick="exportData()">☁️ 匯出備份</button>
-        <button type="button" class="btn-backup" onclick="importData()">📂 匯入備份</button>
-        <input type="file" id="import-file-input" style="display:none;" accept=".json" onchange="handleFileSelect(event)">
+      <div class="cloud-actions">
+        <button type="button" class="btn-cloud" onclick="exportToFile()">☁️ 備份至雲端</button>
+        <button type="button" class="btn-cloud" onclick="importFromFile()">📥 從雲端載入</button>
       </div>
     </div>
+    
+    <!-- 隱藏的檔案上傳輸入框 -->
+    <input type="file" id="file-input" accept=".json" style="display: none;" onchange="handleFileSelect(event)">
 
     <div class="total-card">
       <div class="total-header">
@@ -754,7 +601,7 @@
             <div class="item-inputs" style="flex-direction: column; gap: 8px;">
               <div style="display: flex; gap: 8px; width: 100%; align-items: flex-start;">
                 <input type="number" id="input-other-price" class="input-field" placeholder="金額" min="1" style="width: 110px;">
-                <textarea id="input-other-note" class="input-field" placeholder="備註內容（例如：衣服/禮包、活動服裝、男主周邊商品...）" style="flex: 1;"></textarea>
+                <textarea id="input-other-note" class="input-field" placeholder="備註內容..." style="flex: 1;"></textarea>
                 <button type="button" class="btn-add" onclick="addOtherItem()" style="height: 64px;">加入</button>
               </div>
             </div>
@@ -763,6 +610,7 @@
       </div>
 
       <div>
+        <!-- 階層式統計明細區塊 -->
         <div class="section-title">階層式統計明細 (點擊可展開)</div>
         <div class="hierarchical-card">
           <div class="tree-list" id="tree-container"></div>
@@ -778,7 +626,6 @@
     </div>
   </div>
 
-  <!-- 自訂對話框 -->
   <div class="modal-overlay" id="custom-modal">
     <div class="modal-card">
       <div class="modal-title" id="modal-title">提示</div>
@@ -790,7 +637,6 @@
     </div>
   </div>
 
-  <!-- Toast 訊息提示 -->
   <div class="toast" id="toast"></div>
 
   <script>
@@ -799,7 +645,7 @@
       '30元禮包', '150元禮包', '禮包', '150元活動密約', '鑽石', '其他'
     ];
 
-    // 12個開玩笑/吐槽語錄（隨機不重複出現）
+    // 22 則幽默吐槽金句（已包含夏以晝與其他男主）
     const roastQuotes = [
       "你怎麼又儲值了！？魔法卡再刷要刷爆啦！💳",
       "記得好好吃飯捏！別只顧著給男主買禮物！🍚",
@@ -812,32 +658,89 @@
       "冷靜！請想想你的存款餘額！小小的錢包受不了啦！👛",
       "愛他就要給他最好的，這筆錢花得值了！（大概吧？🤣）",
       "警報！您的錢包厚度正在急速下降中！🚨",
-      "深空獵人小姐，請保持理性消費...算了你肯定停不下來！😂"
+      "深空獵人小姐，請保持理性消費...算了你肯定停不下來！😂",
+      "沈星回：『你又給我和其他人花錢了嗎？早點休息吧。』💤",
+      "黎深：『這筆開銷...需要我幫你開一張冷靜心智的處方嗎？』🩺",
+      "祁煜：『哼，算你識相！不過你的畫布/錢包好像快破洞了？』🎨",
+      "秦徹：『這點數額也值得你猶豫？拿去，繼續刷。』🍷",
+      "夏以晝：『妹，課金要適量啊！要是沒錢吃飯了，哥隨時都在，帶你去吃大餐！』🍳",
+      "下半個月的菜單：觀音土佐白開水，主廚就是你自己！🍽️",
+      "抽卡手氣有變好嗎？沒有的話這筆錢就虧大啦！🎲",
+      "你的魔法卡已經發燙到可以拿來烤肉了！🔥",
+      "男主：『謝謝你的愛，但你的銀行帳戶還好嗎？』🥹",
+      "按『加入』的手速度快到連流星都追不上！打折也沒這麼快！⚡"
     ];
 
     let lastRoastIndex = -1;
-
     function getRandomRoast() {
       let randomIndex;
       do {
         randomIndex = Math.floor(Math.random() * roastQuotes.length);
       } while (randomIndex === lastRoastIndex && roastQuotes.length > 1);
-      
       lastRoastIndex = randomIndex;
       return roastQuotes[randomIndex];
     }
 
-    let records = [];
-    try {
-      const saved = localStorage.getItem('deepspace_records');
-      if (saved) {
-        records = JSON.parse(saved);
-      }
-    } catch(e) {
-      console.error("Failed to load records", e);
+    // 讀取本地資料
+    let records = JSON.parse(localStorage.getItem('deepspace_records') || "[]");
+
+    function saveLocal() {
+      localStorage.setItem('deepspace_records', JSON.stringify(records));
+      updateUI();
     }
 
-    // 載入與變更暱稱/頭像
+    // 匯出 JSON 文件檔 (下載到本地/雲端硬碟)
+    function exportToFile() {
+      if (records.length === 0) {
+        showToast("目前沒有任何紀錄可以匯出喔！");
+        return;
+      }
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(records, null, 2));
+      const downloadAnchor = document.createElement('a');
+      const dateStr = new Date().toISOString().slice(0, 10);
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `戀與深空記帳備份_${dateStr}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showToast("已成功下載備份文件檔！");
+    }
+
+    // 觸發選擇 JSON 檔案
+    function importFromFile() {
+      document.getElementById('file-input').click();
+    }
+
+    // 處理選擇的文件檔案
+    function handleFileSelect(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const importedData = JSON.parse(e.target.result);
+          if (Array.isArray(importedData)) {
+            showConfirmModal(
+              '📥 載入備份檔',
+              '這將會覆蓋目前的記帳紀錄，確定要載入嗎？',
+              function() {
+                records = importedData;
+                saveLocal();
+                showToast("已成功匯入備份資料！");
+              }
+            );
+          } else {
+            showToast("檔案格式不正確，請確認是有效的備份檔！");
+          }
+        } catch (err) {
+          showToast("解析檔案失敗，請選擇正確的 JSON 備份檔！");
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = ''; // 重置 input 讓重複選擇同個檔案也能觸發
+    }
+
     function loadProfile() {
       const avatar = localStorage.getItem('deepspace_avatar') || '🌸';
       const name = localStorage.getItem('deepspace_username') || '獵人小姐';
@@ -848,10 +751,9 @@
     function editProfile() {
       const currentName = document.getElementById('username-display').innerText;
       const currentAvatar = document.getElementById('avatar-display').innerText;
-      
       const newName = prompt('請輸入您的暱稱：', currentName);
       if (newName !== null && newName.trim() !== '') {
-        const newAvatar = prompt('請輸入頭像 Emoji (例如: 🌸, 👑, 🐱, 💎):', currentAvatar);
+        const newAvatar = prompt('請輸入頭像 Emoji:', currentAvatar);
         localStorage.setItem('deepspace_username', newName.trim());
         if (newAvatar !== null && newAvatar.trim() !== '') {
           localStorage.setItem('deepspace_avatar', newAvatar.trim());
@@ -861,7 +763,6 @@
       }
     }
 
-    // 主題顏色切換
     function changeTheme(themeName) {
       if (themeName === 'default') {
         document.documentElement.removeAttribute('data-theme');
@@ -871,39 +772,26 @@
       localStorage.setItem('deepspace_theme', themeName);
     }
 
-    // 初始化載入主題
     const savedTheme = localStorage.getItem('deepspace_theme') || 'default';
     document.getElementById('theme-select').value = savedTheme;
     changeTheme(savedTheme);
     loadProfile();
 
-    function saveRecords() {
-      try {
-        localStorage.setItem('deepspace_records', JSON.stringify(records));
-      } catch(e) {
-        console.error("Failed to save records", e);
-      }
-    }
-
     function showToast(message) {
       const toast = document.getElementById('toast');
       toast.innerText = message;
       toast.classList.add('show');
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3000);
+      setTimeout(() => { toast.classList.remove('show'); }, 3000);
     }
 
     function showConfirmModal(title, msg, onConfirm) {
       document.getElementById('modal-title').innerText = title;
       document.getElementById('modal-msg').innerText = msg;
       const confirmBtn = document.getElementById('modal-confirm-btn');
-      
       confirmBtn.onclick = function() {
         onConfirm();
         closeModal();
       };
-
       document.getElementById('custom-modal').classList.add('active');
     }
 
@@ -912,9 +800,11 @@
     }
 
     function updateUI() {
+      // 計算總金額
       const grandTotal = records.reduce((sum, item) => sum + item.amount, 0);
       document.getElementById('total-amount').innerText = `$${grandTotal.toLocaleString()}`;
 
+      // 渲染階層式統計明細 (Tree List)
       const treeContainer = document.getElementById('tree-container');
       treeContainer.innerHTML = '';
 
@@ -927,13 +817,13 @@
 
         let childrenHTML = '';
         if (catRecords.length === 0) {
-          childrenHTML = `<div class="tree-child-item"><span class="tree-child-name" style="color: var(--text-sub);">無購買紀錄</span></div>`;
+          childrenHTML = `<div class="tree-child-item"><span style="color: var(--text-sub);">無購買紀錄</span></div>`;
         } else {
           catRecords.forEach(r => {
             let noteStr = r.note ? ` - ${r.note}` : '';
             childrenHTML += `
               <div class="tree-child-item">
-                <span class="tree-child-name">${r.date}${noteStr}</span>
+                <span>${r.date}${noteStr}</span>
                 <span style="font-weight:600; color:var(--primary-dark);">$${r.amount.toLocaleString()}</span>
               </div>
             `;
@@ -946,15 +836,14 @@
               <span class="tree-toggle-icon">▶</span>
               <span>${cat} (${catRecords.length}筆)</span>
             </div>
-            <span class="tree-node-subtotal">$${catTotal.toLocaleString()}</span>
+            <span style="font-weight:700; color:var(--primary-dark);">$${catTotal.toLocaleString()}</span>
           </div>
-          <div class="tree-children">
-            ${childrenHTML}
-          </div>
+          <div class="tree-children">${childrenHTML}</div>
         `;
         treeContainer.appendChild(treeNode);
       });
 
+      // 渲染歷史紀錄清單
       const historyContainer = document.getElementById('history-container');
       historyContainer.innerHTML = '';
 
@@ -990,17 +879,15 @@
       const qty = parseInt(input.value) || 1;
       if (qty <= 0) return;
 
-      const amount = unitPrice * qty;
       const record = {
         id: Date.now().toString() + Math.random().toString(36).substr(2, 5),
         category: name,
-        amount: amount,
+        amount: unitPrice * qty,
         note: qty > 1 ? `數量 x${qty}` : '',
         date: new Date().toLocaleDateString('zh-TW', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
       };
       records.push(record);
-      saveRecords();
-      updateUI();
+      saveLocal();
       input.value = "1";
       showToast(getRandomRoast());
     }
@@ -1020,8 +907,7 @@
         date: new Date().toLocaleDateString('zh-TW', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
       };
       records.push(record);
-      saveRecords();
-      updateUI();
+      saveLocal();
       input.value = "";
       showToast(getRandomRoast());
     }
@@ -1044,8 +930,7 @@
         date: new Date().toLocaleDateString('zh-TW', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
       };
       records.push(record);
-      saveRecords();
-      updateUI();
+      saveLocal();
       priceInput.value = "";
       noteInput.value = "";
       showToast(getRandomRoast());
@@ -1053,8 +938,7 @@
 
     function deleteRecord(id) {
       records = records.filter(r => r.id !== id);
-      saveRecords();
-      updateUI();
+      saveLocal();
       showToast("已取消該筆紀錄");
     }
 
@@ -1064,78 +948,13 @@
         '確定要清空所有記帳紀錄嗎？此操作無法復原！',
         function() {
           records = [];
-          saveRecords();
-          updateUI();
+          saveLocal();
           showToast('已清空所有歷史紀錄');
         }
       );
     }
 
-    function exportData() {
-      try {
-        if (records.length === 0) {
-          showToast("目前沒有任何紀錄可以備份喔！");
-          return;
-        }
-        const dataStr = JSON.stringify(records, null, 2);
-        const blob = new Blob([dataStr], { type: "application/json" });
-        const url = URL.createObjectURL(blob);
-        
-        const downloadAnchor = document.createElement('a');
-        const filename = `deepspace_backup_${new Date().toISOString().slice(0,10)}.json`;
-        downloadAnchor.href = url;
-        downloadAnchor.download = filename;
-        
-        document.body.appendChild(downloadAnchor);
-        downloadAnchor.click();
-        
-        setTimeout(() => {
-          document.body.removeChild(downloadAnchor);
-          URL.revokeObjectURL(url);
-        }, 100);
-        
-        showToast("備份檔已成功下載！可以傳到 Google 雲端硬碟喔！");
-      } catch (err) {
-        showToast("備份失敗：" + err.message);
-      }
-    }
-
-    function importData() {
-      document.getElementById('import-file-input').click();
-    }
-
-    function handleFileSelect(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        try {
-          const imported = JSON.parse(e.target.result);
-          if (Array.isArray(imported)) {
-            showConfirmModal(
-              '📥 匯入備份確認',
-              `成功讀取到 ${imported.length} 筆備份資料！確定要覆蓋目前的紀錄嗎？`,
-              function() {
-                records = imported;
-                saveRecords();
-                updateUI();
-                showToast("已成功匯入並同步備份！");
-              }
-            );
-          } else {
-            showToast("備份檔案格式不正確！");
-          }
-        } catch(err) {
-          showToast("讀取檔案失敗！請確認檔案格式。");
-        }
-        
-        event.target.value = "";
-      };
-      reader.readAsText(file);
-    }
-
-    // 初始化介面
+    // 初始化畫面
     updateUI();
   </script>
 </body>
