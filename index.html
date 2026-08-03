@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>✨ 戀與深空 專屬記帳系統 ✨</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-color: #f7f4fa;
+      --card-bg: #ffffff;
+      --primary-color: #8a76ab;
+      --primary-light: #ece6f5;
+      --primary-dark: #675287;
+      --accent-pink: #f3d5df;
+      --accent-gold: #d8b368;
+      --text-main: #4a405a;
+      --text-sub: #8c829e;
+      --border-color: #e8e1f0;
+      --danger-color: #ff6b81;
+      --danger-light: #ffebee;
+      --shadow: 0 8px 20px rgba(138, 118, 171, 0.12);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      background-image: 
+        radial-gradient(circle at 10% 10%, rgba(243, 213, 223, 0.25) 0%, transparent 30%),
+        radial-gradient(circle at 90% 80%, rgba(138, 118, 171, 0.2) 0%, transparent 35%);
+      color: var(--text-main);
+      padding: 20px 14px;
+      display: flex;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 580px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    @media (min-width: 900px) {
+      .app-container {
+        max-width: 920px;
+      }
+      .desktop-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 20px;
+        align-items: start;
+      }
+    }
+
+    header {
+      text-align: center;
+      padding: 6px 0;
+    }
+    header h1 {
+      font-size: 1.55rem;
+      color: var(--primary-dark);
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    header p {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      margin-top: 2px;
+    }
+
+    .backup-bar {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 10px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .backup-info {
+      font-size: 0.82rem;
+      color: var(--primary-dark);
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .backup-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .btn-backup {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 6px 12px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-backup:active {
+      transform: scale(0.95);
+      background: var(--primary-color);
+      color: white;
+    }
+
+    .total-card {
+      background: linear-gradient(135deg, #a289db 0%, #7d61c2 100%);
+      color: #ffffff;
+      border-radius: var(--radius);
+      padding: 20px;
+      box-shadow: 0 10px 25px rgba(125, 97, 194, 0.25);
+      position: relative;
+      overflow: hidden;
+    }
+    .total-card::after {
+      content: "✦";
+      position: absolute;
+      right: 15px;
+      bottom: -10px;
+      font-size: 5rem;
+      opacity: 0.12;
+      color: #fff;
+      pointer-events: none;
+    }
+    .total-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+    .total-title {
+      font-size: 0.9rem;
+      opacity: 0.95;
+    }
+    .btn-clear-all {
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #ffffff;
+      padding: 6px 14px;
+      border-radius: 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(4px);
+      transition: all 0.2s ease;
+    }
+    .btn-clear-all:active {
+      transform: scale(0.95);
+      background: rgba(255, 107, 129, 0.6);
+    }
+    .total-amount-display {
+      font-family: 'Fredoka', 'Noto Sans TC', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 600;
+      line-height: 1.1;
+      margin: 4px 0;
+    }
+    .total-badge {
+      font-size: 0.78rem;
+      background: rgba(255, 255, 255, 0.18);
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 12px;
+    }
+
+    .section-title {
+      font-size: 1rem;
+      color: var(--primary-dark);
+      margin: 10px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+    }
+    .section-title::before {
+      content: "";
+      display: inline-block;
+      width: 4px;
+      height: 14px;
+      background-color: var(--primary-color);
+      border-radius: 2px;
+    }
+
+    .items-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    @media (max-width: 420px) {
+      .items-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .item-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+    }
+    .item-card.full-width {
+      grid-column: 1 / -1;
+      background: #faf7fc;
+      border-color: #dcd0ed;
+    }
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .item-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .item-price-tag {
+      font-size: 0.75rem;
+      color: var(--primary-color);
+      background: var(--primary-light);
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+    .item-inputs {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .input-field {
+      width: 100%;
+      padding: 8px 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      background: #ffffff;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .input-field:focus {
+      border-color: var(--primary-color);
+    }
+    textarea.input-field {
+      height: 52px;
+      resize: vertical;
+      min-height: 44px;
+      font-size: 0.83rem;
+    }
+    .btn-add {
+      background-color: var(--primary-color);
+      color: #ffffff;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .btn-add:active {
+      transform: scale(0.95);
+      background-color: var(--primary-dark);
+    }
+
+    .hierarchical-card, .history-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 14px;
+      box-shadow: var(--shadow);
+      margin-bottom: 12px;
+    }
+    .tree-list, .history-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .history-list {
+      max-height: 320px;
+      overflow-y: auto;
+    }
+    .tree-node {
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      overflow: hidden;
+      background: #faf8fc;
+    }
+    .tree-node-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.88rem;
+    }
+    .tree-node-title {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .tree-toggle-icon {
+      font-size: 0.72rem;
+      color: var(--primary-color);
+      transition: transform 0.2s ease;
+    }
+    .tree-node.open .tree-toggle-icon {
+      transform: rotate(90deg);
+    }
+    .tree-node-subtotal {
+      color: var(--primary-dark);
+      font-weight: 700;
+      font-family: 'Fredoka', sans-serif;
+    }
+    .tree-children {
+      display: none;
+      padding: 8px 12px 10px 26px;
+      border-top: 1px dashed var(--border-color);
+      background: #ffffff;
+    }
+    .tree-node.open .tree-children {
+      display: block;
+    }
+    .tree-child-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 5px 0;
+      font-size: 0.82rem;
+      border-bottom: 1px dotted #f0ebf5;
+    }
+    .tree-child-item:last-child {
+      border-bottom: none;
+    }
+    
+    .history-empty {
+      text-align: center;
+      color: var(--text-sub);
+      font-size: 0.85rem;
+      padding: 24px 0;
+    }
+    .history-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      background: #faf8fc;
+      border-radius: 10px;
+      border-left: 3px solid var(--primary-color);
+    }
+    .history-info {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      max-width: 70%;
+    }
+    .history-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+    .history-note {
+      font-size: 0.78rem;
+      color: var(--primary-dark);
+      word-break: break-all;
+    }
+    .history-date {
+      font-size: 0.72rem;
+      color: var(--text-sub);
+    }
+    .history-right {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .history-amount {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+    .btn-delete-single {
+      background: var(--danger-light);
+      color: var(--danger-color);
+      border: 1px solid rgba(255, 107, 129, 0.3);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-delete-single:active {
+      background: var(--danger-color);
+      color: white;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(4px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      z-index: 2000;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.25s ease;
+    }
+    .modal-overlay.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    .modal-card {
+      background: white;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 340px;
+      padding: 22px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      text-align: center;
+      transform: scale(0.88);
+      transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .modal-overlay.show .modal-card {
+      transform: scale(1);
+    }
+    .modal-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+    .modal-body {
+      font-size: 0.88rem;
+      color: var(--text-main);
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    .btn-modal-cancel {
+      flex: 1;
+      background: #f0ecf7;
+      color: var(--text-main);
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-modal-confirm {
+      flex: 1;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-modal-confirm.danger-btn {
+      background: var(--danger-color);
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(61, 53, 80, 0.92);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 0.85rem;
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 3000;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      pointer-events: none;
+      white-space: nowrap;
+      backdrop-filter: blur(4px);
+    }
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <header>
+      <h1>✨ 戀與深空專屬記帳 ✨</h1>
+      <p>獵人小姐，陪伴記錄每一份深空心意 💫</p>
+    </header>
+
+    <!-- 雲端備份區塊 -->
+    <div class="backup-bar">
+      <div class="backup-info">
+        <span>🔒 個人專屬資料備份</span>
+      </div>
+      <div class="backup-actions">
+        <button type="button" class="btn-backup" onclick="exportData()">☁️ 匯出備份</button>
+        <button type="button" class="btn-backup" onclick="importData()">📂 匯入備份</button>
+        <input type="file" id="import-file-input" style="display:none;" accept=".json" onchange="handleFileSelect(event)">
+      </div>
+    </div>
+
+    <!-- 總累積支出卡片 -->
+    <div class="total-card">
+      <div class="total-header">
+        <span class="total-title">累積總支出</span>
+        <button type="button" class="btn-clear-all" onclick="confirmClearAll()">🗑️ 一鍵清空</button>
+      </div>
+      <div class="total-amount-display" id="total-amount">$0</div>
+      <div class="total-badge" id="total-count-badge">已記錄 0 筆消費</div>
+    </div>
+
+    <div class="desktop-grid">
+      <!-- 快速記帳區 -->
+      <div>
+        <div class="section-title">新增消費項目</div>
+        <div class="items-grid">
+          <div class="item-card">
+            <div class="item-header"><span class="item-name">🌙 月卡</span><span class="item-price-tag">$150</span></div>
+            <div class="item-inputs">
+              <input type="number" id="input-monthly" class="input-field" placeholder="數量" min="1" value="1" inputmode="numeric">
+              <button type="button" class="btn-add" onclick="addItem('月卡', 150, 'input-monthly')">加一筆</button>
+            </div>
+          </div>
+          <div class="item-card">
+            <div class="item-header"><span class="item-name">⭐ 週卡</span><span class="item-price-tag">自訂</span></div>
+            <div class="item-inputs">
+              <input type="number" id="input-weekly" class="input-field" placeholder="金額" min="1" inputmode="numeric">
+              <button type="button" class="btn-add" onclick="addCustomItem('週卡', 'input-weekly')">加入</button>
+            </div>
+          </div>
+          <div class="item-card">
+            <div class="item-header"><span class="item-name">📜 320元密約</span><span class="item-price-tag">$320</span></div>
+            <div class="item-inputs">
+              <input type="number" id="input-pledge320" class="input-field" placeholder="數量" min="1" value="1" inputmode="numeric">
+              <button type="button" class="btn-add" onclick="addItem('320元密約', 320, 'input-pledge320')">加一筆</button>
+            </div>
+          </div>
+          <div class="item-card">
+            <div class="item-header"><span class="item-name">👑 490元密約</span><span class="item-price-tag">$490</span></div>
+            <div class="item-inputs">
+              <input type="number" id="input-pledge490" class="input-field" placeholder="數量" min="1" value="1" inputmode="numeric">
+              <button type="button" class="btn-add" onclick="addItem('490元密約', 490, 'input-pledge490')">加一筆</button>
+            </div>
+          </div>
+          <div class="item-card">
+            <div class="item-header"><span class="item-name">🎁 15元禮包</span><span class="item-price-tag">$15</span></div>
+            <div class="item-inputs">
+              <input type="number" id="input-pack15" class="input-field" placeholder="數量" min="1" value="1" inputmode="numeric">
+              <button type="button" class="btn-add" onclick="addItem('15元禮包', 15, 'input-pack15')">加一筆</button>
+            </div>
+          </div>
+          <div class="item-card">
+            <div class="item-header"><span class="item-name">🎀 30元禮包</span><span class="item-price-tag">$30</span></div>
+            <div class="item-inputs">
+              <input type="number" id="input-pack30" class="input-field" placeholder="數量" min="1" value="1" inputmode="numeric">
+              <button type="button" class="btn-add" onclick="addItem('30元禮包', 30, 'input-pack30')">加一筆</button>
+            </div>
+          </div>
+          <div class="item-card">
+            <div class="item-header"><span class="item-name">🛍️ 150元禮包</span><span class="item-price-tag">$150</span></div>
+            <div class="item-inputs">
+              <input type="number" id="input-pack150" class="input-field" placeholder="數量" min="1" value="1" inputmode="numeric">
+              <button type="button" class="btn-add" onclick="addItem('150元禮包', 150, 'input-pack150')">加一筆</button>
+            </div>
+          </div>
+          <div class="item-card">
+            <div class="item-header"><span class="item-name">📦 禮包</span><span class="item-price-tag">自訂</span></div>
+            <div class="item-inputs">
+              <input type="number" id="input-general-pack" class="input-field" placeholder="金額" min="1" inputmode="numeric">
+              <button type="button" class="btn-add" onclick="addCustomItem('禮包', 'input-general-pack')">加入</button>
+            </div>
+          </div>
+          <div class="item-card">
+            <div class="item-header"><span class="item-name">💌 150元活動大密約</span><span class="item-price-tag">$150</span></div>
+            <div class="item-inputs">
+              <input type="number" id="input-event150" class="input-field" placeholder="數量" min="1" value="1" inputmode="numeric">
+              <button type="button" class="btn-add" onclick="addItem('150元活動大密約', 150, 'input-event150')">加一筆</button>
+            </div>
+          </div>
+          <div class="item-card">
+            <div class="item-header"><span class="item-name">💎 鑽石</span><span class="item-price-tag">自訂</span></div>
+            <div class="item-inputs">
+              <input type="number" id="input-diamond" class="input-field" placeholder="金額" min="1" inputmode="numeric">
+              <button type="button" class="btn-add" onclick="addCustomItem('鑽石', 'input-diamond')">加入</button>
+            </div>
+          </div>
+          <div class="item-card full-width">
+            <div class="item-header">
+              <span class="item-name">✨ 其他（周邊 / 衣服 / 補價）</span>
+              <span class="item-price-tag">自訂金額 & 備註</span>
+            </div>
+            <div class="item-inputs" style="flex-direction: column; gap: 8px;">
+              <div style="display: flex; gap: 8px; width: 100%; align-items: flex-start;">
+                <input type="number" id="input-other-price" class="input-field" placeholder="金額" min="1" inputmode="numeric" style="width: 110px;">
+                <textarea id="input-other-note" class="input-field" placeholder="📝 填寫備註（例: 衣服禮包、男主壓克力、補差額）" style="flex: 1;"></textarea>
+                <button type="button" class="btn-add" onclick="addOtherItem()" style="height: 52px;">加入</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 統計明細與歷史紀錄區 -->
+      <div>
+        <div class="section-title">📊 階層式統計明細（可點擊展開）</div>
+        <div class="hierarchical-card">
+          <div class="tree-list" id="tree-container"></div>
+        </div>
+
+        <div class="section-title">📜 歷史紀錄（可單獨取消）</div>
+        <div class="history-card">
+          <div class="history-list" id="history-container">
+            <div class="history-empty">目前尚無消費紀錄喔 🌸</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 提示浮窗 -->
+  <div class="toast" id="toast">已更新！</div>
+
+  <!-- 客製化彈窗 Modal (取代內建 alert / confirm) -->
+  <div class="modal-overlay" id="custom-modal">
+    <div class="modal-card">
+      <div class="modal-title" id="modal-title">確認操作</div>
+      <div class="modal-body" id="modal-body">確定要執行這項操作嗎？</div>
+      <div class="modal-actions">
+        <button type="button" class="btn-modal-cancel" id="modal-cancel-btn" onclick="closeModal()">取消</button>
+        <button type="button" class="btn-modal-confirm" id="modal-confirm-btn">確定</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const categories = [
+      '月卡', '週卡', '320元密約', '490元密約', '15元禮包', 
+      '30元禮包', '150元禮包', '禮包', '150元活動大密約', '鑽石', '其他'
+    ];
+
+    let records = [];
+    let pendingImportData = null;
+
+    function init() {
+      try {
+        const saved = localStorage.getItem('deepspace_records');
+        if (saved) {
+          records = JSON.parse(saved);
+        }
+      } catch(e) {
+        records = [];
+      }
+      updateUI();
+    }
+
+    function saveRecords() {
+      try {
+        localStorage.setItem('deepspace_records', JSON.stringify(records));
+      } catch(e) {
+        console.error("Save failed", e);
+      }
+    }
+
+    function updateUI() {
+      const grandTotal = records.reduce((sum, item) => sum + item.amount, 0);
+      document.getElementById('total-amount').innerText = `$${grandTotal.toLocaleString()}`;
+      document.getElementById('total-count-badge').innerText = `已記錄 ${records.length} 筆消費`;
+
+      // 渲染階層式明細
+      const treeContainer = document.getElementById('tree-container');
+      treeContainer.innerHTML = '';
+
+      categories.forEach(cat => {
+        const catRecords = records.filter(r => r.category === cat);
+        const catTotal = catRecords.reduce((sum, r) => sum + r.amount, 0);
+
+        const treeNode = document.createElement('div');
+        treeNode.className = 'tree-node';
+
+        let childrenHTML = '';
+        if (catRecords.length === 0) {
+          childrenHTML = `<div class="tree-child-item"><span style="color: var(--text-sub);">尚無紀錄</span></div>`;
+        } else {
+          catRecords.forEach(r => {
+            let noteStr = r.note ? ` - ${escapeHtml(r.note)}` : '';
+            childrenHTML += `
+              <div class="tree-child-item">
+                <span>${r.date}${noteStr}</span>
+                <span style="font-weight:600; color:var(--primary-dark);">$${r.amount.toLocaleString()}</span>
+              </div>
+            `;
+          });
+        }
+
+        treeNode.innerHTML = `
+          <div class="tree-node-header" onclick="toggleTreeNode(this.parentElement)">
+            <div class="tree-node-title">
+              <span class="tree-toggle-icon">▶</span>
+              <span>${cat} (${catRecords.length}筆)</span>
+            </div>
+            <span class="tree-node-subtotal">$${catTotal.toLocaleString()}</span>
+          </div>
+          <div class="tree-children">
+            ${childrenHTML}
+          </div>
+        `;
+        treeContainer.appendChild(treeNode);
+      });
+
+      // 渲染歷史列表
+      const historyContainer = document.getElementById('history-container');
+      historyContainer.innerHTML = '';
+
+      if (records.length === 0) {
+        historyContainer.innerHTML = '<div class="history-empty">目前尚無消費紀錄喔 🌸</div>';
+      } else {
+        records.slice().reverse().forEach((rec) => {
+          const item = document.createElement('div');
+          item.className = 'history-item';
+          let noteText = rec.note ? `<span class="history-note">📝 ${escapeHtml(rec.note)}</span>` : '';
+
+          item.innerHTML = `
+            <div class="history-info">
+              <span class="history-title">${rec.category}</span>
+              ${noteText}
+              <span class="history-date">${rec.date}</span>
+            </div>
+            <div class="history-right">
+              <span class="history-amount">+$${rec.amount.toLocaleString()}</span>
+              <button type="button" class="btn-delete-single" onclick="deleteRecord('${rec.id}')">刪除</button>
+            </div>
+          `;
+          historyContainer.appendChild(item);
+        });
+      }
+    }
+
+    function toggleTreeNode(nodeElement) {
+      nodeElement.classList.toggle('open');
+    }
+
+    function addItem(name, unitPrice, inputId) {
+      const input = document.getElementById(inputId);
+      const qty = parseInt(input.value) || 1;
+      if (qty <= 0) {
+        showToast('⚠️ 請輸入有效的數量！');
+        return;
+      }
+
+      const amount = unitPrice * qty;
+      const record = {
+        id: Date.now().toString() + Math.random().toString(36).substr(2, 5),
+        category: name,
+        amount: amount,
+        note: qty > 1 ? `數量 x${qty}` : '',
+        date: new Date().toLocaleDateString('zh-TW', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
+      };
+      records.push(record);
+      saveRecords();
+      updateUI();
+      input.value = "1";
+      showToast(`已新增：${name} $${amount.toLocaleString()}`);
+    }
+
+    function addCustomItem(name, inputId) {
+      const input = document.getElementById(inputId);
+      const amount = parseInt(input.value);
+      if (!amount || amount <= 0) {
+        showToast('⚠️ 請輸入正確金額！');
+        return;
+      }
+      const record = {
+        id: Date.now().toString() + Math.random().toString(36).substr(2, 5),
+        category: name,
+        amount: amount,
+        note: '',
+        date: new Date().toLocaleDateString('zh-TW', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
+      };
+      records.push(record);
+      saveRecords();
+      updateUI();
+      input.value = "";
+      showToast(`已新增：${name} $${amount.toLocaleString()}`);
+    }
+
+    function addOtherItem() {
+      const priceInput = document.getElementById('input-other-price');
+      const noteInput = document.getElementById('input-other-note');
+      const amount = parseInt(priceInput.value);
+      const note = noteInput.value.trim();
+
+      if (!amount || amount <= 0) {
+        showToast('⚠️ 請輸入正確金額！');
+        return;
+      }
+      const record = {
+        id: Date.now().toString() + Math.random().toString(36).substr(2, 5),
+        category: '其他',
+        amount: amount,
+        note: note,
+        date: new Date().toLocaleDateString('zh-TW', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' })
+      };
+      records.push(record);
+      saveRecords();
+      updateUI();
+      priceInput.value = "";
+      noteInput.value = "";
+      showToast(`已新增其他消費 $${amount.toLocaleString()}`);
+    }
+
+    function deleteRecord(id) {
+      const item = records.find(r => r.id === id);
+      records = records.filter(r => r.id !== id);
+      saveRecords();
+      updateUI();
+      if (item) {
+        showToast(`已刪除：${item.category} $${item.amount.toLocaleString()}`);
+      }
+    }
+
+    /* 完全不使用 confirm()，改用安全客製對話框 */
+    function confirmClearAll() {
+      if (!records || records.length === 0) {
+        showToast('目前沒有任何紀錄可以清空喔！');
+        return;
+      }
+
+      showModal({
+        title: '🗑️ 清空所有紀錄',
+        body: `確定要清空現有的 ${records.length} 筆記帳紀錄嗎？此動作無法復原喔！`,
+        confirmText: '確定清空',
+        isDanger: true,
+        onConfirm: function() {
+          records = [];
+          saveRecords();
+          updateUI();
+          showToast('已成功清空所有紀錄 ✨');
+        }
+      });
+    }
+
+    function exportData() {
+      if (records.length === 0) {
+        showToast('目前沒有紀錄可以備份喔！');
+        return;
+      }
+
+      try {
+        const dataStr = JSON.stringify(records, null, 2);
+        const blob = new Blob([dataStr], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const downloadAnchor = document.createElement('a');
+        const filename = `deepspace_backup_${new Date().toISOString().slice(0, 10)}.json`;
+
+        downloadAnchor.href = url;
+        downloadAnchor.download = filename;
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+
+        setTimeout(() => {
+          document.body.removeChild(downloadAnchor);
+          URL.revokeObjectURL(url);
+        }, 100);
+
+        showToast('☁️ 備份檔已成功匯出下載！');
+      } catch (err) {
+        showToast('⚠️ 匯出失敗：' + err.message);
+      }
+    }
+
+    function importData() {
+      const fileInput = document.getElementById('import-file-input');
+      fileInput.value = '';
+      fileInput.click();
+    }
+
+    function handleFileSelect(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (Array.isArray(imported)) {
+            pendingImportData = imported;
+            showModal({
+              title: '📂 匯入備份確認',
+              body: `成功讀取到 ${imported.length} 筆備份資料！確定要覆蓋目前的紀錄嗎？`,
+              confirmText: '確定覆蓋',
+              isDanger: false,
+              onConfirm: function() {
+                if (pendingImportData) {
+                  records = pendingImportData;
+                  saveRecords();
+                  updateUI();
+                  showToast('已成功匯入備份紀錄！✨');
+                  pendingImportData = null;
+                }
+              }
+            });
+          } else {
+            showToast('⚠️ 備份檔案格式不正確！');
+          }
+        } catch (err) {
+          showToast('⚠️ 讀取失敗，請確認選擇了正確的 .json 檔');
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function showModal(options) {
+      const modal = document.getElementById('custom-modal');
+      const titleEl = document.getElementById('modal-title');
+      const bodyEl = document.getElementById('modal-body');
+      const confirmBtn = document.getElementById('modal-confirm-btn');
+
+      titleEl.innerText = options.title || '確認';
+      bodyEl.innerText = options.body || '';
+      confirmBtn.innerText = options.confirmText || '確定';
+
+      if (options.isDanger) {
+        confirmBtn.className = 'btn-modal-confirm danger-btn';
+      } else {
+        confirmBtn.className = 'btn-modal-confirm';
+      }
+
+      confirmBtn.onclick = function() {
+        closeModal();
+        if (options.onConfirm) options.onConfirm();
+      };
+
+      modal.classList.add('show');
+    }
+
+    function closeModal() {
+      document.getElementById('custom-modal').classList.remove('show');
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.innerText = msg;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 2200);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>"']/g, function(m) {
+        return {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#039;'
+        }[m];
+      });
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
