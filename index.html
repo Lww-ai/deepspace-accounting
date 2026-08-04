@@ -7,7 +7,7 @@
   <!-- 載入 Chart.js 圖表庫 -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    /* 預設主題：夢幻淡紫 */
+    /* 預設主題：極光紫 */
     :root {
       --bg-color: #f8f5fc;
       --card-bg: #ffffff;
@@ -27,7 +27,8 @@
       --gradient-end: #c4b5e2;
     }
 
-    [data-theme="pink"] {
+    /* 高級感 3 字主題延伸（非男主名） */
+    [data-theme="qiyu"] { /* 緋櫻粉 */
       --bg-color: #faf4f6;
       --card-bg: #ffffff;
       --primary-color: #e5829d;
@@ -40,7 +41,7 @@
       --gradient-end: #f0a3b8;
     }
 
-    [data-theme="green"] {
+    [data-theme="green"] { /* 淺草綠 */
       --bg-color: #f4fbf5;
       --card-bg: #ffffff;
       --primary-color: #7bc67e;
@@ -53,7 +54,7 @@
       --gradient-end: #a3e0a6;
     }
 
-    [data-theme="orange"] {
+    [data-theme="xiayizhou"] { /* 暖陽橙 */
       --bg-color: #fff9f5;
       --card-bg: #ffffff;
       --primary-color: #e07a5f;
@@ -66,7 +67,7 @@
       --gradient-end: #f2a68d;
     }
 
-    [data-theme="red"] {
+    [data-theme="qinche"] { /* 熾夜紅 */
       --bg-color: #fdf6f6;
       --card-bg: #ffffff;
       --primary-color: #d9534f;
@@ -79,7 +80,7 @@
       --gradient-end: #ef8b88;
     }
 
-    [data-theme="blue"] {
+    [data-theme="lishen"] { /* 滄海藍 */
       --bg-color: #f0f6fa;
       --card-bg: #ffffff;
       --primary-color: #5b9bd5;
@@ -92,7 +93,7 @@
       --gradient-end: #82b6e5;
     }
 
-    [data-theme="dark"] {
+    [data-theme="dark"] { /* 星空黑 */
       --bg-color: #12131a;
       --card-bg: #1e202c;
       --primary-color: #b59beb;
@@ -120,7 +121,7 @@
     body {
       background-color: var(--bg-color);
       color: var(--text-main);
-      padding: 24px 16px;
+      padding: 16px 12px;
       display: flex;
       justify-content: center;
       align-items: flex-start;
@@ -143,7 +144,6 @@
         gap: 20px;
         align-items: start;
       }
-      .items-grid { grid-template-columns: repeat(2, 1fr) !important; }
     }
 
     .page-section { display: none; }
@@ -152,7 +152,7 @@
     header {
       position: relative;
       text-align: center;
-      padding: 12px 0 16px;
+      padding: 10px 0 14px;
     }
 
     .user-profile {
@@ -161,20 +161,20 @@
       left: 0;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       background: var(--primary-light);
       border: 1px solid var(--border-color);
-      padding: 4px 10px;
+      padding: 4px 8px;
       border-radius: 20px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.03);
       cursor: pointer;
     }
-    .user-avatar { font-size: 1.1rem; }
+    .user-avatar { font-size: 1rem; flex-shrink: 0; }
     .user-name {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
       color: var(--primary-dark);
-      max-width: 90px;
+      max-width: 75px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -186,77 +186,82 @@
       right: 0;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 2px;
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      padding: 4px 8px;
+      padding: 4px 6px;
       border-radius: 20px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.03);
     }
-    .theme-selector label { font-size: 0.75rem; color: var(--text-sub); font-weight: 600; }
+    .theme-selector label { font-size: 0.72rem; color: var(--text-sub); font-weight: 600; white-space: nowrap; }
     .theme-select {
       background: transparent;
       border: none;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       color: var(--primary-dark);
       font-weight: 600;
       outline: none;
       cursor: pointer;
+      white-space: nowrap;
     }
 
     header h1 {
-      font-size: 1.5rem;
+      font-size: 1.35rem;
       color: var(--primary-dark);
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
       margin-bottom: 4px;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
-      margin-top: 36px;
+      gap: 4px;
+      margin-top: 38px;
+      white-space: nowrap;
     }
-    @media (min-width: 480px) { header h1 { margin-top: 0; } }
-    header p { font-size: 0.88rem; color: var(--text-sub); }
+    @media (min-width: 480px) { header h1 { margin-top: 0; font-size: 1.5rem; } }
+    header p { font-size: 0.82rem; color: var(--text-sub); white-space: nowrap; }
 
     .cloud-tools {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 14px;
-      padding: 10px 14px;
-      margin-bottom: 16px;
+      padding: 8px 10px;
+      margin-bottom: 14px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 10px;
+      gap: 6px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.02);
     }
-    .cloud-status { font-size: 0.8rem; color: var(--text-sub); display: flex; align-items: center; gap: 6px; }
-    .cloud-actions { display: flex; gap: 6px; align-items: center; }
+    .cloud-status { font-size: 0.75rem; color: var(--text-sub); display: flex; align-items: center; gap: 4px; white-space: nowrap; }
+    .cloud-actions { display: flex; gap: 4px; align-items: center; flex-wrap: nowrap; }
     .btn-cloud {
       background: var(--primary-light);
       color: var(--primary-dark);
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      padding: 6px 12px;
-      font-size: 0.78rem;
+      padding: 5px 8px;
+      font-size: 0.72rem;
       font-weight: 600;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 2px;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .btn-info-icon {
       background: var(--bg-color);
       color: var(--text-sub);
       border: 1px solid var(--border-color);
       border-radius: 50%;
-      width: 24px;
-      height: 24px;
-      font-size: 0.75rem;
+      width: 22px;
+      height: 22px;
+      font-size: 0.72rem;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-shrink: 0;
     }
 
     .month-selector-bar {
@@ -266,22 +271,25 @@
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 12px;
-      padding: 8px 14px;
+      padding: 8px 12px;
       margin-bottom: 8px;
     }
     .month-btn {
       background: var(--primary-light);
       color: var(--primary-dark);
       border: none;
-      padding: 4px 10px;
+      padding: 4px 8px;
       border-radius: 6px;
       font-weight: 700;
       cursor: pointer;
+      white-space: nowrap;
+      font-size: 0.8rem;
     }
     .month-display-title {
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 700;
       color: var(--primary-dark);
+      white-space: nowrap;
     }
 
     /* 全部記錄總金額提示卡 */
@@ -289,55 +297,59 @@
       background: var(--primary-light);
       border: 1px dashed var(--primary-color);
       border-radius: 10px;
-      padding: 8px 14px;
+      padding: 8px 12px;
       margin-bottom: 12px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       color: var(--primary-dark);
+      white-space: nowrap;
     }
     .all-time-total-display {
       font-weight: 700;
-      font-size: 1.05rem;
+      font-size: 0.98rem;
+      white-space: nowrap;
     }
 
     .total-card {
       background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
       color: #ffffff;
       border-radius: 18px;
-      padding: 20px;
+      padding: 16px 18px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
       margin-bottom: 20px;
       position: relative;
     }
     .total-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-    .total-title { font-size: 0.95rem; opacity: 0.95; }
+    .total-title { font-size: 0.88rem; opacity: 0.95; white-space: nowrap; }
     .btn-clear-all {
       background: rgba(255, 255, 255, 0.2);
       border: 1px solid rgba(255, 255, 255, 0.4);
       color: #ffffff;
-      padding: 5px 12px;
+      padding: 4px 10px;
       border-radius: 20px;
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       cursor: pointer;
+      white-space: nowrap;
     }
-    .total-amount-display { font-size: 2.2rem; font-weight: 700; }
+    .total-amount-display { font-size: 2rem; font-weight: 700; white-space: nowrap; }
 
-    .budget-section { margin-top: 12px; background: rgba(255,255,255,0.15); border-radius: 12px; padding: 10px; }
-    .budget-info { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 6px; }
+    .budget-section { margin-top: 10px; background: rgba(255,255,255,0.15); border-radius: 10px; padding: 8px 10px; }
+    .budget-info { display: flex; justify-content: space-between; font-size: 0.78rem; margin-bottom: 4px; white-space: nowrap; }
     .budget-progress-bg { background: rgba(255,255,255,0.3); height: 8px; border-radius: 4px; overflow: hidden; }
     .budget-progress-bar { height: 100%; background: #ffffff; width: 0%; transition: width 0.3s ease, background-color 0.3s ease; }
     .budget-progress-bar.over { background: var(--danger-color) !important; }
 
-    .section-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .section-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: nowrap; }
     .section-title {
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: var(--primary-dark);
       display: flex;
       align-items: center;
       gap: 6px;
       font-weight: 600;
+      white-space: nowrap;
     }
     .section-title::before {
       content: "";
@@ -346,84 +358,90 @@
       height: 14px;
       background-color: var(--primary-color);
       border-radius: 2px;
+      flex-shrink: 0;
     }
 
     .date-picker-wrap {
       display: flex;
       align-items: center;
-      gap: 4px;
+      gap: 2px;
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      padding: 3px 8px;
+      padding: 2px 6px;
       border-radius: 8px;
+      white-space: nowrap;
     }
-    .date-picker-wrap label { font-size: 0.75rem; color: var(--text-sub); font-weight: 600; }
+    .date-picker-wrap label { font-size: 0.72rem; color: var(--text-sub); font-weight: 600; white-space: nowrap; }
     .date-picker-input {
       border: none;
       background: transparent;
       color: var(--primary-dark);
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 600;
       outline: none;
       cursor: pointer;
     }
 
+    /* 新增消費紀錄：手機版強制 2 欄平均分配 */
     .items-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-bottom: 24px;
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 8px;
+      margin-bottom: 20px;
     }
-    @media (max-width: 400px) { .items-grid { grid-template-columns: 1fr; } }
     .item-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
-      border-radius: 14px;
-      padding: 12px;
+      border-radius: 12px;
+      padding: 10px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      width: 100%;
     }
     .item-card.full-width { grid-column: 1 / -1; }
-    .item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-    .item-name { font-size: 0.9rem; font-weight: 600; }
+    .item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .item-name { font-size: 0.85rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     .item-price-tag {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--primary-color);
       background: var(--primary-light);
-      padding: 2px 6px;
+      padding: 2px 5px;
       border-radius: 6px;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
-    .item-inputs { display: flex; gap: 6px; align-items: center; }
+    .item-inputs { display: flex; gap: 4px; align-items: center; }
     .input-field {
       width: 100%;
-      padding: 8px 10px;
+      padding: 6px 8px;
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       background: var(--bg-color);
       color: var(--text-main);
       outline: none;
     }
-    textarea.input-field { height: 64px; resize: vertical; min-height: 48px; }
+    textarea.input-field { height: 54px; resize: vertical; min-height: 44px; }
     .btn-add {
       background-color: var(--primary-light);
       color: var(--primary-dark);
       border: 1px solid var(--border-color);
       border-radius: 8px;
-      padding: 8px 12px;
-      font-size: 0.85rem;
+      padding: 6px 10px;
+      font-size: 0.8rem;
       font-weight: 600;
       cursor: pointer;
       white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .hierarchical-card, .history-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 24px;
+      padding: 12px;
+      margin-bottom: 20px;
     }
     .tree-list, .history-list { display: flex; flex-direction: column; gap: 8px; }
     
@@ -432,18 +450,18 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 14px;
+      padding: 10px 12px;
       background: var(--bg-color);
       cursor: pointer;
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
-    .tree-node-title { display: flex; align-items: center; gap: 8px; }
-    .tree-toggle-icon { font-size: 0.75rem; color: var(--primary-color); transition: transform 0.2s ease; }
+    .tree-node-title { display: flex; align-items: center; gap: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .tree-toggle-icon { font-size: 0.72rem; color: var(--primary-color); transition: transform 0.2s ease; flex-shrink: 0; }
     .tree-node.open .tree-toggle-icon { transform: rotate(90deg); }
     .tree-children {
       display: none;
-      padding: 8px 12px 10px 28px;
+      padding: 8px 10px 10px 20px;
       border-top: 1px dashed var(--border-color);
     }
     .tree-node.open .tree-children { display: block; }
@@ -452,8 +470,14 @@
       justify-content: space-between;
       align-items: center;
       padding: 6px 0;
-      font-size: 0.83rem;
+      font-size: 0.8rem;
       border-bottom: 1px dotted var(--border-color);
+    }
+    .tree-child-item > span:first-child {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 65%;
     }
 
     .tree-pagination {
@@ -462,103 +486,116 @@
       align-items: center;
       padding-top: 8px;
       margin-top: 4px;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--text-sub);
+      white-space: nowrap;
     }
     .btn-tree-page {
       background: var(--primary-light);
       color: var(--primary-dark);
       border: 1px solid var(--border-color);
       border-radius: 4px;
-      padding: 2px 8px;
-      font-size: 0.72rem;
+      padding: 2px 6px;
+      font-size: 0.7rem;
       cursor: pointer;
       font-weight: 600;
+      white-space: nowrap;
     }
     .btn-tree-page:disabled { opacity: 0.4; cursor: not-allowed; }
 
-    .tree-right-info { display: flex; align-items: center; gap: 12px; }
+    .tree-right-info { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
     .cat-percent {
-      font-size: 0.78rem;
+      font-size: 0.72rem;
       color: var(--text-sub);
       font-weight: 600;
-      width: 55px;
-      text-align: center;
-      background: var(--primary-light);
       padding: 2px 4px;
       border-radius: 6px;
+      background: var(--primary-light);
+      white-space: nowrap;
     }
     .cat-total-amount {
       font-weight: 700;
       color: var(--primary-dark);
-      width: 80px;
       text-align: right;
+      white-space: nowrap;
     }
 
-    .filter-bar { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .filter-bar { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: nowrap; }
     .pagination-bar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 14px;
-      font-size: 0.82rem;
+      margin-top: 12px;
+      font-size: 0.78rem;
       color: var(--text-sub);
+      white-space: nowrap;
     }
     .btn-page {
       background: var(--primary-light);
       color: var(--primary-dark);
       border: 1px solid var(--border-color);
       border-radius: 6px;
-      padding: 4px 10px;
+      padding: 4px 8px;
       cursor: pointer;
       font-weight: 600;
+      white-space: nowrap;
     }
     .btn-page:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    .history-empty { text-align: center; color: var(--text-sub); font-size: 0.85rem; padding: 20px 0; }
+    .history-empty { text-align: center; color: var(--text-sub); font-size: 0.82rem; padding: 16px 0; white-space: nowrap; }
     .history-item {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 12px;
+      padding: 8px 10px;
       background: var(--bg-color);
       border-radius: 10px;
       border-left: 3px solid var(--primary-color);
     }
-    .history-info { display: flex; flex-direction: column; gap: 2px; max-width: 70%; }
-    .history-title { font-size: 0.88rem; font-weight: 600; }
-    .history-note { font-size: 0.78rem; color: var(--text-sub); }
-    .history-right { display: flex; align-items: center; gap: 10px; }
-    .history-amount { font-size: 0.95rem; font-weight: 700; color: var(--primary-dark); }
+    .history-info { display: flex; flex-direction: column; gap: 2px; max-width: 58%; overflow: hidden; }
+    .history-title { font-size: 0.85rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .history-note { font-size: 0.75rem; color: var(--text-sub); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .history-right { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+    .history-amount { font-size: 0.88rem; font-weight: 700; color: var(--primary-dark); margin-right: 2px; white-space: nowrap; }
+    
+    .btn-action-sm {
+      border: none;
+      border-radius: 6px;
+      padding: 3px 6px;
+      font-size: 0.72rem;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .btn-edit-single {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      border: 1px solid var(--border-color);
+    }
     .btn-delete-single {
       background: var(--danger-light);
       color: var(--danger-color);
-      border: none;
-      border-radius: 6px;
-      padding: 4px 8px;
-      font-size: 0.75rem;
-      cursor: pointer;
     }
 
     .report-entry-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 16px;
-      padding: 20px;
-      margin-top: 10px;
-      margin-bottom: 24px;
+      padding: 16px;
+      margin-top: 8px;
+      margin-bottom: 20px;
       text-align: center;
       box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
-    .report-select-wrapper { position: relative; width: 100%; margin-top: 10px; }
+    .report-select-wrapper { position: relative; width: 100%; margin-top: 8px; }
     .report-select {
       width: 100%;
       background: var(--primary-light);
       color: var(--primary-dark);
       border: 2px solid var(--border-color);
       border-radius: 12px;
-      padding: 14px;
-      font-size: 1rem;
+      padding: 10px;
+      font-size: 0.88rem;
       font-weight: 700;
       cursor: pointer;
       outline: none;
@@ -566,6 +603,7 @@
       text-align-last: center;
       appearance: none;
       -webkit-appearance: none;
+      white-space: nowrap;
     }
     .report-select option { background-color: var(--card-bg); color: var(--text-main); }
 
@@ -573,23 +611,24 @@
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 18px;
-      padding: 24px;
-      margin-top: 16px;
+      padding: 18px;
+      margin-top: 14px;
       box-shadow: 0 4px 16px rgba(0,0,0,0.04);
     }
     .btn-back-home {
       background: var(--primary-light);
       color: var(--primary-dark);
       border: 1px solid var(--border-color);
-      padding: 8px 16px;
+      padding: 6px 12px;
       border-radius: 10px;
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      margin-bottom: 16px;
+      gap: 4px;
+      margin-bottom: 14px;
+      white-space: nowrap;
     }
 
     .modal-overlay {
@@ -603,84 +642,92 @@
     }
     .modal-overlay.active { opacity: 1; pointer-events: auto; }
     .modal-card {
-      background: var(--card-bg); border-radius: 18px; padding: 24px;
-      width: 88%; max-width: 420px; text-align: center;
+      background: var(--card-bg); border-radius: 18px; padding: 20px;
+      width: 90%; max-width: 420px; text-align: center;
       border: 1px solid var(--border-color);
       position: relative;
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      max-height: 90vh;
+      overflow-y: auto;
     }
-    .modal-title { font-size: 1.1rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 8px; }
-    .modal-msg { font-size: 0.88rem; color: var(--text-main); margin-bottom: 16px; text-align: left; line-height: 1.5; }
-    .modal-actions { display: flex; gap: 10px; justify-content: center; margin-top: 16px; }
-    .btn-modal { flex: 1; padding: 10px; border-radius: 10px; font-size: 0.88rem; font-weight: 600; border: none; cursor: pointer; }
+    .modal-title { font-size: 1.05rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 6px; white-space: nowrap; }
+    .modal-msg { font-size: 0.85rem; color: var(--text-main); margin-bottom: 14px; text-align: left; line-height: 1.5; }
+    .modal-actions { display: flex; gap: 8px; justify-content: center; margin-top: 14px; }
+    .btn-modal { flex: 1; padding: 8px; border-radius: 10px; font-size: 0.85rem; font-weight: 600; border: none; cursor: pointer; white-space: nowrap; }
     .btn-modal-cancel { background: var(--bg-color); color: var(--text-sub); border: 1px solid var(--border-color); }
     .btn-modal-confirm { background: var(--primary-color); color: #fff; }
 
     .btn-modal-close {
       position: absolute;
-      top: 12px;
-      right: 14px;
+      top: 10px;
+      right: 12px;
       background: transparent;
       border: none;
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       color: var(--text-sub);
       cursor: pointer;
     }
     .update-notice-list {
       text-align: left;
-      font-size: 0.83rem;
+      font-size: 0.8rem;
       color: var(--text-main);
       background: var(--bg-color);
-      padding: 12px 14px;
+      padding: 10px 12px;
       border-radius: 12px;
-      margin: 12px 0;
-      line-height: 1.6;
+      margin: 10px 0;
+      line-height: 1.5;
     }
-    .update-notice-list ul { padding-left: 18px; }
-    .update-notice-list li { margin-bottom: 4px; }
+    .update-notice-list ul { padding-left: 16px; }
+    .update-notice-list li { margin-bottom: 6px; }
 
     .boys-checkbox-group {
       display: flex;
       flex-wrap: wrap;
-      gap: 8px;
+      gap: 6px;
       justify-content: center;
-      margin: 12px 0;
+      margin: 10px 0;
     }
     .boy-chip {
       display: flex;
       align-items: center;
       gap: 4px;
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       background: var(--bg-color);
       border: 1px solid var(--border-color);
-      padding: 6px 10px;
+      padding: 5px 8px;
       border-radius: 20px;
       cursor: pointer;
+      white-space: nowrap;
     }
 
     .toast {
       position: fixed; bottom: 30px; left: 50%;
       transform: translateX(-50%) translateY(50px);
       background: var(--primary-dark); color: #ffffff;
-      padding: 12px 22px; border-radius: 25px; font-size: 0.88rem; font-weight: 600;
+      padding: 10px 18px; border-radius: 25px; font-size: 0.82rem; font-weight: 600;
       opacity: 0; transition: all 0.3s ease; z-index: 10000;
-      pointer-events: none; text-align: center; max-width: 85vw;
+      pointer-events: none; text-align: center; max-width: 88vw;
       box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
     .app-footer {
       text-align: center;
-      padding: 12px 0 24px;
-      font-size: 0.72rem;
+      padding: 10px 0 20px;
+      font-size: 0.7rem;
       color: var(--text-sub);
       opacity: 0.8;
       letter-spacing: 0.5px;
+      white-space: nowrap;
     }
 
     .export-btn-group {
       display: flex;
-      gap: 6px;
+      gap: 4px;
+      flex-shrink: 0;
     }
   </style>
 </head>
@@ -694,14 +741,14 @@
       </div>
 
       <div class="theme-selector">
-        <label for="theme-select">🎨 配色:</label>
+        <label for="theme-select">🎨 主題:</label>
         <select id="theme-select" class="theme-select" onchange="changeTheme(this.value)">
-          <option value="default">淡雅紫</option>
-          <option value="pink">櫻花粉</option>
+          <option value="default">極光紫</option>
+          <option value="lishen">滄海藍</option>
+          <option value="qiyu">緋櫻粉</option>
+          <option value="qinche">熾夜紅</option>
+          <option value="xiayizhou">暖陽橙</option>
           <option value="green">淺草綠</option>
-          <option value="orange">暖陽橘</option>
-          <option value="red">胭脂紅</option>
-          <option value="blue">天空藍</option>
           <option value="dark">星空黑</option>
         </select>
       </div>
@@ -762,11 +809,12 @@
           <div class="section-header-row">
             <div class="section-title">新增消費紀錄</div>
             <div class="date-picker-wrap">
-              <label for="record-date-picker">📅 紀錄日期:</label>
+              <label for="record-date-picker">📅 日期:</label>
               <input type="date" id="record-date-picker" class="date-picker-input">
             </div>
           </div>
 
+          <!-- 新增消費紀錄：雙欄平均分配區域 -->
           <div class="items-grid">
             <div class="item-card">
               <div class="item-header"><span class="item-name">月卡</span><span class="item-price-tag">$150</span></div>
@@ -855,13 +903,13 @@
             <div class="item-card full-width">
               <div class="item-header">
                 <span class="item-name">其他</span>
-                <span class="item-price-tag">自訂金額與大容量備註</span>
+                <span class="item-price-tag">自訂金額與備註</span>
               </div>
-              <div class="item-inputs" style="flex-direction: column; gap: 8px;">
-                <div style="display: flex; gap: 8px; width: 100%; align-items: flex-start;">
-                  <input type="number" id="input-other-price" class="input-field" placeholder="金額" min="1" style="width: 110px;">
+              <div class="item-inputs" style="flex-direction: column; gap: 6px;">
+                <div style="display: flex; gap: 6px; width: 100%; align-items: flex-start;">
+                  <input type="number" id="input-other-price" class="input-field" placeholder="金額" min="1" style="width: 90px;">
                   <textarea id="input-other-note" class="input-field" placeholder="備註內容..." style="flex: 1;"></textarea>
-                  <button type="button" class="btn-add" onclick="addOtherItem()" style="height: 64px;">加入</button>
+                  <button type="button" class="btn-add" onclick="addOtherItem()" style="height: 54px;">加入</button>
                 </div>
               </div>
             </div>
@@ -869,16 +917,16 @@
         </div>
 
         <div>
-          <div class="section-title" style="margin-bottom: 12px;">階層式統計明細 (點擊可展開)</div>
+          <div class="section-title" style="margin-bottom: 10px;">階層式統計明細 (點擊展開)</div>
           <div class="hierarchical-card">
             <div class="tree-list" id="tree-container"></div>
           </div>
 
-          <div class="section-title" style="margin-bottom: 12px;">消費歷史紀錄</div>
+          <div class="section-title" style="margin-bottom: 10px;">消費歷史紀錄</div>
           <div class="history-card">
             <div class="filter-bar">
               <input type="text" id="search-input" class="input-field" placeholder="🔍 搜尋備註/名稱..." style="flex:1;" oninput="onFilterChange()">
-              <select id="category-filter" class="input-field" style="width:110px;" onchange="onFilterChange()">
+              <select id="category-filter" class="input-field" style="width:95px; flex-shrink:0;" onchange="onFilterChange()">
                 <option value="ALL">全部分類</option>
               </select>
             </div>
@@ -896,24 +944,24 @@
         </div>
       </div>
 
-      <div class="section-header-row" style="margin-top: 10px;">
+      <div class="section-header-row" style="margin-top: 8px;">
         <div class="section-title">支出趨勢分析</div>
         <div class="export-btn-group">
-          <button type="button" class="btn-cloud" onclick="generateShareImage(false)" style="background: var(--card-bg);">🖼️ 導出當月戰報</button>
-          <button type="button" class="btn-cloud" onclick="generateShareImage(true)" style="background: var(--card-bg);">🌐 導出全部總和圖片</button>
+          <button type="button" class="btn-cloud" onclick="generateShareImage(false)" style="background: var(--card-bg);">🖼️ 當月戰報</button>
+          <button type="button" class="btn-cloud" onclick="generateShareImage(true)" style="background: var(--card-bg);">🌐 全期間總和</button>
         </div>
       </div>
 
       <div class="report-entry-card">
-        <p style="font-size: 0.88rem; color: var(--text-sub); margin-bottom: 8px;">請選擇欲檢視的支出趨勢區間：</p>
+        <p style="font-size: 0.82rem; color: var(--text-sub); margin-bottom: 6px; white-space: nowrap;">請選擇欲檢視的支出趨勢區間：</p>
         <div class="report-select-wrapper">
           <select id="report-range-select" class="report-select" onchange="navigateToReport(this.value)">
-            <option value="" disabled selected>📊 選擇分析報表區間 (前往報表頁) ▼</option>
+            <option value="" disabled selected>📊 選擇分析報表區間 ▼</option>
             <option value="7">近 7 天支出趨勢圖</option>
             <option value="30">近 1 個月支出趨勢圖</option>
             <option value="180">近 6 個月支出趨勢圖</option>
             <option value="365">近 1 年支出趨勢圖</option>
-            <option value="ALL">全部歷史紀錄趨勢圖 (記帳第一天至今)</option>
+            <option value="ALL">全部歷史紀錄趨勢圖</option>
           </select>
         </div>
       </div>
@@ -928,9 +976,9 @@
       <button type="button" class="btn-back-home" onclick="navigateToHome()">⬅️ 返回主頁</button>
       
       <div class="report-page-card">
-        <div class="section-title" id="report-page-title" style="font-size: 1.2rem; margin-bottom: 16px;">📊 支出趨勢分析</div>
+        <div class="section-title" id="report-page-title" style="font-size: 1.1rem; margin-bottom: 14px;">📊 支出趨勢分析</div>
         
-        <div style="display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap;">
+        <div style="display: flex; gap: 4px; margin-bottom: 14px; flex-wrap: nowrap; overflow-x: auto;">
           <button type="button" class="btn-cloud" onclick="renderReportChart(7)">近 7 天</button>
           <button type="button" class="btn-cloud" onclick="renderReportChart(30)">近 1 個月</button>
           <button type="button" class="btn-cloud" onclick="renderReportChart(180)">近 6 個月</button>
@@ -938,7 +986,7 @@
           <button type="button" class="btn-cloud" onclick="renderReportChart('ALL')">全部紀錄</button>
         </div>
 
-        <div style="position: relative; height: 320px; width: 100%;">
+        <div style="position: relative; height: 300px; width: 100%;">
           <canvas id="trendChart"></canvas>
         </div>
       </div>
@@ -946,6 +994,7 @@
 
   </div>
 
+  <!-- 更新通知彈窗 (已同步更新內文) -->
   <div class="modal-overlay" id="update-notice-modal">
     <div class="modal-card">
       <button type="button" class="btn-modal-close" onclick="closeUpdateNotice()">✕</button>
@@ -953,11 +1002,13 @@
       <div class="update-notice-list">
         <p style="font-weight:700; color:var(--primary-dark); margin-bottom:6px;">✨ 最新版本升級亮點：</p>
         <ul>
-          <li><strong>🛠️ 修正日期異常問題</strong>：解決缺乏年份或時間格式錯亂導致舊紀錄歸零至今日的問題。</li>
-          <li><strong>🌐 全期間總金額統計</strong>：月分選擇器下方新增「全部記錄額度總合」，全貌一目瞭然。</li>
-          <li><strong>🖼️ 導出全部總和圖片</strong>：支援下載包含歷史所有金額的專屬戰報圖片，自動相容當前主題配色！</li>
-          <li><strong>🗓️ 月分切換器</strong>：主頁可前後切換檢視歷史月份消費總額與明細。</li>
-          <li><strong>💾 本地自動備份提醒</strong>：累積多筆紀錄時自動提示下載備份，資料安全更保障。</li>
+          <li><strong>📋 消費歷史紀錄排序</strong>：紀錄已調整為依新增時間由新到舊排序，最新加入的消費筆數將置頂顯示！</li>
+          <li><strong>📱 手機版排版優化</strong>：新增消費紀錄表單升級為「雙欄平行排版」，空間利用率大增且單手填寫更順手！</li>
+          <li><strong>✏️ 歷史紀錄編輯修改</strong>：支援於歷史明細中直接修正消費金額、備註、分類與日期！</li>
+          <li><strong>🎨 男主專屬配色主題</strong>：全新升級緋櫻粉、暖陽橙、熾夜紅、滄海藍等高質感主題，隨心變換情境！</li>
+          <li><strong>🖼️ 高畫質 Retina 戰報導出</strong>：支援匯出當月及「全期間總累積」的極致清晰課金戰報分享圖！</li>
+          <li><strong>🌐 全期間總金額與多區間分析</strong>：提供全期間總金額掌握，並支援 7天 / 1個月 / 6個月 / 1年及全部紀錄等趨勢圖！</li>
+          <li><strong>💾 本地自動備份提醒</strong>：新增定時自動提醒與儲存路徑引導，資料安全再提升！</li>
         </ul>
       </div>
       <div class="modal-actions">
@@ -969,17 +1020,17 @@
   <div class="modal-overlay" id="cloud-info-modal">
     <div class="modal-card">
       <button type="button" class="btn-modal-close" onclick="closeCloudInfoModal()">✕</button>
-      <div class="modal-title">☁️ 雲端備份與儲存位置說明</div>
+      <div class="modal-title">☁️ 備份與儲存說明</div>
       <div class="update-notice-list">
         <p style="font-weight:700; color:var(--primary-dark); margin-bottom:6px;">📲 下載後的檔案存放在哪裡？</p>
         <ul>
-          <li><strong>iPhone / iPad</strong>：存於內建的<strong>「檔案」App ➔「下載項目」</strong>資料夾中。</li>
-          <li><strong>Android 手機</strong>：存於<strong>「檔案」/「我的檔案」App ➔「Download (下載)」</strong>資料夾。</li>
+          <li><strong>iPhone / iPad</strong>：存於內建的<strong>「檔案」App ➔「下載項目」</strong>資料夾。</li>
+          <li><strong>Android 手機</strong>：存於<strong>「檔案」 App ➔「Download」</strong>資料夾。</li>
           <li><strong>電腦版</strong>：存於瀏覽器預設的<strong>「下載 (Downloads)」</strong>目錄。</li>
         </ul>
-        <p style="font-weight:700; color:var(--primary-dark); margin-top:10px; margin-bottom:6px;">☁️ 如何同步至 Google 雲端硬碟？</p>
+        <p style="font-weight:700; color:var(--primary-dark); margin-top:8px; margin-bottom:6px;">☁️ 如何同步至 Google 雲端硬碟？</p>
         <ul>
-          <li>點選「備份至雲端」下載 `.json` 檔案後，打開 **Google 雲端硬碟 App** 或網頁，點擊「新增」➔「上傳檔案」，選取剛剛下載的備份檔即可存檔！</li>
+          <li>點選「備份至雲端」下載 `.json` 檔後，開啟 **Google 雲端硬碟 App** 或網頁，點擊「新增」➔「上傳檔案」選取備份檔即可！</li>
         </ul>
       </div>
       <div class="modal-actions">
@@ -991,12 +1042,12 @@
   <div class="modal-overlay" id="profile-modal">
     <div class="modal-card">
       <div class="modal-title">修改個人資料與語錄</div>
-      <div style="margin-top: 12px; text-align: left; font-size: 0.85rem;">
+      <div style="margin-top: 10px; text-align: left; font-size: 0.82rem;">
         <label style="color:var(--text-sub);">暱稱：</label>
-        <input type="text" id="modal-username-input" class="input-field" style="margin-top: 4px; margin-bottom: 10px;">
+        <input type="text" id="modal-username-input" class="input-field" style="margin-top: 4px; margin-bottom: 8px;">
         
         <label style="color:var(--text-sub);">頭像 Emoji：</label>
-        <input type="text" id="modal-avatar-input" class="input-field" style="margin-top: 4px; margin-bottom: 12px;">
+        <input type="text" id="modal-avatar-input" class="input-field" style="margin-top: 4px; margin-bottom: 10px;">
 
         <label style="color:var(--text-sub);">選擇專屬吐槽男主 (可多選):</label>
         <div class="boys-checkbox-group">
@@ -1010,6 +1061,33 @@
       <div class="modal-actions">
         <button type="button" class="btn-modal btn-modal-cancel" onclick="closeProfileModal()">取消</button>
         <button type="button" class="btn-modal btn-modal-confirm" onclick="saveProfileModal()">儲存設定</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 編輯紀錄 Modal -->
+  <div class="modal-overlay" id="edit-record-modal">
+    <div class="modal-card">
+      <button type="button" class="btn-modal-close" onclick="closeEditModal()">✕</button>
+      <div class="modal-title">✏️ 編輯消費紀錄</div>
+      <div style="margin-top: 10px; text-align: left; font-size: 0.82rem;">
+        <input type="hidden" id="edit-record-id">
+        
+        <label style="color:var(--text-sub);">分類：</label>
+        <select id="edit-category-select" class="input-field" style="margin-top: 4px; margin-bottom: 8px;"></select>
+
+        <label style="color:var(--text-sub);">金額 ($)：</label>
+        <input type="number" id="edit-amount-input" class="input-field" min="1" style="margin-top: 4px; margin-bottom: 8px;">
+
+        <label style="color:var(--text-sub);">紀錄日期：</label>
+        <input type="date" id="edit-date-input" class="input-field" style="margin-top: 4px; margin-bottom: 8px;">
+
+        <label style="color:var(--text-sub);">備註：</label>
+        <textarea id="edit-note-input" class="input-field" style="margin-top: 4px; height: 50px;"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-modal btn-modal-cancel" onclick="closeEditModal()">取消</button>
+        <button type="button" class="btn-modal btn-modal-confirm" onclick="saveEditRecord()">儲存修改</button>
       </div>
     </div>
   </div>
@@ -1094,26 +1172,22 @@
     const pageSize = 5;
     let treePages = {};
 
-    // 月分切換邏輯 (預設當前年月)
     let selectedYear = new Date().getFullYear();
-    let selectedMonth = new Date().getMonth() + 1; // 1 ~ 12
+    let selectedMonth = new Date().getMonth() + 1;
 
     let records = JSON.parse(localStorage.getItem('deepspace_records') || "[]");
     let budgetTarget = parseInt(localStorage.getItem('deepspace_budget') || "3000");
 
-    // 自動修復缺乏年份或 Timestamp 異常的舊紀錄
     function sanitizeRecords() {
       let isModified = false;
       const currentY = new Date().getFullYear();
       
       records.forEach(r => {
-        // 如果 date 只有 MM/DD，補齊 YYYY/MM/DD
         if (r.date && r.date.split('/').length === 2) {
           r.date = `${currentY}/${r.date}`;
           isModified = true;
         }
 
-        // 如果缺乏 timestamp 或 timestamp 無效，重新由 date 解析
         if (!r.timestamp || isNaN(r.timestamp)) {
           if (r.date) {
             const cleanDate = r.date.replace(/\//g, '-');
@@ -1135,12 +1209,19 @@
     const datePicker = document.getElementById('record-date-picker');
     datePicker.value = new Date().toISOString().slice(0, 10);
 
+    // 初始化分類選單
     const catFilter = document.getElementById('category-filter');
+    const editCatSelect = document.getElementById('edit-category-select');
     categories.forEach(c => {
       const opt = document.createElement('option');
       opt.value = c;
       opt.innerText = c;
       catFilter.appendChild(opt);
+
+      const editOpt = document.createElement('option');
+      editOpt.value = c;
+      editOpt.innerText = c;
+      editCatSelect.appendChild(editOpt);
     });
 
     function saveLocal() {
@@ -1149,12 +1230,11 @@
       checkAutoBackupHint();
     }
 
-    // 自動本地備份提示（每增加 30 筆紀錄時提醒一次）
     function checkAutoBackupHint() {
       if (records.length > 0 && records.length % 30 === 0) {
         showConfirmModal(
           '💾 溫馨備份提醒',
-          `您目前已累積 ${records.length} 筆消費紀錄囉！建議點擊「備份至雲端」下載備份檔，防止瀏覽器快取被清空時資料遺失。`,
+          `您目前已累積 ${records.length} 筆消費紀錄囉！建議點擊「備份至雲端」下載備份檔，防止資料遺失。`,
           function() { exportToFile(); }
         );
       }
@@ -1183,7 +1263,7 @@
     }
 
     function checkUpdateNotice() {
-      const hasSeenNotice = localStorage.getItem('deepspace_notice_v8_seen');
+      const hasSeenNotice = localStorage.getItem('deepspace_notice_v10_seen');
       if (!hasSeenNotice) {
         document.getElementById('update-notice-modal').classList.add('active');
       }
@@ -1191,7 +1271,7 @@
 
     function closeUpdateNotice() {
       document.getElementById('update-notice-modal').classList.remove('active');
-      localStorage.setItem('deepspace_notice_v8_seen', 'true');
+      localStorage.setItem('deepspace_notice_v10_seen', 'true');
     }
 
     function openCloudInfoModal() {
@@ -1250,7 +1330,7 @@
       document.body.appendChild(downloadAnchor);
       downloadAnchor.click();
       downloadAnchor.remove();
-      showToast("備份檔已開始下載！點擊 ℹ️ 可查看儲存位置");
+      showToast("備份檔已開始下載！");
     }
 
     function importFromFile() {
@@ -1431,6 +1511,55 @@
       return `${yyyy}/${mm}/${dd}`;
     }
 
+    // 編輯紀錄彈窗控制
+    function openEditModal(id) {
+      const target = records.find(r => r.id === id);
+      if (!target) return;
+
+      document.getElementById('edit-record-id').value = target.id;
+      document.getElementById('edit-category-select').value = target.category;
+      document.getElementById('edit-amount-input').value = target.amount;
+      document.getElementById('edit-note-input').value = target.note || '';
+
+      const d = target.timestamp ? new Date(target.timestamp) : new Date();
+      const dateISO = d.toISOString().slice(0, 10);
+      document.getElementById('edit-date-input').value = dateISO;
+
+      document.getElementById('edit-record-modal').classList.add('active');
+    }
+
+    function closeEditModal() {
+      document.getElementById('edit-record-modal').classList.remove('active');
+    }
+
+    function saveEditRecord() {
+      const id = document.getElementById('edit-record-id').value;
+      const category = document.getElementById('edit-category-select').value;
+      const amount = parseInt(document.getElementById('edit-amount-input').value);
+      const dateVal = document.getElementById('edit-date-input').value;
+      const note = document.getElementById('edit-note-input').value.trim();
+
+      if (!amount || amount <= 0) {
+        showToast("請輸入有效的金額！");
+        return;
+      }
+
+      const target = records.find(r => r.id === id);
+      if (target) {
+        target.category = category;
+        target.amount = amount;
+        target.note = note;
+        if (dateVal) {
+          target.date = dateVal.replace(/-/g, '/');
+          const parsed = new Date(dateVal + 'T12:00:00');
+          target.timestamp = !isNaN(parsed.getTime()) ? parsed.getTime() : Date.now();
+        }
+        saveLocal();
+        closeEditModal();
+        showToast("紀錄修改成功！");
+      }
+    }
+
     function updateUI() {
       const formattedMonth = String(selectedMonth).padStart(2, '0');
       const selectedYearMonthStr = `${selectedYear}-${formattedMonth}`;
@@ -1438,11 +1567,9 @@
       document.getElementById('current-month-display').innerText = `${selectedYear} 年 ${formattedMonth} 月`;
       document.getElementById('card-month-title').innerText = `${selectedMonth} 月`;
 
-      // 全期間總金額計算
       const grandTotalSum = records.reduce((sum, item) => sum + item.amount, 0);
       document.getElementById('grand-total-amount').innerText = `$${grandTotalSum.toLocaleString()}`;
 
-      // 篩選所選月份的紀錄
       const monthRecords = records.filter(r => {
         let rDate = r.timestamp ? new Date(r.timestamp) : new Date();
         let ym = `${rDate.getFullYear()}-${String(rDate.getMonth() + 1).padStart(2, '0')}`;
@@ -1454,7 +1581,6 @@
 
       updateBudgetDisplay(monthlyTotal);
 
-      // 樹狀圖節點展開狀態
       const openNodes = new Set();
       document.querySelectorAll('.tree-node.open').forEach(node => {
         if (node.dataset.category) openNodes.add(node.dataset.category);
@@ -1492,7 +1618,10 @@
             childrenHTML += `
               <div class="tree-child-item">
                 <span>${dateDisplay}${noteStr}</span>
-                <span style="font-weight:600; color:var(--primary-dark);">$${r.amount.toLocaleString()}</span>
+                <div style="display:flex; align-items:center; gap:4px; flex-shrink:0;">
+                  <span style="font-weight:600; color:var(--primary-dark); white-space:nowrap;">$${r.amount.toLocaleString()}</span>
+                  <button type="button" class="btn-action-sm btn-edit-single" onclick="event.stopPropagation(); openEditModal('${r.id}')">修改</button>
+                </div>
               </div>
             `;
           });
@@ -1524,11 +1653,16 @@
         treeContainer.appendChild(treeNode);
       });
 
-      // 歷史紀錄篩選
       const searchKey = document.getElementById('search-input').value.trim().toLowerCase();
       const selectedCat = document.getElementById('category-filter').value;
 
-      let sortedRecords = monthRecords.slice().sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+      // 依新增時間由新到舊排序 (以 timestamp 或陣列順序作為備用)
+      let sortedRecords = monthRecords.slice().sort((a, b) => {
+        const timeA = a.timestamp || 0;
+        const timeB = b.timestamp || 0;
+        if (timeA !== timeB) return timeB - timeA;
+        return records.indexOf(b) - records.indexOf(a);
+      });
 
       let filteredRecords = sortedRecords.filter(r => {
         const matchCat = (selectedCat === 'ALL') || (r.category === selectedCat);
@@ -1554,17 +1688,18 @@
         pageRecords.forEach((rec) => {
           const item = document.createElement('div');
           item.className = 'history-item';
-          let noteText = rec.note ? `<br><span style="color:var(--primary-dark); font-weight:500;">備註: ${rec.note}</span>` : '';
+          let noteText = rec.note ? ` (${rec.note})` : '';
           let dateDisplay = formatDateOnly(rec.timestamp, rec.date);
 
           item.innerHTML = `
             <div class="history-info">
-              <span class="history-title">${rec.category}</span>
-              <span class="history-note">${dateDisplay}${noteText}</span>
+              <span class="history-title">${rec.category}${noteText}</span>
+              <span class="history-note">${dateDisplay}</span>
             </div>
             <div class="history-right">
               <span class="history-amount">+$${rec.amount.toLocaleString()}</span>
-              <button type="button" class="btn-delete-single" onclick="deleteRecord('${rec.id}')">取消</button>
+              <button type="button" class="btn-action-sm btn-edit-single" onclick="openEditModal('${rec.id}')">修改</button>
+              <button type="button" class="btn-action-sm btn-delete-single" onclick="deleteRecord('${rec.id}')">刪除</button>
             </div>
           `;
           historyContainer.appendChild(item);
@@ -1593,8 +1728,6 @@
     function getSelectedTimestamp() {
       const selectedValue = document.getElementById('record-date-picker').value;
       if (!selectedValue) return Date.now();
-      
-      // 以 ISO 中午 12:00:00 格式解析，避免時區錯亂
       const parsedDate = new Date(selectedValue + 'T12:00:00');
       return isNaN(parsedDate.getTime()) ? Date.now() : parsedDate.getTime();
     }
@@ -1665,15 +1798,21 @@
     function deleteRecord(id) {
       records = records.filter(r => r.id !== id);
       saveLocal();
-      showToast("已成功取消該筆消費！");
+      showToast("已成功刪除該筆消費！");
     }
 
-    // Canvas 導出戰報分享圖片 (支援單月/全部歷史總和，自動抓取主題顏色)
+    // Canvas 導出高解析度 (Retina) 戰報分享圖片
     function generateShareImage(isAllTime = false) {
+      const dpr = Math.min(window.devicePixelRatio || 2, 3);
+      const baseWidth = 600;
+      const baseHeight = 750;
+
       const canvas = document.createElement('canvas');
-      canvas.width = 600;
-      canvas.height = 750;
+      canvas.width = baseWidth * dpr;
+      canvas.height = baseHeight * dpr;
+
       const ctx = canvas.getContext('2d');
+      ctx.scale(dpr, dpr);
 
       const userName = localStorage.getItem('deepspace_username') || '獵人小姐';
       const formattedMonth = String(selectedMonth).padStart(2, '0');
@@ -1700,7 +1839,6 @@
         subtitleText = `獵人：${userName} | ${selectedYear} 年 ${formattedMonth} 月`;
       }
 
-      // 動態讀取目前的 CSS 主題顏色變數
       const computedStyle = getComputedStyle(document.documentElement);
       const gradientStart = computedStyle.getPropertyValue('--gradient-start').trim() || '#a392cc';
       const gradientEnd = computedStyle.getPropertyValue('--gradient-end').trim() || '#c4b5e2';
@@ -1712,11 +1850,11 @@
       const bgColor = computedStyle.getPropertyValue('--bg-color').trim() || '#f8f5fc';
 
       // 背景漸層
-      const grad = ctx.createLinearGradient(0, 0, 600, 750);
+      const grad = ctx.createLinearGradient(0, 0, baseWidth, baseHeight);
       grad.addColorStop(0, gradientStart);
       grad.addColorStop(1, gradientEnd);
       ctx.fillStyle = grad;
-      ctx.fillRect(0, 0, 600, 750);
+      ctx.fillRect(0, 0, baseWidth, baseHeight);
 
       // 主卡片底圖
       ctx.fillStyle = cardBg;
@@ -1733,7 +1871,7 @@
       ctx.font = '17px "Microsoft JhengHei", sans-serif';
       ctx.fillText(subtitleText, 300, 130);
 
-      // 圓形頭像框背景
+      // 頭像框背景
       ctx.fillStyle = primaryLight;
       ctx.beginPath();
       ctx.arc(300, 190, 36, 0, Math.PI * 2);
@@ -1743,7 +1881,7 @@
       ctx.font = '36px "Segoe UI Emoji", sans-serif';
       ctx.fillText(userAvatar, 300, 202);
 
-      // 總支出金額區塊
+      // 總金額區塊
       ctx.fillStyle = bgColor;
       if (ctx.roundRect) {
         ctx.beginPath();
@@ -1761,7 +1899,7 @@
       ctx.font = 'bold 42px -apple-system, sans-serif';
       ctx.fillText(`$${displayTotal.toLocaleString()}`, 300, 335);
 
-      // 最高消費項目
+      // 主力項目
       let topCategory = "無消費";
       if (targetRecords.length > 0) {
         const catSums = {};
@@ -1781,7 +1919,7 @@
         ctx.fillText(`📅 紀錄期間：記帳第一天至今`, 70, 470);
       }
 
-      // 隨機男主吐槽名言卡片
+      // 語錄卡片
       ctx.fillStyle = primaryLight;
       if (ctx.roundRect) {
         ctx.beginPath();
@@ -1799,7 +1937,6 @@
       ctx.font = '15px "Microsoft JhengHei", sans-serif';
       const roastText = getRandomRoast();
       
-      // 文字自動換行
       const maxWidth = 440;
       let line = '';
       let y = 570;
@@ -1816,19 +1953,17 @@
       }
       ctx.fillText(line, 80, y);
 
-      // 頁尾 Footer
       ctx.fillStyle = textSub;
       ctx.font = '13px "Microsoft JhengHei", sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText('製作者：@maixh_016 | 戀與深空專屬記帳系統', 300, 690);
 
-      // 下載圖片
       const link = document.createElement('a');
       const filePrefix = isAllTime ? `深空歷史總戰報` : `深空單月戰報_${selectedYear}${formattedMonth}`;
       link.download = `${filePrefix}.png`;
       link.href = canvas.toDataURL('image/png');
       link.click();
-      showToast("戰報圖片已順利生成下載！");
+      showToast("高解析度戰報圖片已生成下載！");
     }
 
     function navigateToReport(rangeVal) {
@@ -1935,7 +2070,12 @@
           plugins: { legend: { display: false } },
           scales: {
             x: {
-              ticks: { color: textMain, font: { family: "'Microsoft JhengHei', sans-serif", weight: '600' } },
+              ticks: { 
+                color: textMain, 
+                font: { family: "'Microsoft JhengHei', sans-serif", weight: '600' },
+                autoSkip: true,
+                maxTicksLimit: 12
+              },
               grid: { color: 'rgba(0,0,0,0.05)' }
             },
             y: {
