@@ -21,13 +21,12 @@
       --border-color: #e6e0f0;
       --danger-color: #e57373;
       --danger-light: #fbe9e7;
+      --warning-color: #ffb74d;
       --success-color: #66bb6a;
-      --success-light: #e8f5e9;
       --gradient-start: #a392cc;
       --gradient-end: #c4b5e2;
     }
 
-    /* 櫻花粉 */
     [data-theme="pink"] {
       --bg-color: #faf4f6;
       --card-bg: #ffffff;
@@ -41,7 +40,6 @@
       --gradient-end: #f0a3b8;
     }
 
-    /* 淺草綠色 */
     [data-theme="green"] {
       --bg-color: #f4fbf5;
       --card-bg: #ffffff;
@@ -55,21 +53,32 @@
       --gradient-end: #a3e0a6;
     }
 
-    /* 向日葵黃 */
-    [data-theme="yellow"] {
-      --bg-color: #fbf8f0;
+    [data-theme="orange"] {
+      --bg-color: #fff9f5;
       --card-bg: #ffffff;
-      --primary-color: #d99b26;
-      --primary-light: #fbf0d9;
-      --primary-dark: #9c6c13;
-      --text-main: #54462e;
-      --text-sub: #94856a;
-      --border-color: #f0e6d2;
-      --gradient-start: #e0a32e;
-      --gradient-end: #ebb852;
+      --primary-color: #e07a5f;
+      --primary-light: #fdf0eb;
+      --primary-dark: #ad4c34;
+      --text-main: #4a3630;
+      --text-sub: #967d75;
+      --border-color: #f5dfd5;
+      --gradient-start: #e07a5f;
+      --gradient-end: #f2a68d;
     }
 
-    /* 天空藍 */
+    [data-theme="red"] {
+      --bg-color: #fdf6f6;
+      --card-bg: #ffffff;
+      --primary-color: #d9534f;
+      --primary-light: #fdeaea;
+      --primary-dark: #a12b28;
+      --text-main: #4a2c2b;
+      --text-sub: #997473;
+      --border-color: #f5d3d2;
+      --gradient-start: #d9534f;
+      --gradient-end: #ef8b88;
+    }
+
     [data-theme="blue"] {
       --bg-color: #f0f6fa;
       --card-bg: #ffffff;
@@ -83,7 +92,6 @@
       --gradient-end: #82b6e5;
     }
 
-    /* 星空黑 (質感深藍夜空) */
     [data-theme="dark"] {
       --bg-color: #12131a;
       --card-bg: #1e202c;
@@ -101,13 +109,11 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      /* 一般字型預設全部改為微軟正黑體 */
       font-family: "Microsoft JhengHei", "微軟正黑體", sans-serif;
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* 粗體字與數字保留原本系統最佳適應字型（不被微軟正黑體覆蓋） */
-    b, strong, .total-amount-display, .history-amount, .item-price-tag, .btn-add, .btn-cloud, .report-select, .cat-percent, .cat-total-amount {
+    b, strong, .total-amount-display, .all-time-total-display, .history-amount, .item-price-tag, .btn-add, .btn-cloud, .report-select, .cat-percent, .cat-total-amount, .budget-percent {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
     }
 
@@ -130,27 +136,18 @@
     }
 
     @media (min-width: 992px) {
-      .app-container {
-        max-width: 900px;
-      }
+      .app-container { max-width: 900px; }
       .desktop-two-col {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 20px;
         align-items: start;
       }
-      .items-grid {
-        grid-template-columns: repeat(2, 1fr) !important;
-      }
+      .items-grid { grid-template-columns: repeat(2, 1fr) !important; }
     }
 
-    /* 多頁面控制 (主頁與報表頁) */
-    .page-section {
-      display: none;
-    }
-    .page-section.active {
-      display: block;
-    }
+    .page-section { display: none; }
+    .page-section.active { display: block; }
 
     header {
       position: relative;
@@ -171,7 +168,6 @@
       border-radius: 20px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.03);
       cursor: pointer;
-      transition: background-color 0.3s ease, border-color 0.3s ease;
     }
     .user-avatar { font-size: 1.1rem; }
     .user-name {
@@ -197,11 +193,7 @@
       border-radius: 20px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.03);
     }
-    .theme-selector label {
-      font-size: 0.75rem;
-      color: var(--text-sub);
-      font-weight: 600;
-    }
+    .theme-selector label { font-size: 0.75rem; color: var(--text-sub); font-weight: 600; }
     .theme-select {
       background: transparent;
       border: none;
@@ -223,15 +215,9 @@
       gap: 6px;
       margin-top: 36px;
     }
-    @media (min-width: 480px) {
-      header h1 { margin-top: 0; }
-    }
-    header p {
-      font-size: 0.88rem;
-      color: var(--text-sub);
-    }
+    @media (min-width: 480px) { header h1 { margin-top: 0; } }
+    header p { font-size: 0.88rem; color: var(--text-sub); }
 
-    /* 雲端備份與匯入工具列 */
     .cloud-tools {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -244,17 +230,8 @@
       gap: 10px;
       box-shadow: 0 2px 8px rgba(0,0,0,0.02);
     }
-    .cloud-status {
-      font-size: 0.8rem;
-      color: var(--text-sub);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .cloud-actions {
-      display: flex;
-      gap: 6px;
-    }
+    .cloud-status { font-size: 0.8rem; color: var(--text-sub); display: flex; align-items: center; gap: 6px; }
+    .cloud-actions { display: flex; gap: 6px; align-items: center; }
     .btn-cloud {
       background: var(--primary-light);
       color: var(--primary-dark);
@@ -268,6 +245,62 @@
       align-items: center;
       gap: 4px;
     }
+    .btn-info-icon {
+      background: var(--bg-color);
+      color: var(--text-sub);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .month-selector-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 8px 14px;
+      margin-bottom: 8px;
+    }
+    .month-btn {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      border: none;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .month-display-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+    }
+
+    /* 全部記錄總金額提示卡 */
+    .grand-total-bar {
+      background: var(--primary-light);
+      border: 1px dashed var(--primary-color);
+      border-radius: 10px;
+      padding: 8px 14px;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--primary-dark);
+    }
+    .all-time-total-display {
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
 
     .total-card {
       background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
@@ -277,14 +310,8 @@
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
       margin-bottom: 20px;
       position: relative;
-      overflow: hidden;
     }
-    .total-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 6px;
-    }
+    .total-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
     .total-title { font-size: 0.95rem; opacity: 0.95; }
     .btn-clear-all {
       background: rgba(255, 255, 255, 0.2);
@@ -295,17 +322,15 @@
       font-size: 0.78rem;
       cursor: pointer;
     }
-    .total-amount-display {
-      font-size: 2.4rem;
-      font-weight: 700;
-    }
+    .total-amount-display { font-size: 2.2rem; font-weight: 700; }
 
-    .section-header-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-    }
+    .budget-section { margin-top: 12px; background: rgba(255,255,255,0.15); border-radius: 12px; padding: 10px; }
+    .budget-info { display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 6px; }
+    .budget-progress-bg { background: rgba(255,255,255,0.3); height: 8px; border-radius: 4px; overflow: hidden; }
+    .budget-progress-bar { height: 100%; background: #ffffff; width: 0%; transition: width 0.3s ease, background-color 0.3s ease; }
+    .budget-progress-bar.over { background: var(--danger-color) !important; }
+
+    .section-header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
     .section-title {
       font-size: 1rem;
       color: var(--primary-dark);
@@ -323,7 +348,6 @@
       border-radius: 2px;
     }
 
-    /* 日期選擇器樣式 */
     .date-picker-wrap {
       display: flex;
       align-items: center;
@@ -333,11 +357,7 @@
       padding: 3px 8px;
       border-radius: 8px;
     }
-    .date-picker-wrap label {
-      font-size: 0.75rem;
-      color: var(--text-sub);
-      font-weight: 600;
-    }
+    .date-picker-wrap label { font-size: 0.75rem; color: var(--text-sub); font-weight: 600; }
     .date-picker-input {
       border: none;
       background: transparent;
@@ -354,9 +374,7 @@
       gap: 10px;
       margin-bottom: 24px;
     }
-    @media (max-width: 400px) {
-      .items-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 400px) { .items-grid { grid-template-columns: 1fr; } }
     .item-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -367,12 +385,7 @@
       justify-content: space-between;
     }
     .item-card.full-width { grid-column: 1 / -1; }
-    .item-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
-    }
+    .item-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
     .item-name { font-size: 0.9rem; font-weight: 600; }
     .item-price-tag {
       font-size: 0.75rem;
@@ -381,11 +394,7 @@
       padding: 2px 6px;
       border-radius: 6px;
     }
-    .item-inputs {
-      display: flex;
-      gap: 6px;
-      align-items: center;
-    }
+    .item-inputs { display: flex; gap: 6px; align-items: center; }
     .input-field {
       width: 100%;
       padding: 8px 10px;
@@ -396,11 +405,7 @@
       color: var(--text-main);
       outline: none;
     }
-    textarea.input-field {
-      height: 64px;
-      resize: vertical;
-      min-height: 48px;
-    }
+    textarea.input-field { height: 64px; resize: vertical; min-height: 48px; }
     .btn-add {
       background-color: var(--primary-light);
       color: var(--primary-dark);
@@ -420,18 +425,9 @@
       padding: 16px;
       margin-bottom: 24px;
     }
-    .tree-list, .history-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .history-list { max-height: 350px; overflow-y: auto; }
+    .tree-list, .history-list { display: flex; flex-direction: column; gap: 8px; }
     
-    .tree-node {
-      border: 1px solid var(--border-color);
-      border-radius: 10px;
-      overflow: hidden;
-    }
+    .tree-node { border: 1px solid var(--border-color); border-radius: 10px; overflow: hidden; }
     .tree-node-header {
       display: flex;
       justify-content: space-between;
@@ -460,12 +456,28 @@
       border-bottom: 1px dotted var(--border-color);
     }
 
-    /* 右側金額與百分比對齊控制 */
-    .tree-right-info {
+    .tree-pagination {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 12px;
+      padding-top: 8px;
+      margin-top: 4px;
+      font-size: 0.75rem;
+      color: var(--text-sub);
     }
+    .btn-tree-page {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 0.72rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-tree-page:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .tree-right-info { display: flex; align-items: center; gap: 12px; }
     .cat-percent {
       font-size: 0.78rem;
       color: var(--text-sub);
@@ -482,6 +494,26 @@
       width: 80px;
       text-align: right;
     }
+
+    .filter-bar { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+    .pagination-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 14px;
+      font-size: 0.82rem;
+      color: var(--text-sub);
+    }
+    .btn-page {
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-page:disabled { opacity: 0.5; cursor: not-allowed; }
 
     .history-empty { text-align: center; color: var(--text-sub); font-size: 0.85rem; padding: 20px 0; }
     .history-item {
@@ -508,7 +540,6 @@
       cursor: pointer;
     }
 
-    /* 報表入口與下拉選單樣式 */
     .report-entry-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -519,11 +550,7 @@
       text-align: center;
       box-shadow: 0 4px 12px rgba(0,0,0,0.03);
     }
-    .report-select-wrapper {
-      position: relative;
-      width: 100%;
-      margin-top: 10px;
-    }
+    .report-select-wrapper { position: relative; width: 100%; margin-top: 10px; }
     .report-select {
       width: 100%;
       background: var(--primary-light);
@@ -540,12 +567,8 @@
       appearance: none;
       -webkit-appearance: none;
     }
-    .report-select option {
-      background-color: var(--card-bg);
-      color: var(--text-main);
-    }
+    .report-select option { background-color: var(--card-bg); color: var(--text-main); }
 
-    /* 獨立報表頁面樣式 */
     .report-page-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -581,17 +604,60 @@
     .modal-overlay.active { opacity: 1; pointer-events: auto; }
     .modal-card {
       background: var(--card-bg); border-radius: 18px; padding: 24px;
-      width: 88%; max-width: 380px; text-align: center;
+      width: 88%; max-width: 420px; text-align: center;
       border: 1px solid var(--border-color);
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     }
     .modal-title { font-size: 1.1rem; font-weight: 700; color: var(--primary-dark); margin-bottom: 8px; }
-    .modal-msg { font-size: 0.88rem; color: var(--text-main); margin-bottom: 20px; }
-    .modal-actions { display: flex; gap: 10px; justify-content: center; }
+    .modal-msg { font-size: 0.88rem; color: var(--text-main); margin-bottom: 16px; text-align: left; line-height: 1.5; }
+    .modal-actions { display: flex; gap: 10px; justify-content: center; margin-top: 16px; }
     .btn-modal { flex: 1; padding: 10px; border-radius: 10px; font-size: 0.88rem; font-weight: 600; border: none; cursor: pointer; }
     .btn-modal-cancel { background: var(--bg-color); color: var(--text-sub); border: 1px solid var(--border-color); }
     .btn-modal-confirm { background: var(--primary-color); color: #fff; }
 
-    /* 吐司彈窗 (固定顯示 3 秒) */
+    .btn-modal-close {
+      position: absolute;
+      top: 12px;
+      right: 14px;
+      background: transparent;
+      border: none;
+      font-size: 1.2rem;
+      color: var(--text-sub);
+      cursor: pointer;
+    }
+    .update-notice-list {
+      text-align: left;
+      font-size: 0.83rem;
+      color: var(--text-main);
+      background: var(--bg-color);
+      padding: 12px 14px;
+      border-radius: 12px;
+      margin: 12px 0;
+      line-height: 1.6;
+    }
+    .update-notice-list ul { padding-left: 18px; }
+    .update-notice-list li { margin-bottom: 4px; }
+
+    .boys-checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin: 12px 0;
+    }
+    .boy-chip {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.82rem;
+      background: var(--bg-color);
+      border: 1px solid var(--border-color);
+      padding: 6px 10px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
     .toast {
       position: fixed; bottom: 30px; left: 50%;
       transform: translateX(-50%) translateY(50px);
@@ -603,7 +669,6 @@
     }
     .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-    /* 底部製作者小標誌 */
     .app-footer {
       text-align: center;
       padding: 12px 0 24px;
@@ -612,13 +677,18 @@
       opacity: 0.8;
       letter-spacing: 0.5px;
     }
+
+    .export-btn-group {
+      display: flex;
+      gap: 6px;
+    }
   </style>
 </head>
 <body>
 
   <div class="app-container">
     <header>
-      <div class="user-profile" onclick="editProfile()">
+      <div class="user-profile" onclick="openProfileModal()">
         <span class="user-avatar" id="avatar-display">🌸</span>
         <span class="user-name" id="username-display">獵人小姐</span>
       </div>
@@ -629,7 +699,8 @@
           <option value="default">淡雅紫</option>
           <option value="pink">櫻花粉</option>
           <option value="green">淺草綠</option>
-          <option value="yellow">向日葵黃</option>
+          <option value="orange">暖陽橘</option>
+          <option value="red">胭脂紅</option>
           <option value="blue">天空藍</option>
           <option value="dark">星空黑</option>
         </select>
@@ -639,7 +710,6 @@
       <p>輕鬆記錄每一筆深空投入</p>
     </header>
 
-    <!-- 備份與匯入檔案工具列 -->
     <div class="cloud-tools">
       <div class="cloud-status">
         <span id="cloud-status-text">💾 本地儲存備份</span>
@@ -647,27 +717,50 @@
       <div class="cloud-actions">
         <button type="button" class="btn-cloud" onclick="exportToFile()">☁️ 備份至雲端</button>
         <button type="button" class="btn-cloud" onclick="importFromFile()">📥 從雲端載入</button>
+        <button type="button" class="btn-info-icon" title="檔案說明" onclick="openCloudInfoModal()">ℹ️</button>
       </div>
     </div>
     
-    <!-- 隱藏的檔案上傳輸入框 -->
     <input type="file" id="file-input" accept=".json" style="display: none;" onchange="handleFileSelect(event)">
 
-    <!-- 分頁 1: 主頁面 (記帳與歷程) -->
+    <!-- 主頁面 -->
     <div id="page-home" class="page-section active">
+      
+      <!-- 月分切換選擇器 -->
+      <div class="month-selector-bar">
+        <button type="button" class="month-btn" onclick="changeMonth(-1)">◀ 上個月</button>
+        <div class="month-display-title" id="current-month-display">2026 年 08 月</div>
+        <button type="button" class="month-btn" onclick="changeMonth(1)">下個月 ▶</button>
+      </div>
+
+      <!-- 全部記錄總金額顯示區域 -->
+      <div class="grand-total-bar">
+        <span>🌐 全期間所有記錄總金額：</span>
+        <span class="all-time-total-display" id="grand-total-amount">$0</span>
+      </div>
+
       <div class="total-card">
         <div class="total-header">
-          <span class="total-title">累積總支出</span>
+          <span class="total-title"><span id="card-month-title">本月</span>累積總支出</span>
           <button type="button" class="btn-clear-all" onclick="confirmClearAll()">一鍵清空</button>
         </div>
         <div class="total-amount-display" id="total-amount">$0</div>
+
+        <div class="budget-section">
+          <div class="budget-info">
+            <span>本月預算: $<span id="budget-target-display">3,000</span> <a href="javascript:void(0)" onclick="setBudgetPrompt()" style="color:#fff; opacity:0.8; margin-left:4px; font-size:0.75rem;">(修改)</a></span>
+            <span class="budget-percent" id="budget-percent-text">0%</span>
+          </div>
+          <div class="budget-progress-bg">
+            <div class="budget-progress-bar" id="budget-progress-bar"></div>
+          </div>
+        </div>
       </div>
 
       <div class="desktop-two-col">
         <div>
           <div class="section-header-row">
             <div class="section-title">新增消費紀錄</div>
-            <!-- 日期選擇調整器 -->
             <div class="date-picker-wrap">
               <label for="record-date-picker">📅 紀錄日期:</label>
               <input type="date" id="record-date-picker" class="date-picker-input">
@@ -725,6 +818,13 @@
               </div>
             </div>
             <div class="item-card">
+              <div class="item-header"><span class="item-name">290元禮包</span><span class="item-price-tag">$290</span></div>
+              <div class="item-inputs">
+                <input type="number" id="input-pack290" class="input-field" placeholder="數量" min="1" value="1">
+                <button type="button" class="btn-add" onclick="addItem('290元禮包', 290, 'input-pack290')">加入</button>
+              </div>
+            </div>
+            <div class="item-card">
               <div class="item-header"><span class="item-name">禮包</span><span class="item-price-tag">自訂</span></div>
               <div class="item-inputs">
                 <input type="number" id="input-general-pack" class="input-field" placeholder="金額" min="1">
@@ -736,6 +836,13 @@
               <div class="item-inputs">
                 <input type="number" id="input-event150" class="input-field" placeholder="數量" min="1" value="1">
                 <button type="button" class="btn-add" onclick="addItem('150元活動密約', 150, 'input-event150')">加入</button>
+              </div>
+            </div>
+            <div class="item-card">
+              <div class="item-header"><span class="item-name">衣服</span><span class="item-price-tag">自訂</span></div>
+              <div class="item-inputs">
+                <input type="number" id="input-clothes" class="input-field" placeholder="金額" min="1">
+                <button type="button" class="btn-add" onclick="addCustomItem('衣服', 'input-clothes')">加入</button>
               </div>
             </div>
             <div class="item-card">
@@ -762,7 +869,6 @@
         </div>
 
         <div>
-          <!-- 階層式統計明細區塊 -->
           <div class="section-title" style="margin-bottom: 12px;">階層式統計明細 (點擊可展開)</div>
           <div class="hierarchical-card">
             <div class="tree-list" id="tree-container"></div>
@@ -770,15 +876,34 @@
 
           <div class="section-title" style="margin-bottom: 12px;">消費歷史紀錄</div>
           <div class="history-card">
+            <div class="filter-bar">
+              <input type="text" id="search-input" class="input-field" placeholder="🔍 搜尋備註/名稱..." style="flex:1;" oninput="onFilterChange()">
+              <select id="category-filter" class="input-field" style="width:110px;" onchange="onFilterChange()">
+                <option value="ALL">全部分類</option>
+              </select>
+            </div>
+
             <div class="history-list" id="history-container">
               <div class="history-empty">尚無消費紀錄</div>
+            </div>
+
+            <div class="pagination-bar">
+              <button type="button" class="btn-page" id="btn-prev-page" onclick="changePage(-1)">上一頁</button>
+              <span id="page-info">第 1 / 1 頁</span>
+              <button type="button" class="btn-page" id="btn-next-page" onclick="changePage(1)">下一頁</button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- 支出趨勢分析 -->
-      <div class="section-title">支出趨勢分析</div>
+      <div class="section-header-row" style="margin-top: 10px;">
+        <div class="section-title">支出趨勢分析</div>
+        <div class="export-btn-group">
+          <button type="button" class="btn-cloud" onclick="generateShareImage(false)" style="background: var(--card-bg);">🖼️ 導出當月戰報</button>
+          <button type="button" class="btn-cloud" onclick="generateShareImage(true)" style="background: var(--card-bg);">🌐 導出全部總和圖片</button>
+        </div>
+      </div>
+
       <div class="report-entry-card">
         <p style="font-size: 0.88rem; color: var(--text-sub); margin-bottom: 8px;">請選擇欲檢視的支出趨勢區間：</p>
         <div class="report-select-wrapper">
@@ -788,29 +913,29 @@
             <option value="30">近 1 個月支出趨勢圖</option>
             <option value="180">近 6 個月支出趨勢圖</option>
             <option value="365">近 1 年支出趨勢圖</option>
+            <option value="ALL">全部歷史紀錄趨勢圖 (記帳第一天至今)</option>
           </select>
         </div>
       </div>
 
-      <!-- 主頁最下方製作者資訊 -->
       <footer class="app-footer">
         製作者：@maixh_016
       </footer>
     </div>
 
-    <!-- 分頁 2: 報表分頁面 (獨立新頁面) -->
+    <!-- 報表分頁面 -->
     <div id="page-report" class="page-section">
       <button type="button" class="btn-back-home" onclick="navigateToHome()">⬅️ 返回主頁</button>
       
       <div class="report-page-card">
         <div class="section-title" id="report-page-title" style="font-size: 1.2rem; margin-bottom: 16px;">📊 支出趨勢分析</div>
         
-        <!-- 切換圖表區間按鈕列 -->
         <div style="display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap;">
           <button type="button" class="btn-cloud" onclick="renderReportChart(7)">近 7 天</button>
           <button type="button" class="btn-cloud" onclick="renderReportChart(30)">近 1 個月</button>
           <button type="button" class="btn-cloud" onclick="renderReportChart(180)">近 6 個月</button>
           <button type="button" class="btn-cloud" onclick="renderReportChart(365)">近 1 年</button>
+          <button type="button" class="btn-cloud" onclick="renderReportChart('ALL')">全部紀錄</button>
         </div>
 
         <div style="position: relative; height: 320px; width: 100%;">
@@ -821,7 +946,74 @@
 
   </div>
 
-  <!-- 一般確認 Modal -->
+  <div class="modal-overlay" id="update-notice-modal">
+    <div class="modal-card">
+      <button type="button" class="btn-modal-close" onclick="closeUpdateNotice()">✕</button>
+      <div class="modal-title">📢 系統升級與更新通知</div>
+      <div class="update-notice-list">
+        <p style="font-weight:700; color:var(--primary-dark); margin-bottom:6px;">✨ 最新版本升級亮點：</p>
+        <ul>
+          <li><strong>🌐 全期間總金額統計</strong>：月分選擇器下方新增「全部記錄額度總合」，全貌一目瞭然。</li>
+          <li><strong>🖼️ 導出全部總和圖片</strong>：支援下載包含歷史所有金額的專屬戰報圖片，自動相容當前主題配色！</li>
+          <li><strong>🗓️ 月分切換器</strong>：主頁可前後切換檢視歷史月份消費總額與明細。</li>
+          <li><strong>ℹ️ 檔案儲存位置提示</strong>：點擊「ℹ️」可查看備份檔在手機「檔案」或 Google 雲端硬碟的尋找教學。</li>
+          <li><strong>💾 本地自動備份提醒</strong>：累積多筆紀錄時自動提示下載備份，資料安全更保障。</li>
+        </ul>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-modal btn-modal-confirm" onclick="closeUpdateNotice()">我知道了！</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="cloud-info-modal">
+    <div class="modal-card">
+      <button type="button" class="btn-modal-close" onclick="closeCloudInfoModal()">✕</button>
+      <div class="modal-title">☁️ 雲端備份與儲存位置說明</div>
+      <div class="update-notice-list">
+        <p style="font-weight:700; color:var(--primary-dark); margin-bottom:6px;">📲 下載後的檔案存放在哪裡？</p>
+        <ul>
+          <li><strong>iPhone / iPad</strong>：存於內建的<strong>「檔案」App ➔「下載項目」</strong>資料夾中。</li>
+          <li><strong>Android 手機</strong>：存於<strong>「檔案」/「我的檔案」App ➔「Download (下載)」</strong>資料夾。</li>
+          <li><strong>電腦版</strong>：存於瀏覽器預設的<strong>「下載 (Downloads)」</strong>目錄。</li>
+        </ul>
+        <p style="font-weight:700; color:var(--primary-dark); margin-top:10px; margin-bottom:6px;">☁️ 如何同步至 Google 雲端硬碟？</p>
+        <ul>
+          <li>點選「備份至雲端」下載 `.json` 檔案後，打開 **Google 雲端硬碟 App** 或網頁，點擊「新增」➔「上傳檔案」，選取剛剛下載的備份檔即可存檔！</li>
+        </ul>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-modal btn-modal-confirm" onclick="closeCloudInfoModal()">了解！</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="profile-modal">
+    <div class="modal-card">
+      <div class="modal-title">修改個人資料與語錄</div>
+      <div style="margin-top: 12px; text-align: left; font-size: 0.85rem;">
+        <label style="color:var(--text-sub);">暱稱：</label>
+        <input type="text" id="modal-username-input" class="input-field" style="margin-top: 4px; margin-bottom: 10px;">
+        
+        <label style="color:var(--text-sub);">頭像 Emoji：</label>
+        <input type="text" id="modal-avatar-input" class="input-field" style="margin-top: 4px; margin-bottom: 12px;">
+
+        <label style="color:var(--text-sub);">選擇專屬吐槽男主 (可多選):</label>
+        <div class="boys-checkbox-group">
+          <label class="boy-chip"><input type="checkbox" name="boy-select" value="沈星回"> 沈星回</label>
+          <label class="boy-chip"><input type="checkbox" name="boy-select" value="黎深"> 黎深</label>
+          <label class="boy-chip"><input type="checkbox" name="boy-select" value="祁煜"> 祁煜</label>
+          <label class="boy-chip"><input type="checkbox" name="boy-select" value="秦徹"> 秦徹</label>
+          <label class="boy-chip"><input type="checkbox" name="boy-select" value="夏以晝"> 夏以晝</label>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn-modal btn-modal-cancel" onclick="closeProfileModal()">取消</button>
+        <button type="button" class="btn-modal btn-modal-confirm" onclick="saveProfileModal()">儲存設定</button>
+      </div>
+    </div>
+  </div>
+
   <div class="modal-overlay" id="custom-modal">
     <div class="modal-card">
       <div class="modal-title" id="modal-title">提示</div>
@@ -838,54 +1030,180 @@
   <script>
     const categories = [
       '月卡', '週卡', '320元密約', '490元密約', '15元禮包', 
-      '30元禮包', '150元禮包', '禮包', '150元活動密約', '鑽石', '其他'
+      '30元禮包', '150元禮包', '290元禮包', '禮包', '150元活動密約', '衣服', '鑽石', '其他'
     ];
 
-    const roastQuotes = [
-      "你怎麼又儲值了！？魔法卡再刷要刷爆啦！💳",
-      "記得好好吃飯捏！別只顧著給男主買禮物！🍚",
-      "男主們確實感受到你滿滿的誠意（與魔法卡）了！✨",
-      "手起刀落又是一筆！你的錢包正在哭泣！💸",
-      "這次又是為了哪一位男主課金呢？😏",
-      "再這樣課下去，下半個月只能吃泡麵了喔！🍜",
-      "沒關係，錢沒有不見，只是變成喜歡的樣子陪在身邊！💖",
-      "課金一時爽，一直課金一直爽！🤪",
-      "冷靜！請想想你的存款餘額！小小的錢包受不了啦！👛",
-      "愛他就要給他最好的，這筆錢花得值了！（大概吧？🤣）",
-      "警報！您的錢包厚度正在急速下降中！🚨",
-      "深空獵人小姐，請保持理性消費...算了你肯定停不下來！😂",
-      "沈星回：『你又給我和其他人花錢了嗎？早點休息吧。』💤",
-      "黎深：『這筆開銷...需要我幫你開一張冷靜心智的處方嗎？』🩺",
-      "祁煜：『哼，算你識相！不過你的畫布/錢包好像快破洞了？』🎨",
-      "秦徹：『這點數額也值得你猶豫？拿去，繼續刷。』🍷",
-      "夏以晝：『妹，課金要適量啊！要是沒錢吃飯了，哥隨時都在，帶你去吃大餐！』🍳",
-      "下半個月的菜單：觀音土佐白開水，主廚就是你自己！🍽️",
-      "抽卡手氣有變好嗎？沒有的話這筆錢就虧大啦！🎲",
-      "你的魔法卡已經發燙到可以拿來烤肉了！🔥",
-      "男主：『謝謝你的愛，但你的銀行帳戶還好嗎？』🥹",
-      "按『加入』的手速度快到連流星都追不上！打折也沒這麼快！⚡"
-    ];
+    const boyRoasts = {
+      "沈星回": [
+        "沈星回：『你又給我和其他人花錢了嗎？早點休息吧，夢裡什麼都有。』💤",
+        "沈星回：『如果沒錢買糖，我的那份可以分給你一半。』🍬",
+        "沈星回：『別刷了...過來陪我睡個午覺，比課金更有精神。』💤",
+        "沈星回：『光芒雖然無限，但獵人小姐的錢包好像有限？』✨",
+        "沈星回：『這是第幾筆了？下次換我請你吃大快朵頤的肉吧。』🍖",
+        "沈星回：『我的 Evol 可以拯救世界，但好像救不了你的帳單。』🪐",
+        "沈星回：『別太勉強自己...只要你在身邊，我不介意吃平價便當。』🍱"
+      ],
+      "黎深": [
+        "黎深：『這筆開銷...需要我幫你開一張冷靜心智的處方嗎？』🩺",
+        "黎深：『你的錢包溫度正在急遽下降，需要適度止血。』❄️",
+        "黎深：『理性消費，這是我給你的健康建議，請務必遵照醫囑。』📋",
+        "黎深：『心率過快、手速過快，通常發生在你在商城結帳的瞬間。』💓",
+        "黎深：『冰封的冰霜尚可融化，但這筆帳單可能需要你花幾個月消化。』🧊",
+        "黎深：『又下單了？希望你對自己的飲食健康也能有這種執行力。』🍎",
+        "黎深：『今晚的甜點取消，換成消費行為檢討報告。』📑"
+      ],
+      "祁煜": [
+        "祁煜：『哼，算你識相！不過你的畫布/錢包好像快破洞了？』🎨",
+        "祁煜：『為了本藝術家這樣揮霍，我是不會輕易被收買的...好吧，這次算你有心！』💖",
+        "祁煜：『喂！再買下去，我們下個月真的要一起去海邊流浪撿貝殼了！』🐚",
+        "祁煜：『這種俗氣的貨幣怎麼能衡量本少爺的靈魂？...但你既然買了我就收下吧！』👑",
+        "祁煜：『魚的記憶只有七秒，但我會記住你今天又偷刷了幾筆！』🐟",
+        "祁煜：『你的錢包現在就像被海浪沖走的小魚，乾乾癟癟的。』🌊",
+        "祁煜：『不許看其他人！把錢花在我身上...咳，我是說花在藝術創作上！』🖼️"
+      ],
+      "秦徹": [
+        "秦徹：『這點數額也值得你猶豫？拿去，繼續刷。』🍷",
+        "秦徹：『既然選了我，這點投入不過是基本籌碼，暗點可不收膽小鬼。』🎰",
+        "秦徹：『卡拿去，別在我面前露出為難的表情，這會影響我的興致。』💳",
+        "秦徹：『我喜歡有野心的人，但你的野心好像全用在填滿購物車上了？』🦅",
+        "秦徹：『這點花費還動搖不了我的莊家地位，隨你折騰。』👑",
+        "秦徹：『買下這些，能換來你多久的服從？我很期待。』⛓️",
+        "秦徹：『輸贏我不在乎，只要這局遊戲的主導權一直在你手上。』🎲"
+      ],
+      "夏以晝": [
+        "夏以晝：『妹，課金要適量啊！要是沒錢吃飯了，哥隨時都在，帶你去吃大餐！』🍳",
+        "夏以晝：『又在偷刷卡？被我抓到了吧，下不為例喔！』😋",
+        "夏以晝：『不開心隨時找哥，別一直對著螢幕撒錢呀！』✨",
+        "夏以晝：『飛機降落第一件事就是看你又買了什麼，真拿你沒辦法。』🛫",
+        "夏以晝：『哥親手做的蘋果派免費，比那些虛幻的禮包香多了吧？』🥧",
+        "夏以晝：『再這樣揮霍，小心哥沒收你的零用錢，由我親自保管！』🔑",
+        "夏以晝：『無論你在深空花多少錢，哥永遠是你的最強後盾！』🛡️"
+      ],
+      "通用": [
+        "你怎麼又儲值了！？魔法卡再刷要刷爆啦！💳",
+        "記得好好吃飯捏！別只顧著給男主買禮物！🍚",
+        "手起刀落又是一筆！你的錢包正在哭泣！💸",
+        "再這樣課下去，下半個月只能吃泡麵了喔！🍜",
+        "沒關係，錢沒有不見，只是變成喜歡的樣子陪在身邊！💖",
+        "課金一時爽，一直課金一直爽！🤪",
+        "警報！您的錢包厚度正在急速下降中！🚨"
+      ]
+    };
 
-    let lastRoastIndex = -1;
-    function getRandomRoast() {
-      let randomIndex;
-      do {
-        randomIndex = Math.floor(Math.random() * roastQuotes.length);
-      } while (randomIndex === lastRoastIndex && roastQuotes.length > 1);
-      lastRoastIndex = randomIndex;
-      return roastQuotes[randomIndex];
-    }
+    let currentPage = 1;
+    const pageSize = 5;
+    let treePages = {};
+
+    // 月分切換邏輯 (預設當前年月)
+    let selectedYear = new Date().getFullYear();
+    let selectedMonth = new Date().getMonth() + 1; // 1 ~ 12
 
     let records = JSON.parse(localStorage.getItem('deepspace_records') || "[]");
+    let budgetTarget = parseInt(localStorage.getItem('deepspace_budget') || "3000");
 
-    // 初始化日期選擇器（預設今天）
     const datePicker = document.getElementById('record-date-picker');
-    const todayStr = new Date().toISOString().slice(0, 10);
-    datePicker.value = todayStr;
+    datePicker.value = new Date().toISOString().slice(0, 10);
+
+    const catFilter = document.getElementById('category-filter');
+    categories.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c;
+      opt.innerText = c;
+      catFilter.appendChild(opt);
+    });
 
     function saveLocal() {
       localStorage.setItem('deepspace_records', JSON.stringify(records));
       updateUI();
+      checkAutoBackupHint();
+    }
+
+    // 自動本地備份提示（每增加 30 筆紀錄時提醒一次）
+    function checkAutoBackupHint() {
+      if (records.length > 0 && records.length % 30 === 0) {
+        showConfirmModal(
+          '💾 溫馨備份提醒',
+          `您目前已累積 ${records.length} 筆消費紀錄囉！建議點擊「備份至雲端」下載備份檔，防止瀏覽器快取被清空時資料遺失。`,
+          function() { exportToFile(); }
+        );
+      }
+    }
+
+    let lastRoast = "";
+    function getRandomRoast() {
+      const selectedBoys = JSON.parse(localStorage.getItem('deepspace_selected_boys') || "[]");
+      let pool = [...boyRoasts["通用"]];
+
+      if (selectedBoys.length > 0) {
+        selectedBoys.forEach(boy => {
+          if (boyRoasts[boy]) {
+            pool = pool.concat(boyRoasts[boy]);
+          }
+        });
+      }
+      
+      let candidate = pool[Math.floor(Math.random() * pool.length)];
+      if (pool.length > 1 && candidate === lastRoast) {
+        let filtered = pool.filter(r => r !== lastRoast);
+        candidate = filtered[Math.floor(Math.random() * filtered.length)];
+      }
+      lastRoast = candidate;
+      return candidate;
+    }
+
+    function checkUpdateNotice() {
+      const hasSeenNotice = localStorage.getItem('deepspace_notice_v7_seen');
+      if (!hasSeenNotice) {
+        document.getElementById('update-notice-modal').classList.add('active');
+      }
+    }
+
+    function closeUpdateNotice() {
+      document.getElementById('update-notice-modal').classList.remove('active');
+      localStorage.setItem('deepspace_notice_v7_seen', 'true');
+    }
+
+    function openCloudInfoModal() {
+      document.getElementById('cloud-info-modal').classList.add('active');
+    }
+
+    function closeCloudInfoModal() {
+      document.getElementById('cloud-info-modal').classList.remove('active');
+    }
+
+    function setBudgetPrompt() {
+      const val = prompt('請設定本月預算金額 ($):', budgetTarget);
+      if (val !== null) {
+        const num = parseInt(val);
+        if (!isNaN(num) && num >= 0) {
+          budgetTarget = num;
+          localStorage.setItem('deepspace_budget', num.toString());
+          updateUI();
+          showToast("預算設定更新成功！");
+        } else {
+          showToast("請輸入有效的數字！");
+        }
+      }
+    }
+
+    function updateBudgetDisplay(monthlyTotal) {
+      document.getElementById('budget-target-display').innerText = budgetTarget.toLocaleString();
+      const pct = budgetTarget > 0 ? Math.min(Math.round((monthlyTotal / budgetTarget) * 100), 100) : 0;
+      const actualPct = budgetTarget > 0 ? ((monthlyTotal / budgetTarget) * 100).toFixed(1) : 0;
+      
+      const bar = document.getElementById('budget-progress-bar');
+      const pctText = document.getElementById('budget-percent-text');
+
+      bar.style.width = pct + '%';
+      pctText.innerText = actualPct + '%';
+
+      if (monthlyTotal > budgetTarget && budgetTarget > 0) {
+        bar.classList.add('over');
+        pctText.style.color = 'var(--danger-color)';
+      } else {
+        bar.classList.remove('over');
+        pctText.style.color = '#ffffff';
+      }
     }
 
     function exportToFile() {
@@ -901,7 +1219,7 @@
       document.body.appendChild(downloadAnchor);
       downloadAnchor.click();
       downloadAnchor.remove();
-      showToast("已成功下載備份文件檔！");
+      showToast("備份檔已開始下載！點擊 ℹ️ 可查看儲存位置");
     }
 
     function importFromFile() {
@@ -944,19 +1262,38 @@
       document.getElementById('username-display').innerText = name;
     }
 
-    function editProfile() {
-      const currentName = document.getElementById('username-display').innerText;
-      const currentAvatar = document.getElementById('avatar-display').innerText;
-      const newName = prompt('請輸入您的暱稱：', currentName);
-      if (newName !== null && newName.trim() !== '') {
-        const newAvatar = prompt('請輸入頭像 Emoji:', currentAvatar);
-        localStorage.setItem('deepspace_username', newName.trim());
-        if (newAvatar !== null && newAvatar.trim() !== '') {
-          localStorage.setItem('deepspace_avatar', newAvatar.trim());
-        }
-        loadProfile();
-        showToast("個人資料更新成功！");
-      }
+    function openProfileModal() {
+      document.getElementById('modal-username-input').value = localStorage.getItem('deepspace_username') || '獵人小姐';
+      document.getElementById('modal-avatar-input').value = localStorage.getItem('deepspace_avatar') || '🌸';
+      
+      const selectedBoys = JSON.parse(localStorage.getItem('deepspace_selected_boys') || "[]");
+      const checkboxes = document.querySelectorAll('input[name="boy-select"]');
+      checkboxes.forEach(cb => {
+        cb.checked = selectedBoys.includes(cb.value);
+      });
+
+      document.getElementById('profile-modal').classList.add('active');
+    }
+
+    function closeProfileModal() {
+      document.getElementById('profile-modal').classList.remove('active');
+    }
+
+    function saveProfileModal() {
+      const name = document.getElementById('modal-username-input').value.trim();
+      const avatar = document.getElementById('modal-avatar-input').value.trim();
+      
+      const selectedBoys = [];
+      const checkboxes = document.querySelectorAll('input[name="boy-select"]:checked');
+      checkboxes.forEach(cb => selectedBoys.push(cb.value));
+
+      if (name) localStorage.setItem('deepspace_username', name);
+      if (avatar) localStorage.setItem('deepspace_avatar', avatar);
+      localStorage.setItem('deepspace_selected_boys', JSON.stringify(selectedBoys));
+
+      loadProfile();
+      closeProfileModal();
+      showToast("個人資料與語錄偏好已更新！");
     }
 
     function changeTheme(themeName) {
@@ -972,8 +1309,8 @@
     document.getElementById('theme-select').value = savedTheme;
     changeTheme(savedTheme);
     loadProfile();
+    checkUpdateNotice();
 
-    /* 固定顯示 3 秒鐘 (3000ms) 的 Toast 吐槽提示 */
     let toastTimer = null;
     function showToast(message) {
       const toast = document.getElementById('toast');
@@ -981,10 +1318,7 @@
       toast.classList.add('show');
 
       if (toastTimer) clearTimeout(toastTimer);
-      
-      toastTimer = setTimeout(() => { 
-        toast.classList.remove('show'); 
-      }, 3000);
+      toastTimer = setTimeout(() => { toast.classList.remove('show'); }, 2000);
     }
 
     function showConfirmModal(title, msg, onConfirm) {
@@ -1018,35 +1352,124 @@
       );
     }
 
+    function changeMonth(delta) {
+      selectedMonth += delta;
+      if (selectedMonth > 12) {
+        selectedMonth = 1;
+        selectedYear += 1;
+      } else if (selectedMonth < 1) {
+        selectedMonth = 12;
+        selectedYear -= 1;
+      }
+      currentPage = 1;
+      updateUI();
+    }
+
+    function onFilterChange() {
+      currentPage = 1;
+      updateUI();
+    }
+
+    function changePage(delta) {
+      currentPage += delta;
+      updateUI();
+    }
+
+    function changeTreePage(cat, delta) {
+      if (!treePages[cat]) treePages[cat] = 1;
+      treePages[cat] += delta;
+      updateUI();
+    }
+
+    function formatDateOnly(timestamp, oldDateStr) {
+      let d = timestamp ? new Date(timestamp) : new Date();
+      if (isNaN(d.getTime())) {
+        if (oldDateStr) return oldDateStr.split(' ')[0];
+        return '';
+      }
+      
+      const yyyy = d.getFullYear();
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const dd = String(d.getDate()).padStart(2, '0');
+
+      return `${yyyy}/${mm}/${dd}`;
+    }
+
     function updateUI() {
-      const grandTotal = records.reduce((sum, item) => sum + item.amount, 0);
-      document.getElementById('total-amount').innerText = `$${grandTotal.toLocaleString()}`;
+      const formattedMonth = String(selectedMonth).padStart(2, '0');
+      const selectedYearMonthStr = `${selectedYear}-${formattedMonth}`;
+      
+      document.getElementById('current-month-display').innerText = `${selectedYear} 年 ${formattedMonth} 月`;
+      document.getElementById('card-month-title').innerText = `${selectedMonth} 月`;
+
+      // 全期間總金額計算
+      const grandTotalSum = records.reduce((sum, item) => sum + item.amount, 0);
+      document.getElementById('grand-total-amount').innerText = `$${grandTotalSum.toLocaleString()}`;
+
+      // 篩選所選月份的紀錄
+      const monthRecords = records.filter(r => {
+        let rDate = r.timestamp ? new Date(r.timestamp) : new Date();
+        let ym = `${rDate.getFullYear()}-${String(rDate.getMonth() + 1).padStart(2, '0')}`;
+        return ym === selectedYearMonthStr;
+      });
+
+      const monthlyTotal = monthRecords.reduce((sum, item) => sum + item.amount, 0);
+      document.getElementById('total-amount').innerText = `$${monthlyTotal.toLocaleString()}`;
+
+      updateBudgetDisplay(monthlyTotal);
+
+      // 樹狀圖節點展開狀態
+      const openNodes = new Set();
+      document.querySelectorAll('.tree-node.open').forEach(node => {
+        if (node.dataset.category) openNodes.add(node.dataset.category);
+      });
 
       const treeContainer = document.getElementById('tree-container');
       treeContainer.innerHTML = '';
 
       categories.forEach(cat => {
-        const catRecords = records.filter(r => r.category === cat);
+        const catRecords = monthRecords.filter(r => r.category === cat)
+                                       .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
         const catTotal = catRecords.reduce((sum, r) => sum + r.amount, 0);
-        // 計算消費佔比百分比
-        const percent = grandTotal > 0 ? ((catTotal / grandTotal) * 100).toFixed(1) : "0.0";
+        const percent = monthlyTotal > 0 ? ((catTotal / monthlyTotal) * 100).toFixed(1) : "0.0";
 
         const treeNode = document.createElement('div');
         treeNode.className = 'tree-node';
+        treeNode.dataset.category = cat;
+        if (openNodes.has(cat)) treeNode.classList.add('open');
 
         let childrenHTML = '';
         if (catRecords.length === 0) {
           childrenHTML = `<div class="tree-child-item"><span style="color: var(--text-sub);">無購買紀錄</span></div>`;
         } else {
-          catRecords.forEach(r => {
+          const treePageSize = 5;
+          const totalCatPages = Math.ceil(catRecords.length / treePageSize) || 1;
+          if (!treePages[cat] || treePages[cat] < 1) treePages[cat] = 1;
+          if (treePages[cat] > totalCatPages) treePages[cat] = totalCatPages;
+
+          const startIdx = (treePages[cat] - 1) * treePageSize;
+          const pagedCatRecords = catRecords.slice(startIdx, startIdx + treePageSize);
+
+          pagedCatRecords.forEach(r => {
             let noteStr = r.note ? ` - ${r.note}` : '';
+            let dateDisplay = formatDateOnly(r.timestamp, r.date);
             childrenHTML += `
               <div class="tree-child-item">
-                <span>${r.date}${noteStr}</span>
+                <span>${dateDisplay}${noteStr}</span>
                 <span style="font-weight:600; color:var(--primary-dark);">$${r.amount.toLocaleString()}</span>
               </div>
             `;
           });
+
+          if (totalCatPages > 1) {
+            childrenHTML += `
+              <div class="tree-pagination">
+                <button type="button" class="btn-tree-page" ${treePages[cat] <= 1 ? 'disabled' : ''} onclick="event.stopPropagation(); changeTreePage('${cat}', -1)">◀ 上頁</button>
+                <span>${treePages[cat]} / ${totalCatPages} 頁</span>
+                <button type="button" class="btn-tree-page" ${treePages[cat] >= totalCatPages ? 'disabled' : ''} onclick="event.stopPropagation(); changeTreePage('${cat}', 1)">下頁 ▶</button>
+              </div>
+            `;
+          }
         }
 
         treeNode.innerHTML = `
@@ -1065,21 +1488,43 @@
         treeContainer.appendChild(treeNode);
       });
 
+      // 歷史紀錄篩選
+      const searchKey = document.getElementById('search-input').value.trim().toLowerCase();
+      const selectedCat = document.getElementById('category-filter').value;
+
+      let sortedRecords = monthRecords.slice().sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+      let filteredRecords = sortedRecords.filter(r => {
+        const matchCat = (selectedCat === 'ALL') || (r.category === selectedCat);
+        const matchSearch = (!searchKey) || 
+                            r.category.toLowerCase().includes(searchKey) || 
+                            (r.note && r.note.toLowerCase().includes(searchKey));
+        return matchCat && matchSearch;
+      });
+
+      const totalPages = Math.ceil(filteredRecords.length / pageSize) || 1;
+      if (currentPage > totalPages) currentPage = totalPages;
+      if (currentPage < 1) currentPage = 1;
+
+      const startIdx = (currentPage - 1) * pageSize;
+      const pageRecords = filteredRecords.slice(startIdx, startIdx + pageSize);
+
       const historyContainer = document.getElementById('history-container');
       historyContainer.innerHTML = '';
 
-      if (records.length === 0) {
-        historyContainer.innerHTML = '<div class="history-empty">尚無消費紀錄</div>';
+      if (pageRecords.length === 0) {
+        historyContainer.innerHTML = '<div class="history-empty">當月沒有符合條件的紀錄</div>';
       } else {
-        records.slice().reverse().forEach((rec) => {
+        pageRecords.forEach((rec) => {
           const item = document.createElement('div');
           item.className = 'history-item';
           let noteText = rec.note ? `<br><span style="color:var(--primary-dark); font-weight:500;">備註: ${rec.note}</span>` : '';
+          let dateDisplay = formatDateOnly(rec.timestamp, rec.date);
 
           item.innerHTML = `
             <div class="history-info">
               <span class="history-title">${rec.category}</span>
-              <span class="history-note">${rec.date}${noteText}</span>
+              <span class="history-note">${dateDisplay}${noteText}</span>
             </div>
             <div class="history-right">
               <span class="history-amount">+$${rec.amount.toLocaleString()}</span>
@@ -1089,30 +1534,34 @@
           historyContainer.appendChild(item);
         });
       }
+
+      document.getElementById('page-info').innerText = `第 ${currentPage} / ${totalPages} 頁`;
+      document.getElementById('btn-prev-page').disabled = (currentPage <= 1);
+      document.getElementById('btn-next-page').disabled = (currentPage >= totalPages);
     }
 
-    function toggleTreeNode(nodeElement) {
-      nodeElement.classList.toggle('open');
-    }
+    function toggleTreeNode(nodeElement) { nodeElement.classList.toggle('open'); }
 
-    // 格式化自訂日期
     function getSelectedDateStr() {
       const selectedValue = document.getElementById('record-date-picker').value;
-      if (!selectedValue) {
-        return new Date().toLocaleDateString('zh-TW', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
-      }
-      const [y, m, d] = selectedValue.split('-');
       const now = new Date();
-      const hh = String(now.getHours()).padStart(2, '0');
-      const mm = String(now.getMinutes()).padStart(2, '0');
-      return `${m}/${d} ${hh}:${mm}`;
+      let y, m, d;
+      if (!selectedValue) {
+        y = now.getFullYear();
+        m = String(now.getMonth() + 1).padStart(2, '0');
+        d = String(now.getDate()).padStart(2, '0');
+      } else {
+        [y, m, d] = selectedValue.split('-');
+      }
+      return `${y}/${m}/${d}`;
     }
 
     function getSelectedTimestamp() {
       const selectedValue = document.getElementById('record-date-picker').value;
-      if (!selectedValue) return Date.now();
+      const now = new Date();
+      if (!selectedValue) return now.getTime();
       const parts = selectedValue.split('-');
-      const d = new Date(parts[0], parts[1] - 1, parts[2]);
+      const d = new Date(parts[0], parts[1] - 1, parts[2], now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
       return d.getTime();
     }
 
@@ -1185,14 +1634,175 @@
       showToast("已成功取消該筆消費！");
     }
 
-    /* 📄 分頁導覽邏輯 */
-    function navigateToReport(days) {
-      if (!days) return;
+    // Canvas 導出戰報分享圖片 (支援單月/全部歷史總和，自動抓取主題顏色)
+    function generateShareImage(isAllTime = false) {
+      const canvas = document.createElement('canvas');
+      canvas.width = 600;
+      canvas.height = 750;
+      const ctx = canvas.getContext('2d');
+
+      const userName = localStorage.getItem('deepspace_username') || '獵人小姐';
+      const formattedMonth = String(selectedMonth).padStart(2, '0');
+      const selectedYearMonthStr = `${selectedYear}-${formattedMonth}`;
+
+      let targetRecords = [];
+      let displayTotal = 0;
+      let titleText = "";
+      let subtitleText = "";
+
+      if (isAllTime) {
+        targetRecords = records;
+        displayTotal = records.reduce((sum, item) => sum + item.amount, 0);
+        titleText = "✨ 戀與深空 全期間總累積戰報 ✨";
+        subtitleText = `獵人：${userName} | 歷史全部投入總總合`;
+      } else {
+        targetRecords = records.filter(r => {
+          let rDate = r.timestamp ? new Date(r.timestamp) : new Date();
+          let ym = `${rDate.getFullYear()}-${String(rDate.getMonth() + 1).padStart(2, '0')}`;
+          return ym === selectedYearMonthStr;
+        });
+        displayTotal = targetRecords.reduce((sum, item) => sum + item.amount, 0);
+        titleText = "✨ 戀與深空 專屬課金戰報 ✨";
+        subtitleText = `獵人：${userName} | ${selectedYear} 年 ${formattedMonth} 月`;
+      }
+
+      // 動態讀取目前的 CSS 主題顏色變數
+      const computedStyle = getComputedStyle(document.documentElement);
+      const gradientStart = computedStyle.getPropertyValue('--gradient-start').trim() || '#a392cc';
+      const gradientEnd = computedStyle.getPropertyValue('--gradient-end').trim() || '#c4b5e2';
+      const cardBg = computedStyle.getPropertyValue('--card-bg').trim() || '#ffffff';
+      const primaryDark = computedStyle.getPropertyValue('--primary-dark').trim() || '#705b9e';
+      const primaryLight = computedStyle.getPropertyValue('--primary-light').trim() || '#f0ebf8';
+      const textSub = computedStyle.getPropertyValue('--text-sub').trim() || '#877b99';
+      const textMain = computedStyle.getPropertyValue('--text-main').trim() || '#433952';
+      const bgColor = computedStyle.getPropertyValue('--bg-color').trim() || '#f8f5fc';
+
+      // 背景漸層
+      const grad = ctx.createLinearGradient(0, 0, 600, 750);
+      grad.addColorStop(0, gradientStart);
+      grad.addColorStop(1, gradientEnd);
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, 600, 750);
+
+      // 主卡片底圖
+      ctx.fillStyle = cardBg;
+      ctx.roundRect ? ctx.roundRect(30, 30, 540, 690, 24) : ctx.fillRect(30, 30, 540, 690);
+      ctx.fill();
+
+      // 標題與個人資訊
+      ctx.fillStyle = primaryDark;
+      ctx.font = 'bold 26px "Microsoft JhengHei", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(titleText, 300, 90);
+
+      ctx.fillStyle = textSub;
+      ctx.font = '17px "Microsoft JhengHei", sans-serif';
+      ctx.fillText(subtitleText, 300, 130);
+
+      // 圓形頭像框背景
+      ctx.fillStyle = primaryLight;
+      ctx.beginPath();
+      ctx.arc(300, 190, 36, 0, Math.PI * 2);
+      ctx.fill();
+
+      const userAvatar = localStorage.getItem('deepspace_avatar') || '🌸';
+      ctx.font = '36px "Segoe UI Emoji", sans-serif';
+      ctx.fillText(userAvatar, 300, 202);
+
+      // 總支出金額區塊
+      ctx.fillStyle = bgColor;
+      if (ctx.roundRect) {
+        ctx.beginPath();
+        ctx.roundRect(60, 250, 480, 110, 16);
+        ctx.fill();
+      } else {
+        ctx.fillRect(60, 250, 480, 110);
+      }
+
+      ctx.fillStyle = textSub;
+      ctx.font = '16px "Microsoft JhengHei", sans-serif';
+      ctx.fillText(isAllTime ? '全期間歷史總金額' : '本月累積總支出', 300, 285);
+
+      ctx.fillStyle = primaryDark;
+      ctx.font = 'bold 42px -apple-system, sans-serif';
+      ctx.fillText(`$${displayTotal.toLocaleString()}`, 300, 335);
+
+      // 最高消費項目
+      let topCategory = "無消費";
+      if (targetRecords.length > 0) {
+        const catSums = {};
+        targetRecords.forEach(r => { catSums[r.category] = (catSums[r.category] || 0) + r.amount; });
+        topCategory = Object.keys(catSums).reduce((a, b) => catSums[a] > catSums[b] ? a : b);
+      }
+
+      ctx.fillStyle = textMain;
+      ctx.font = 'bold 18px "Microsoft JhengHei", sans-serif';
+      ctx.textAlign = 'left';
+      ctx.fillText(`🔥 ${isAllTime ? '全期間主力投入' : '本月主力投入'}：${topCategory}`, 70, 400);
+      ctx.fillText(`📊 總計消費筆數：${targetRecords.length} 筆`, 70, 435);
+      
+      if (!isAllTime) {
+        ctx.fillText(`🎯 預算使用率：${budgetTarget > 0 ? Math.round((displayTotal / budgetTarget) * 100) : 0}%`, 70, 470);
+      } else {
+        ctx.fillText(`📅 紀錄期間：記帳第一天至今`, 70, 470);
+      }
+
+      // 隨機男主吐槽名言卡片
+      ctx.fillStyle = primaryLight;
+      if (ctx.roundRect) {
+        ctx.beginPath();
+        ctx.roundRect(60, 510, 480, 130, 16);
+        ctx.fill();
+      } else {
+        ctx.fillRect(60, 510, 480, 130);
+      }
+
+      ctx.fillStyle = primaryDark;
+      ctx.font = 'bold 16px "Microsoft JhengHei", sans-serif';
+      ctx.fillText('💬 專屬語錄：', 80, 540);
+
+      ctx.fillStyle = textMain;
+      ctx.font = '15px "Microsoft JhengHei", sans-serif';
+      const roastText = getRandomRoast();
+      
+      // 文字自動換行
+      const maxWidth = 440;
+      let line = '';
+      let y = 570;
+      for (let i = 0; i < roastText.length; i++) {
+        let testLine = line + roastText[i];
+        let metrics = ctx.measureText(testLine);
+        if (metrics.width > maxWidth && i > 0) {
+          ctx.fillText(line, 80, y);
+          line = roastText[i];
+          y += 24;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line, 80, y);
+
+      // 頁尾 Footer
+      ctx.fillStyle = textSub;
+      ctx.font = '13px "Microsoft JhengHei", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('製作者：@maixh_016 | 戀與深空專屬記帳系統', 300, 690);
+
+      // 下載圖片
+      const link = document.createElement('a');
+      const filePrefix = isAllTime ? `深空歷史總戰報` : `深空單月戰報_${selectedYear}${formattedMonth}`;
+      link.download = `${filePrefix}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+      showToast("戰報圖片已順利生成下載！");
+    }
+
+    function navigateToReport(rangeVal) {
+      if (!rangeVal) return;
       document.getElementById('page-home').classList.remove('active');
       document.getElementById('page-report').classList.add('active');
       window.scrollTo(0, 0);
-      renderReportChart(parseInt(days));
-      // 重置選單狀態
+      renderReportChart(rangeVal === 'ALL' ? 'ALL' : parseInt(rangeVal));
       document.getElementById('report-range-select').value = "";
     }
 
@@ -1202,36 +1812,66 @@
       window.scrollTo(0, 0);
     }
 
-    /* 📊 報表繪製邏輯 */
     let myChart = null;
-
-    function renderReportChart(days) {
-      const titles = { 7: "近 7 天", 30: "近 1 個月", 180: "近 6 個月", 365: "近 1 年" };
-      document.getElementById('report-page-title').innerText = `📊 ${titles[days] || ''}支出趨勢圖`;
+    function renderReportChart(range) {
+      const titles = { 7: "近 7 天", 30: "近 1 個月", 180: "近 6 個月", 365: "近 1 年", 'ALL': "全部歷史紀錄" };
+      document.getElementById('report-page-title').innerText = `📊 ${titles[range] || ''}支出趨勢圖`;
 
       const labels = [];
       const dataMap = {};
       const now = new Date();
 
-      for (let i = days - 1; i >= 0; i--) {
-        const d = new Date(now);
-        d.setDate(d.getDate() - i);
-        const monthDay = `${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}`;
-        labels.push(monthDay);
-        dataMap[monthDay] = 0;
+      if (range === 'ALL') {
+        let minTime = now.getTime();
+        if (records.length > 0) {
+          records.forEach(r => {
+            let t = r.timestamp || now.getTime();
+            if (t < minTime) minTime = t;
+          });
+        }
+        let startDate = new Date(minTime);
+        startDate.setHours(0,0,0,0);
+        let endDate = new Date(now);
+        endDate.setHours(0,0,0,0);
+
+        let curr = new Date(startDate);
+        while (curr <= endDate) {
+          const yearStr = (curr.getFullYear() !== now.getFullYear()) ? `${curr.getFullYear()}/` : '';
+          const monthDay = `${yearStr}${String(curr.getMonth() + 1).padStart(2, '0')}/${String(curr.getDate()).padStart(2, '0')}`;
+          labels.push(monthDay);
+          dataMap[monthDay] = 0;
+          curr.setDate(curr.getDate() + 1);
+        }
+
+        records.forEach(r => {
+          let rDate = r.timestamp ? new Date(r.timestamp) : new Date();
+          const yearStr = (rDate.getFullYear() !== now.getFullYear()) ? `${rDate.getFullYear()}/` : '';
+          const key = `${yearStr}${String(rDate.getMonth() + 1).padStart(2, '0')}/${String(rDate.getDate()).padStart(2, '0')}`;
+          if (dataMap.hasOwnProperty(key)) {
+            dataMap[key] += r.amount;
+          }
+        });
+
+      } else {
+        const days = parseInt(range);
+        for (let i = days - 1; i >= 0; i--) {
+          const d = new Date(now);
+          d.setDate(d.getDate() - i);
+          const monthDay = `${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}`;
+          labels.push(monthDay);
+          dataMap[monthDay] = 0;
+        }
+
+        records.forEach(r => {
+          let rDate = r.timestamp ? new Date(r.timestamp) : new Date();
+          const key = `${String(rDate.getMonth() + 1).padStart(2, '0')}/${String(rDate.getDate()).padStart(2, '0')}`;
+          if (dataMap.hasOwnProperty(key)) {
+            dataMap[key] += r.amount;
+          }
+        });
       }
 
-      records.forEach(r => {
-        let rDate = r.timestamp ? new Date(r.timestamp) : new Date();
-        const key = `${String(rDate.getMonth() + 1).padStart(2, '0')}/${String(rDate.getDate()).padStart(2, '0')}`;
-        if (dataMap.hasOwnProperty(key)) {
-          dataMap[key] += r.amount;
-        }
-      });
-
       const dataValues = labels.map(l => dataMap[l]);
-
-      // 動態獲取主題顏色
       const computedStyle = getComputedStyle(document.documentElement);
       const primaryColor = computedStyle.getPropertyValue('--primary-color').trim() || '#9d8ec7';
       const primaryDark = computedStyle.getPropertyValue('--primary-dark').trim() || '#705b9e';
@@ -1251,22 +1891,17 @@
             backgroundColor: primaryColor + '33',
             fill: true,
             tension: 0.35,
-            pointRadius: days > 60 ? 1 : 4,
+            pointRadius: labels.length > 60 ? 1 : 4,
             pointBackgroundColor: primaryDark
           }]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          plugins: {
-            legend: { display: false }
-          },
+          plugins: { legend: { display: false } },
           scales: {
             x: {
-              ticks: { 
-                color: textMain, 
-                font: { family: "'Microsoft JhengHei', sans-serif", weight: '600' } 
-              },
+              ticks: { color: textMain, font: { family: "'Microsoft JhengHei', sans-serif", weight: '600' } },
               grid: { color: 'rgba(0,0,0,0.05)' }
             },
             y: {
@@ -1283,7 +1918,6 @@
       });
     }
 
-    // 初始化渲染
     updateUI();
   </script>
 </body>
