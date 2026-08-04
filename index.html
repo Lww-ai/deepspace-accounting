@@ -953,10 +953,10 @@
       <div class="update-notice-list">
         <p style="font-weight:700; color:var(--primary-dark); margin-bottom:6px;">✨ 最新版本升級亮點：</p>
         <ul>
+          <li><strong>🛠️ 修正日期異常問題</strong>：解決缺乏年份或時間格式錯亂導致舊紀錄歸零至今日的問題。</li>
           <li><strong>🌐 全期間總金額統計</strong>：月分選擇器下方新增「全部記錄額度總合」，全貌一目瞭然。</li>
           <li><strong>🖼️ 導出全部總和圖片</strong>：支援下載包含歷史所有金額的專屬戰報圖片，自動相容當前主題配色！</li>
           <li><strong>🗓️ 月分切換器</strong>：主頁可前後切換檢視歷史月份消費總額與明細。</li>
-          <li><strong>ℹ️ 檔案儲存位置提示</strong>：點擊「ℹ️」可查看備份檔在手機「檔案」或 Google 雲端硬碟的尋找教學。</li>
           <li><strong>💾 本地自動備份提醒</strong>：累積多筆紀錄時自動提示下載備份，資料安全更保障。</li>
         </ul>
       </div>
@@ -1101,6 +1101,37 @@
     let records = JSON.parse(localStorage.getItem('deepspace_records') || "[]");
     let budgetTarget = parseInt(localStorage.getItem('deepspace_budget') || "3000");
 
+    // 自動修復缺乏年份或 Timestamp 異常的舊紀錄
+    function sanitizeRecords() {
+      let isModified = false;
+      const currentY = new Date().getFullYear();
+      
+      records.forEach(r => {
+        // 如果 date 只有 MM/DD，補齊 YYYY/MM/DD
+        if (r.date && r.date.split('/').length === 2) {
+          r.date = `${currentY}/${r.date}`;
+          isModified = true;
+        }
+
+        // 如果缺乏 timestamp 或 timestamp 無效，重新由 date 解析
+        if (!r.timestamp || isNaN(r.timestamp)) {
+          if (r.date) {
+            const cleanDate = r.date.replace(/\//g, '-');
+            const d = new Date(cleanDate + 'T12:00:00');
+            r.timestamp = !isNaN(d.getTime()) ? d.getTime() : Date.now();
+          } else {
+            r.timestamp = Date.now();
+          }
+          isModified = true;
+        }
+      });
+
+      if (isModified) {
+        localStorage.setItem('deepspace_records', JSON.stringify(records));
+      }
+    }
+    sanitizeRecords();
+
     const datePicker = document.getElementById('record-date-picker');
     datePicker.value = new Date().toISOString().slice(0, 10);
 
@@ -1152,7 +1183,7 @@
     }
 
     function checkUpdateNotice() {
-      const hasSeenNotice = localStorage.getItem('deepspace_notice_v7_seen');
+      const hasSeenNotice = localStorage.getItem('deepspace_notice_v8_seen');
       if (!hasSeenNotice) {
         document.getElementById('update-notice-modal').classList.add('active');
       }
@@ -1160,7 +1191,7 @@
 
     function closeUpdateNotice() {
       document.getElementById('update-notice-modal').classList.remove('active');
-      localStorage.setItem('deepspace_notice_v7_seen', 'true');
+      localStorage.setItem('deepspace_notice_v8_seen', 'true');
     }
 
     function openCloudInfoModal() {
@@ -1240,6 +1271,7 @@
               '這將會覆蓋目前的記帳紀錄，確定要載入嗎？',
               function() {
                 records = importedData;
+                sanitizeRecords();
                 saveLocal();
                 showToast("已成功匯入備份資料！");
               }
@@ -1382,9 +1414,13 @@
     }
 
     function formatDateOnly(timestamp, oldDateStr) {
-      let d = timestamp ? new Date(timestamp) : new Date();
-      if (isNaN(d.getTime())) {
-        if (oldDateStr) return oldDateStr.split(' ')[0];
+      let d = timestamp ? new Date(timestamp) : null;
+      if (!d || isNaN(d.getTime())) {
+        if (oldDateStr) {
+          const parts = oldDateStr.split(' ')[0].split('/');
+          if (parts.length === 2) return `${new Date().getFullYear()}/${parts[0].padStart(2, '0')}/${parts[1].padStart(2, '0')}`;
+          return oldDateStr.split(' ')[0];
+        }
         return '';
       }
       
@@ -1544,25 +1580,23 @@
 
     function getSelectedDateStr() {
       const selectedValue = document.getElementById('record-date-picker').value;
-      const now = new Date();
-      let y, m, d;
       if (!selectedValue) {
-        y = now.getFullYear();
-        m = String(now.getMonth() + 1).padStart(2, '0');
-        d = String(now.getDate()).padStart(2, '0');
-      } else {
-        [y, m, d] = selectedValue.split('-');
+        const now = new Date();
+        const y = now.getFullYear();
+        const m = String(now.getMonth() + 1).padStart(2, '0');
+        const d = String(now.getDate()).padStart(2, '0');
+        return `${y}/${m}/${d}`;
       }
-      return `${y}/${m}/${d}`;
+      return selectedValue.replace(/-/g, '/');
     }
 
     function getSelectedTimestamp() {
       const selectedValue = document.getElementById('record-date-picker').value;
-      const now = new Date();
-      if (!selectedValue) return now.getTime();
-      const parts = selectedValue.split('-');
-      const d = new Date(parts[0], parts[1] - 1, parts[2], now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
-      return d.getTime();
+      if (!selectedValue) return Date.now();
+      
+      // 以 ISO 中午 12:00:00 格式解析，避免時區錯亂
+      const parsedDate = new Date(selectedValue + 'T12:00:00');
+      return isNaN(parsedDate.getTime()) ? Date.now() : parsedDate.getTime();
     }
 
     function addItem(name, unitPrice, inputId) {
