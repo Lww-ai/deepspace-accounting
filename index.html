@@ -27,8 +27,8 @@
       --gradient-end: #c4b5e2;
     }
 
-    /* 高級感 3 字主題延伸（非男主名） */
-    [data-theme="qiyu"] { /* 緋櫻粉 */
+    /* 高級感主題延伸 */
+    [data-theme="qiyu"] {
       --bg-color: #faf4f6;
       --card-bg: #ffffff;
       --primary-color: #e5829d;
@@ -41,7 +41,7 @@
       --gradient-end: #f0a3b8;
     }
 
-    [data-theme="green"] { /* 淺草綠 */
+    [data-theme="green"] {
       --bg-color: #f4fbf5;
       --card-bg: #ffffff;
       --primary-color: #7bc67e;
@@ -54,7 +54,7 @@
       --gradient-end: #a3e0a6;
     }
 
-    [data-theme="xiayizhou"] { /* 暖陽橙 */
+    [data-theme="xiayizhou"] {
       --bg-color: #fff9f5;
       --card-bg: #ffffff;
       --primary-color: #e07a5f;
@@ -67,7 +67,7 @@
       --gradient-end: #f2a68d;
     }
 
-    [data-theme="qinche"] { /* 熾夜紅 */
+    [data-theme="qinche"] {
       --bg-color: #fdf6f6;
       --card-bg: #ffffff;
       --primary-color: #d9534f;
@@ -80,7 +80,7 @@
       --gradient-end: #ef8b88;
     }
 
-    [data-theme="lishen"] { /* 滄海藍 */
+    [data-theme="lishen"] {
       --bg-color: #f0f6fa;
       --card-bg: #ffffff;
       --primary-color: #5b9bd5;
@@ -93,7 +93,7 @@
       --gradient-end: #82b6e5;
     }
 
-    [data-theme="dark"] { /* 星空黑 */
+    [data-theme="dark"] {
       --bg-color: #12131a;
       --card-bg: #1e202c;
       --primary-color: #b59beb;
@@ -292,7 +292,6 @@
       white-space: nowrap;
     }
 
-    /* 全部記錄總金額提示卡 */
     .grand-total-bar {
       background: var(--primary-light);
       border: 1px dashed var(--primary-color);
@@ -321,8 +320,25 @@
       margin-bottom: 20px;
       position: relative;
     }
-    .total-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .total-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; gap: 6px; }
     .total-title { font-size: 0.88rem; opacity: 0.95; white-space: nowrap; }
+    .total-header-actions { display: flex; align-items: center; gap: 6px; }
+
+    .btn-city-inline {
+      background: rgba(255, 255, 255, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      color: #ffffff;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      backdrop-filter: blur(4px);
+      transition: background 0.2s;
+    }
+    .btn-city-inline:hover { background: rgba(255, 255, 255, 0.35); }
+
     .btn-clear-all {
       background: rgba(255, 255, 255, 0.2);
       border: 1px solid rgba(255, 255, 255, 0.4);
@@ -382,7 +398,6 @@
       cursor: pointer;
     }
 
-    /* 新增消費紀錄：手機版強制 2 欄平均分配 */
     .items-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr) !important;
@@ -517,6 +532,71 @@
       font-weight: 700;
       color: var(--primary-dark);
       text-align: right;
+      white-space: nowrap;
+    }
+
+    /* 馬賽克像素風格寵物系統面板與 CSS (適應螢幕：一欄 2~3 隻) */
+    .pixel-pet-art {
+      width: 48px;
+      height: 48px;
+      image-rendering: pixelated;
+      image-rendering: crisp-edges;
+      border-radius: 8px;
+      background: var(--primary-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      border: 2px solid var(--border-color);
+      box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+      flex-shrink: 0;
+    }
+    .pet-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 10px;
+      padding: 6px 0;
+    }
+    .pet-card-item {
+      background: var(--bg-color);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 10px 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      text-align: center;
+    }
+    .pet-name-wrap {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+    .pet-name { font-weight: 700; font-size: 0.8rem; color: var(--primary-dark); }
+    .btn-rename {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 0.75rem;
+      opacity: 0.6;
+    }
+    .btn-rename:hover { opacity: 1.0; }
+    .pet-lvl { font-size: 0.72rem; color: var(--accent-gold); font-weight: 700; }
+    .pet-status-tag { font-size: 0.68rem; font-weight: 700; padding: 1px 4px; border-radius: 4px; margin-top: 2px; }
+    .status-happy { background: var(--primary-light); color: var(--primary-dark); }
+    .status-angry { background: var(--danger-light); color: var(--danger-color); }
+
+    .pet-actions { display: flex; gap: 4px; margin-top: 4px; width: 100%; justify-content: center; }
+    .btn-pet-action {
+      background: var(--primary-light);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 3px 6px;
+      font-size: 0.68rem;
+      cursor: pointer;
+      color: var(--primary-dark);
+      font-weight: 600;
       white-space: nowrap;
     }
 
@@ -680,6 +760,21 @@
     .update-notice-list ul { padding-left: 16px; }
     .update-notice-list li { margin-bottom: 6px; }
 
+    /* 地產養成卡片樣式 */
+    .building-grid { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; text-align: left; }
+    .building-item {
+      background: var(--bg-color);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .building-info { font-size: 0.82rem; }
+    .building-name { font-weight: 700; color: var(--primary-dark); font-size: 0.88rem; }
+    .building-lvl { font-size: 0.75rem; color: var(--accent-gold); font-weight: 700; }
+
     .boys-checkbox-group {
       display: flex;
       flex-wrap: wrap;
@@ -698,6 +793,49 @@
       border-radius: 20px;
       cursor: pointer;
       white-space: nowrap;
+    }
+
+    /* 搖籤筒 Modal 樣式 */
+    .stick-box {
+      font-size: 3.5rem;
+      margin: 15px 0;
+      display: inline-block;
+      transition: transform 0.1s ease-in-out;
+    }
+    .stick-box.shaking {
+      animation: shake 0.5s infinite;
+    }
+    @keyframes shake {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      20% { transform: translate(-5px, -5px) rotate(-10deg); }
+      40% { transform: translate(5px, 5px) rotate(10deg); }
+      60% { transform: translate(-5px, 5px) rotate(-5deg); }
+      80% { transform: translate(5px, -5px) rotate(5deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+    .cool-down-timer {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin: 8px 0;
+    }
+    .draw-result-card {
+      background: var(--primary-light);
+      border: 2px dashed var(--primary-color);
+      border-radius: 12px;
+      padding: 12px;
+      margin: 12px 0;
+      display: none;
+    }
+    .draw-result-luck {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .draw-result-quote {
+      font-size: 0.85rem;
+      color: var(--text-main);
+      line-height: 1.4;
     }
 
     .toast {
@@ -773,23 +911,26 @@
     <!-- 主頁面 -->
     <div id="page-home" class="page-section active">
       
-      <!-- 月分切換選擇器 -->
       <div class="month-selector-bar">
         <button type="button" class="month-btn" onclick="changeMonth(-1)">◀ 上個月</button>
         <div class="month-display-title" id="current-month-display">2026 年 08 月</div>
         <button type="button" class="month-btn" onclick="changeMonth(1)">下個月 ▶</button>
       </div>
 
-      <!-- 全部記錄總金額顯示區域 -->
       <div class="grand-total-bar">
         <span>🌐 全期間所有記錄總金額：</span>
         <span class="all-time-total-display" id="grand-total-amount">$0</span>
       </div>
 
+      <!-- 累積總金額卡片 -->
       <div class="total-card">
         <div class="total-header">
           <span class="total-title"><span id="card-month-title">本月</span>累積總支出</span>
-          <button type="button" class="btn-clear-all" onclick="confirmClearAll()">一鍵清空</button>
+          <div class="total-header-actions">
+            <!-- 點擊「養成城市寵物」直接切換分頁 -->
+            <button type="button" class="btn-city-inline" onclick="navigateToPetPage()">🏙️ 養成城市寵物</button>
+            <button type="button" class="btn-clear-all" onclick="confirmClearAll()">一鍵清空</button>
+          </div>
         </div>
         <div class="total-amount-display" id="total-amount">$0</div>
 
@@ -814,7 +955,6 @@
             </div>
           </div>
 
-          <!-- 新增消費紀錄：雙欄平均分配區域 -->
           <div class="items-grid">
             <div class="item-card">
               <div class="item-header"><span class="item-name">月卡</span><span class="item-price-tag">$150</span></div>
@@ -917,7 +1057,7 @@
         </div>
 
         <div>
-          <div class="section-title" style="margin-bottom: 10px;">階層式統計明細 (點擊展開)</div>
+          <div class="section-title" id="hierarchical-title-sec" style="margin-bottom: 10px;">階層式統計明細 (點擊展開)</div>
           <div class="hierarchical-card">
             <div class="tree-list" id="tree-container"></div>
           </div>
@@ -992,9 +1132,76 @@
       </div>
     </div>
 
+    <!-- 養成城市寵物獨立分頁面 -->
+    <div id="page-pet-city" class="page-section">
+      <button type="button" class="btn-back-home" onclick="navigateToHome()">⬅️ 返回主頁</button>
+      
+      <div class="report-page-card">
+        <div class="section-title" style="font-size: 1.1rem; margin-bottom: 6px;">🏙️ 養成城市寵物系統</div>
+        <p style="font-size: 0.8rem; color: var(--text-sub); margin-bottom: 12px;">輸入每 500 元消費即可獲得 1 個寵物幣！每 2 幣可餵食一次 🪙</p>
+
+        <!-- 寵物幣資產卡片 -->
+        <div style="background: var(--primary-light); border: 1px dashed var(--primary-color); border-radius: 12px; padding: 12px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-weight: 700; color: var(--primary-dark); font-size: 0.9rem;">🪙 目前持有寵物幣：</span>
+          <span id="pet-coin-display" style="font-size: 1.2rem; font-weight: 800; color: var(--accent-gold);">0 幣</span>
+        </div>
+
+        <!-- 馬賽克像素寵物區域 -->
+        <div class="section-title" style="margin-bottom: 8px;">🐾 馬賽克像素寵物</div>
+        <div class="pet-grid" id="pet-grid-page-container">
+          <!-- 動態生成寵物列表 -->
+        </div>
+
+        <!-- 臨空市建設地產概況 -->
+        <div class="section-title" style="margin-top: 18px; margin-bottom: 8px;">🏰 臨空市建設地產概況</div>
+        <div class="building-grid" id="building-grid-page-container">
+          <!-- 動態生成地產列表 -->
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <!-- 更新通知彈窗 (已同步更新內文) -->
+  <!-- 臨空市建設地產 Modal -->
+  <div class="modal-overlay" id="city-modal">
+    <div class="modal-card">
+      <button type="button" class="btn-modal-close" onclick="closeCityModal()">✕</button>
+      <div class="modal-title">🏙️ 臨空市建設地產養成系統</div>
+      <p style="font-size:0.78rem; color:var(--text-sub); margin-top:4px;">你的每一筆投入，都在繁榮整座臨空市！</p>
+      
+      <div class="building-grid" id="building-grid-container">
+        <!-- 地產動態生成 -->
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-modal btn-modal-confirm" onclick="closeCityModal()">太棒了！</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 「冷靜 3 秒」籤筒決策 Modal -->
+  <div class="modal-overlay" id="cool-down-modal">
+    <div class="modal-card">
+      <div class="modal-title">🛑 課金警告：單筆超過 $3,000！</div>
+      <p style="font-size:0.8rem; color:var(--text-sub); margin-top:4px;">給自己 3 秒冷靜一下，請男主為你搖籤決策吧！</p>
+      
+      <div class="stick-box" id="stick-box-anim">🎍</div>
+      
+      <div class="cool-down-timer" id="timer-text">冷靜倒數：3 秒</div>
+
+      <div class="draw-result-card" id="draw-result-card">
+        <div class="draw-result-luck" id="result-luck">大吉</div>
+        <div class="draw-result-quote" id="result-quote">語錄載入中...</div>
+      </div>
+
+      <div class="modal-actions" id="cool-modal-actions">
+        <button type="button" class="btn-modal btn-modal-cancel" id="btn-cancel-cool" onclick="closeCoolDownModal(false)">清醒了，取消課金</button>
+        <button type="button" class="btn-modal btn-modal-confirm" id="btn-start-draw" disabled onclick="startDrawStick()">請先冷靜 3 秒... (3)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 更新通知彈窗 -->
   <div class="modal-overlay" id="update-notice-modal">
     <div class="modal-card">
       <button type="button" class="btn-modal-close" onclick="closeUpdateNotice()">✕</button>
@@ -1002,14 +1209,11 @@
       <div class="update-notice-list">
         <p style="font-weight:700; color:var(--primary-dark); margin-bottom:6px;">✨ 最新版本升級亮點：</p>
         <ul>
-          <li><strong>💬 男主吐槽語錄換行優化</strong>：吐槽提示彈窗支援隨手機螢幕大小自動換行，閱讀體驗更完整！</li>
-          <li><strong>📋 最新筆數置頂新增</strong>：當新增多筆消費時，最新輸入的紀錄將直接在「第 1 頁第一個位置」置頂顯示！</li>
-          <li><strong>📱 手機版排版優化</strong>：新增消費紀錄表單升級為「雙欄平行排版」，空間利用率大增且單手填寫更順手！</li>
-          <li><strong>✏️ 歷史紀錄編輯修改</strong>：支援於歷史明細中直接修正消費金額、備註、分類與日期！</li>
-          <li><strong>🎨 男主專屬配色主題</strong>：全新升級緋櫻粉、暖陽橙、熾夜紅、滄海藍等高質感主題，隨心變換情境！</li>
-          <li><strong>🖼️ 高畫質 Retina 戰報導出</strong>：支援匯出當月及「全期間總累積」的極致清晰課金戰報分享圖！</li>
-          <li><strong>🌐 全期間總金額與多區間分析</strong>：提供全期間總金額掌握，並支援 7天 / 1個月 / 6個月 / 1年及全部紀錄等趨勢圖！</li>
-          <li><strong>💾 本地自動備份提醒</strong>：新增定時自動提醒與儲存路徑引導，資料安全再提升！</li>
+          <li><strong>🐾 寵物餵食與好感度機制更新</strong>：每 100 好感度升 1 級，撫摸一次增加 1~3 好感度，餵食一次增加 5~12 好感度（隨機分配）！</li>
+          <li><strong>💬 男主消費語錄庫大擴充</strong>：每一位男主的日常消費吐槽語錄全面擴充至 6 句以上，通用隨機池擴充至 5 句以上！</li>
+          <li><strong>📜 搖籤與消費語錄拆分</strong>：搖籤筒決策語錄與日常消費吐槽語錄獨立分開，體驗更逼真！</li>
+          <li><strong>🐾 馬賽克像素風格寵物系統</strong>：支援多款像素小動物撫摸、餵食、改名與好感升級！</li>
+          <li><strong>🛑 冷靜 3 秒搖籤筒</strong>：單筆消費滿 $3,000 自動開啟專屬決策籤語！</li>
         </ul>
       </div>
       <div class="modal-actions">
@@ -1028,10 +1232,6 @@
           <li><strong>iPhone / iPad</strong>：存於內建的<strong>「檔案」App ➔「下載項目」</strong>資料夾。</li>
           <li><strong>Android 手機</strong>：存於<strong>「檔案」 App ➔「Download」</strong>資料夾。</li>
           <li><strong>電腦版</strong>：存於瀏覽器預設的<strong>「下載 (Downloads)」</strong>目錄。</li>
-        </ul>
-        <p style="font-weight:700; color:var(--primary-dark); margin-top:8px; margin-bottom:6px;">☁️ 如何同步至 Google 雲端硬碟？</p>
-        <ul>
-          <li>點選「備份至雲端」下載 `.json` 檔後，開啟 **Google 雲端硬碟 App** 或網頁，點擊「新增」➔「上傳檔案」選取備份檔即可！</li>
         </ul>
       </div>
       <div class="modal-actions">
@@ -1112,60 +1312,271 @@
       '30元禮包', '150元禮包', '290元禮包', '禮包', '150元活動密約', '衣服', '鑽石', '其他'
     ];
 
+    // 地產養成資料庫
+    const cityBuildings = [
+      { id: 'b1', name: '🏢 獵人協會分會', baseCost: 500, scale: 1.5 },
+      { id: 'b2', name: '🔬 深空研究中心', baseCost: 1500, scale: 1.8 },
+      { id: 'b3', name: '🛍️ 臨空繁華商業街', baseCost: 3000, scale: 2.0 },
+      { id: 'b4', name: '🏰 獵人專屬豪華別墅', baseCost: 6000, scale: 2.5 }
+    ];
+
+    // 馬賽克像素寵物資料庫 (移除忠誠小狗，保留其餘 6 隻)
+    let pixelPets = JSON.parse(localStorage.getItem('deepspace_pets') || JSON.stringify([
+      { id: 'p1', name: '軟綿兔子', customName: '', icon: '🐇', exp: 0, level: 1, isAngry: false },
+      { id: 'p2', name: '冰霜雪人', customName: '', icon: '☃️', exp: 0, level: 1, isAngry: false },
+      { id: 'p3', name: '氣鼓鼓河豚', customName: '', icon: '🐡', exp: 0, level: 1, isAngry: false },
+      { id: 'p4', name: '夜空烏鴉', customName: '', icon: '🐦‍⬛', exp: 0, level: 1, isAngry: false },
+      { id: 'p5', name: '敏捷豹子', customName: '', icon: '🐆', exp: 0, level: 1, isAngry: false },
+      { id: 'p7', name: '孤傲狼狼', customName: '', icon: '🐺', exp: 0, level: 1, isAngry: false }
+    ]));
+
+    // 若舊資料包含小狗則自動清除
+    pixelPets = pixelPets.filter(p => p.id !== 'p6' && p.name !== '忠誠小狗');
+
+    function savePets() {
+      localStorage.setItem('deepspace_pets', JSON.stringify(pixelPets));
+    }
+
+    // 計算總累積獲得的寵物幣以及已消費的寵物幣
+    let petCoinsSpent = parseInt(localStorage.getItem('deepspace_pet_coins_spent') || '0');
+
+    function getPetCoinsInfo() {
+      const grandTotalSum = records.reduce((sum, item) => sum + item.amount, 0);
+      const totalEarnedCoins = Math.floor(grandTotalSum / 500);
+      const availableCoins = Math.max(0, totalEarnedCoins - petCoinsSpent);
+      return { totalEarnedCoins, availableCoins };
+    }
+
+    // 改名功能
+    function renamePet(petId) {
+      const pet = pixelPets.find(p => p.id === petId);
+      if (!pet) return;
+      const currentDisplayName = pet.customName || pet.name;
+      const newName = prompt(`請輸入 ${currentDisplayName} 的新名字：`, currentDisplayName);
+      if (newName !== null) {
+        const trimmed = newName.trim();
+        pet.customName = trimmed ? trimmed : pet.name;
+        savePets();
+        updateUI();
+        showToast(`已成功將小動物改名為「${pet.customName}」！✨`);
+      }
+    }
+
+    // 互動寵物功能 (好感升級改為 100/級，撫摸+1~3，餵食+5~12)
+    function interactPet(petId, type) {
+      const pet = pixelPets.find(p => p.id === petId);
+      if (!pet) return;
+      const petDisplayName = pet.customName || pet.name;
+
+      if (type === 'feed') {
+        const { availableCoins } = getPetCoinsInfo();
+        if (availableCoins < 2) {
+          showToast(`寵物幣不足！餵食一次需要 2 個寵物幣喔（每滿 500 元可獲 1 幣）。🪙`);
+          return;
+        }
+
+        petCoinsSpent += 2;
+        localStorage.setItem('deepspace_pet_coins_spent', petCoinsSpent.toString());
+
+        // 隨機增加 5~12 好感度
+        const gainExp = Math.floor(Math.random() * 8) + 5;
+        pet.exp += gainExp;
+
+        // 生氣機制：隨機 20% 機率小動物會生氣
+        const rollAngry = Math.random() < 0.2;
+        if (rollAngry) {
+          pet.isAngry = true;
+          showToast(`餵食了 ${petDisplayName}（消耗 2 寵物幣），好感度 +${gainExp}！但牠突然吃太飽氣鼓鼓的！😾`);
+        } else {
+          pet.isAngry = false;
+          showToast(`餵食了 ${petDisplayName}（消耗 2 寵物幣）！好感度隨機 +${gainExp} 🍎`);
+        }
+      } else if (type === 'pat') {
+        // 隨機增加 1~3 好感度
+        const gainExp = Math.floor(Math.random() * 3) + 1;
+        if (pet.isAngry) {
+          pet.isAngry = false;
+          pet.exp += gainExp;
+          showToast(`安撫了 ${petDisplayName}！牠消氣了，好感度 +${gainExp} 🐾`);
+        } else {
+          pet.exp += gainExp;
+          showToast(`摸了摸 ${petDisplayName}！好感度 +${gainExp} 🐾`);
+        }
+      }
+
+      // 每 100 好感度升一級
+      const newLevel = Math.floor(pet.exp / 100) + 1;
+      if (newLevel > pet.level) {
+        pet.level = newLevel;
+        showToast(`🎉 ${petDisplayName} 升到了 Level ${pet.level}！`);
+      }
+      savePets();
+      updateUI();
+    }
+
+    // 搖籤筒專屬語錄資料庫 (與消費語錄分開)
+    const boyFortuneQuotes = {
+      "沈星回": {
+        "大吉": [
+          "沈星回：『如果是為了和我創造更多回憶，那這筆投資很值得。』💫",
+          "沈星回：『大吉！看來今天星光都在為你祝福，想買就買吧，有我在呢。』✨"
+        ],
+        "中吉": [
+          "沈星回：『適度的快樂很重要，既然是中吉，那就獎勵自己一下吧。』🌸",
+          "沈星回：『買完之後，記得分我一點時間，陪我睡個午覺補補精力。』💤"
+        ],
+        "吉": [
+          "沈星回：『運勢還算順利，但別忘了留點預算買好吃的肉排。』🍖",
+          "沈星回：『既然是吉，那就隨心意吧，只要你開心就好。』🌟"
+        ],
+        "凶": [
+          "沈星回：『抽到了凶呢...要不要把這筆錢省下來，我們去公園散步？』🍃",
+          "沈星回：『錢包好像在發出哀鳴...這次聽我的，先收手吧？』🛡️"
+        ],
+        "大凶": [
+          "沈星回：『大凶！快停下！再刷下去，夢裡連糖果都要買不起了。』🚨",
+          "沈星回：『這筆金額太危險了！過來我身邊，我用 Evol 幫你冷靜一下。』❄️"
+        ]
+      },
+      "黎深": {
+        "大吉": [
+          "黎深：『理性評估後，這筆消費符合你的快樂預算，准許執行。』🩺",
+          "黎深：『罕見的大吉。偶爾放鬆心智對身心健康有益，我不會阻止你。』📋"
+        ],
+        "中吉": [
+          "黎深：『指標處於安全範圍，想下單就下單吧，但僅此一次。』📉",
+          "黎深：『中吉運勢，代表你可以享受這份快樂，但請維持理性。』☕"
+        ],
+        "吉": [
+          "黎深：『運勢尚可，不過結帳前請先確認你的本月飲食預算是否足夠。』🍎",
+          "黎深：『普通的好運，可以購買，但別讓心率因為看到帳單而過速。』💓"
+        ],
+        "凶": [
+          "黎深：『抽到凶了。這是我開給你的處方箋：請立刻關閉商城頁面。』🚫",
+          "黎深：『錢包溫度過低，再課金將引發嚴重的財務併發症。』❄️"
+        ],
+        "大凶": [
+          "黎深：『大凶。嚴格禁止！請務必遵照醫囑，立即停止這筆高風險支出！』⛔",
+          "黎深：『這是極度危險的消費衝動，需要我親自幫你凍結這張卡嗎？』🧊"
+        ]
+      },
+      "祁煜": {
+        "大吉": [
+          "祁煜：『哇！大吉！這一定是本藝術家的靈感神殿在向你發射幸運波長！買！』🎨",
+          "祁煜：『大吉籤！為了歡慶這一刻，買完順便請我吃頓海鮮大餐吧！』🦐"
+        ],
+        "中吉": [
+          "祁煜：『中吉還不錯啦！買了這套，記得下次要當我的專屬畫模特兒補回來！』🖼️",
+          "祁煜：『看在運勢還行的份上，就批准你課金吧，不可以看其他魚喔！』🐟"
+        ],
+        "吉": [
+          "祁煜：『小吉而已～雖然可以買，但再刷下去我們真的要一起去撿貝殼了！』🐚",
+          "祁煜：『運勢普普通通，你確定要把靈感花在這個禮包上面嗎？』🎨"
+        ],
+        "凶": [
+          "祁煜：『喂！抽到凶了耶！你的錢包現在就像乾乾癟癟的小魚，快收手！』🌊",
+          "祁煜：『不許刷！這種俗氣的商品不值得你花大錢，把錢留著買我的畫！』👑"
+        ],
+        "大凶": [
+          "祁煜：『大凶！警報！再買下去本少爺要生氣了，快點放下手機！』🚨",
+          "祁煜：『天啊，這是超級大凶！快收起來，不然我要懲罰你陪我畫畫畫三天三夜！』🖌️"
+        ]
+      },
+      "秦徹": {
+        "大吉": [
+          "秦徹：『大吉？這點小錢也需要看籤運？想買就買，暗點買單。』👑",
+          "秦徹：『既然抽到大吉，那就別猶豫，籌碼下得夠大才稱得上是玩家。』🎲"
+        ],
+        "中吉": [
+          "秦徹：『中吉算個不錯的開局，這筆數額還動搖不了我的莊家地位。』🎰",
+          "秦徹：『拿去刷吧，能讓你露出笑容，這筆籌碼就算花得值。』🍷"
+        ],
+        "吉": [
+          "秦徹：『籤運普通，但只要你想獲得，規則由你我說了算。』♟️",
+          "秦徹：『一般般的運勢，你想買就買，別在我面前露出猶豫的眼神。』🦅"
+        ],
+        "凶": [
+          "秦徹：『抽到凶？我不信命運這種東西，但這次的賠率太高，先收手。』⛓️",
+          "秦徹：『暗點可不收盲目衝動的膽小鬼，這筆交易建議你重新評估。』🛑"
+        ],
+        "大凶": [
+          "秦徹：『大凶。這是一局必輸的賭局，立刻退出，聽明白了嗎？』⚠️",
+          "秦徹：『想在我的眼皮底下做這種虧本買賣？給我冷靜點，卡收起來。』💳"
+        ]
+      },
+      "夏以晝": {
+        "大吉": [
+          "夏以晝：『大吉！妹你想買什麼就買，哥永遠是你最強的後盾！』🛡️",
+          "夏以晝：『抽到大吉啦！買完開心了，待會哥親手做蘋果派給你吃！』🥧"
+        ],
+        "中吉": [
+          "夏以晝：『中吉！妹你運勢挺好的嘛，想買就買，開朗一點！』✨",
+          "夏以晝：『既然抽到中吉，那就放心買吧！沒錢吃飯哥再轉帳給你！』🍳"
+        ],
+        "吉": [
+          "夏以晝：『吉～還算平順，不過課金要適量，別把零用錢一次花光囉。』🔑",
+          "夏以晝：『可以買，但哥親手做的甜點是免費的，記得留肚子吃飯！』😋"
+        ],
+        "凶": [
+          "夏以晝：『抽到凶了！妹，聽哥一句勸，先把購物車清空吧！』🛫",
+          "夏以晝：『又在偷刷大額卡被我抓到了吧！凶籤代表今天不適合課金！』🙅‍♂️"
+        ],
+        "大凶": [
+          "夏以晝：『大凶！絕對不行！再這樣揮霍，小心哥沒收你的零用錢！』🔒",
+          "夏以晝：『飛機降落就看到你抽到大凶！快停手，哥帶你去吃大餐解悶！』🍔"
+        ]
+      }
+    };
+
+    // 日常消費專屬吐槽語錄 (每位男主 6 句以上，通用 5 句以上)
     const boyRoasts = {
       "沈星回": [
         "沈星回：『你又給我和其他人花錢了嗎？早點休息吧，夢裡什麼都有。』💤",
         "沈星回：『如果沒錢買糖，我的那份可以分給你一半。』🍬",
         "沈星回：『別刷了...過來陪我睡個午覺，比課金更有精神。』💤",
-        "沈星回：『光芒雖然無限，但獵人小姐的錢包好像有限？』✨",
-        "沈星回：『這是第幾筆了？下次換我請你吃大快朵頤的肉吧。』🍖",
-        "沈星回：『我的 Evol 可以拯救世界，但好像救不了你的帳單。』🪐",
-        "沈星回：『別太勉強自己...只要你在身邊，我不介意吃平價便當。』🍱"
+        "沈星回：『只要能待在你身邊，不用買這些我也很滿足了。』🌟",
+        "沈星回：『你的錢包看起來有點疲倦...要不要把它放進我的口袋休息一下？』🧸",
+        "沈星回：『再繼續點下去，我們今晚可能真的要分著吃同一塊餅乾了。』🍪"
       ],
       "黎深": [
         "黎深：『這筆開銷...需要我幫你開一張冷靜心智的處方嗎？』🩺",
         "黎深：『你的錢包溫度正在急遽下降，需要適度止血。』❄️",
         "黎深：『理性消費，這是我給你的健康建議，請務必遵照醫囑。』📋",
-        "黎深：『心率過快、手速過快，通常發生在你在商城結帳的瞬間。』💓",
-        "黎深：『冰封的冰霜尚可融化，但這筆帳單可能需要你花幾個月消化。』🧊",
-        "黎深：『又下單了？希望你對自己的飲食健康也能有這種執行力。』🍎",
-        "黎深：『今晚的甜點取消，換成消費行為檢討報告。』📑"
+        "黎深：『這不是必要的醫療或生活開支，請適當控制衝動。』🔬",
+        "黎深：『看來你的心率因為這筆支出稍微加快了，需要我為你做個心電圖嗎？』💓",
+        "黎深：『這筆預算已經超標，從明天起，你的甜點配額將被正式凍結。』🧁"
       ],
       "祁煜": [
         "祁煜：『哼，算你識相！不過你的畫布/錢包好像快破洞了？』🎨",
         "祁煜：『為了本藝術家這樣揮霍，我是不會輕易被收買的...好吧，這次算你有心！』💖",
-        "祁煜：『喂！再買下去，我們下個月真的要一起去海邊流浪撿貝殼了！』🐚",
-        "祁煜：『這種俗氣的貨幣怎麼能衡量本少爺的靈魂？...但你既然買了我就收下吧！』👑",
-        "祁煜：『魚的記憶只有七秒，但我會記住你今天又偷刷了幾筆！』🐟",
-        "祁煜：『你的錢包現在就像被海浪沖走的小魚，乾乾癟癟的。』🌊",
-        "祁煜：『不許看其他人！把錢花在我身上...咳，我是說花在藝術創作上！』🖼️"
+        "祁煜：『天天這樣刷卡，你是不是想把我騙去海裡為你唱漁歌養家？』🧜‍♂️",
+        "祁煜：『哇！這數字太誇張了吧！你該不會把買畫具的錢也算進去了？』🖌️",
+        "祁煜：『雖然本少爺很高興，但要是你因此吃不起海鮮，我可是會很頭疼的！』🦞",
+        "祁煜：『不許再點了！你的手指需要停下來，專心握住我的手！』🤝"
       ],
       "秦徹": [
         "秦徹：『這點數額也值得你猶豫？拿去，繼續刷。』🍷",
-        "秦徹：『既然選了我，這點投入不過是基本籌碼，暗點可不收膽小鬼。』🎰",
         "秦徹：『卡拿去，別在我面前露出為難的表情，這會影響我的興致。』💳",
-        "秦徹：『我喜歡有野心的人，但你的野心好像全用在填滿購物車上了？』🦅",
-        "秦徹：『這點花費還動搖不了我的莊家地位，隨你折騰。』👑",
-        "秦徹：『買下這些，能換來你多久的服從？我很期待。』⛓️",
-        "秦徹：『輸贏我不在乎，只要這局遊戲的主導權一直在你手上。』🎲"
+        "秦徹：『在暗點的世界裡，只要你開口，這點籌碼算不上什麼。』♟️",
+        "秦徹：『看來你很享受這種揮霍的快感？有眼光，但別忘了籌碼的代價。』🎲",
+        "秦徹：『把這當成一場遊戲就好，只要你玩的開心，結果由我包底。』👑",
+        "秦徹：『既然動了手，就別擺出一副後悔的模樣，我的獵物可不能這樣怯懦。』🦅"
       ],
       "夏以晝": [
-        "夏以晝：『妹，課金要適量啊！要是沒錢吃飯了，哥隨時都在，帶你去吃大餐！』🍳",
+        "夏以晝：『妹，課金要適量啊！要是沒錢吃飯了，哥隨時都在！』🍳",
         "夏以晝：『又在偷刷卡？被我抓到了吧，下不為例喔！』😋",
-        "夏以晝：『不開心隨時找哥，別一直對著螢幕撒錢呀！』✨",
-        "夏以晝：『飛機降落第一件事就是看你又買了什麼，真拿你沒辦法。』🛫",
-        "夏以晝：『哥親手做的蘋果派免費，比那些虛幻的禮包香多了吧？』🥧",
-        "夏以晝：『再這樣揮霍，小心哥沒收你的零用錢，由我親自保管！』🔑",
-        "夏以晝：『無論你在深空花多少錢，哥永遠是你的最強後盾！』🛡️"
+        "夏以晝：『買了這麼多開心了吧？等哥結束任務回去親手做大餐給你補補！』🥧",
+        "夏以晝：『你的錢包都在向哥發出求救訊號了！下次要買先跟我報備！』🛫",
+        "夏以晝：『只要你高興哥都支持你，但月底可不許偷偷啃麵包吐司啊。』🥪",
+        "夏以晝：『哥的卡永遠對你敞開，但你自己的零用錢還是要省著點花！』🔑"
       ],
       "通用": [
         "你怎麼又儲值了！？魔法卡再刷要刷爆啦！💳",
         "記得好好吃飯捏！別只顧著給男主買禮物！🍚",
         "手起刀落又是一筆！你的錢包正在哭泣！💸",
-        "再這樣課下去，下半個月只能吃泡麵了喔！🍜",
-        "沒關係，錢沒有不見，只是變成喜歡的樣子陪在身邊！💖",
-        "課金一時爽，一直課金一直爽！🤪",
-        "警報！您的錢包厚度正在急速下降中！🚨"
+        "深空世界很美好，但現實中的生活也要細水長流喔！🌸",
+        "今天的快樂已到貨！請注意查收你的錢包餘額！📦",
+        "每一筆投入都是對愛的偏執！記得適度放鬆！✨"
       ]
     };
 
@@ -1178,6 +1589,10 @@
 
     let records = JSON.parse(localStorage.getItem('deepspace_records') || "[]");
     let budgetTarget = parseInt(localStorage.getItem('deepspace_budget') || "3000");
+
+    let pendingRecord = null;
+    let coolTimer = null;
+    let coolSeconds = 3;
 
     function sanitizeRecords() {
       let isModified = false;
@@ -1210,7 +1625,6 @@
     const datePicker = document.getElementById('record-date-picker');
     datePicker.value = new Date().toISOString().slice(0, 10);
 
-    // 初始化分類選單
     const catFilter = document.getElementById('category-filter');
     const editCatSelect = document.getElementById('edit-category-select');
     categories.forEach(c => {
@@ -1228,17 +1642,6 @@
     function saveLocal() {
       localStorage.setItem('deepspace_records', JSON.stringify(records));
       updateUI();
-      checkAutoBackupHint();
-    }
-
-    function checkAutoBackupHint() {
-      if (records.length > 0 && records.length % 30 === 0) {
-        showConfirmModal(
-          '💾 溫馨備份提醒',
-          `您目前已累積 ${records.length} 筆消費紀錄囉！建議點擊「備份至雲端」下載備份檔，防止資料遺失。`,
-          function() { exportToFile(); }
-        );
-      }
     }
 
     let lastRoast = "";
@@ -1264,7 +1667,7 @@
     }
 
     function checkUpdateNotice() {
-      const hasSeenNotice = localStorage.getItem('deepspace_notice_v10_seen');
+      const hasSeenNotice = localStorage.getItem('deepspace_notice_v14_seen');
       if (!hasSeenNotice) {
         document.getElementById('update-notice-modal').classList.add('active');
       }
@@ -1272,7 +1675,7 @@
 
     function closeUpdateNotice() {
       document.getElementById('update-notice-modal').classList.remove('active');
-      localStorage.setItem('deepspace_notice_v10_seen', 'true');
+      localStorage.setItem('deepspace_notice_v14_seen', 'true');
     }
 
     function openCloudInfoModal() {
@@ -1281,6 +1684,54 @@
 
     function closeCloudInfoModal() {
       document.getElementById('cloud-info-modal').classList.remove('active');
+    }
+
+    function navigateToPetPage() {
+      document.getElementById('page-home').classList.remove('active');
+      document.getElementById('page-report').classList.remove('active');
+      document.getElementById('page-pet-city').classList.add('active');
+      window.scrollTo(0, 0);
+      updateUI();
+    }
+
+    function navigateToHome() {
+      document.getElementById('page-report').classList.remove('active');
+      document.getElementById('page-pet-city').classList.remove('active');
+      document.getElementById('page-home').classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    function openCityModal() {
+      const grandTotal = records.reduce((sum, item) => sum + item.amount, 0);
+      const container = document.getElementById('building-grid-container');
+      container.innerHTML = '';
+
+      cityBuildings.forEach(b => {
+        let level = Math.floor(grandTotal / b.baseCost);
+        let progress = level > 0 ? 100 : Math.min(Math.floor((grandTotal / b.baseCost) * 100), 100);
+
+        const item = document.createElement('div');
+        item.className = 'building-item';
+        item.innerHTML = `
+          <div class="building-info">
+            <div class="building-name">${b.name}</div>
+            <div class="building-lvl">Lv.${level} (${progress}% 繁榮度)</div>
+            <div style="font-size:0.72rem; color:var(--text-sub);">解鎖/升級門檻：$${b.baseCost.toLocaleString()}</div>
+          </div>
+          <div>
+            <span style="font-size:0.8rem; font-weight:700; color:${level > 0 ? 'var(--success-color)' : 'var(--text-sub)'};">
+              ${level > 0 ? '已建設 🏰' : '未解鎖 🔒'}
+            </span>
+          </div>
+        `;
+        container.appendChild(item);
+      });
+
+      document.getElementById('city-modal').classList.add('active');
+    }
+
+    function closeCityModal() {
+      document.getElementById('city-modal').classList.remove('active');
     }
 
     function setBudgetPrompt() {
@@ -1512,7 +1963,6 @@
       return `${yyyy}/${mm}/${dd}`;
     }
 
-    // 編輯紀錄彈窗控制
     function openEditModal(id) {
       const target = records.find(r => r.id === id);
       if (!target) return;
@@ -1581,6 +2031,66 @@
       document.getElementById('total-amount').innerText = `$${monthlyTotal.toLocaleString()}`;
 
       updateBudgetDisplay(monthlyTotal);
+
+      // 更新獨立寵物頁面資料
+      const { availableCoins } = getPetCoinsInfo();
+      const coinDisplay = document.getElementById('pet-coin-display');
+      if (coinDisplay) {
+        coinDisplay.innerText = `${availableCoins} 幣`;
+      }
+
+      // 渲染獨立頁面上的像素寵物
+      const petPageContainer = document.getElementById('pet-grid-page-container');
+      if (petPageContainer) {
+        let petsPageHTML = '';
+        pixelPets.forEach(p => {
+          const petDisplayName = p.customName || p.name;
+          const statusTag = p.isAngry 
+            ? `<span class="pet-status-tag status-angry">😡 生氣中</span>` 
+            : `<span class="pet-status-tag status-happy">😊 開心</span>`;
+
+          petsPageHTML += `
+            <div class="pet-card-item">
+              <div class="pixel-pet-art">${p.icon}</div>
+              <div class="pet-name-wrap">
+                <span class="pet-name">${petDisplayName}</span>
+                <button type="button" class="btn-rename" title="改名" onclick="renamePet('${p.id}')">✏️</button>
+              </div>
+              <div class="pet-lvl">Lv.${p.level} (好感 ${p.exp})</div>
+              ${statusTag}
+              <div class="pet-actions">
+                <button type="button" class="btn-pet-action" onclick="interactPet('${p.id}', 'feed')">🍎餵食(2幣)</button>
+                <button type="button" class="btn-pet-action" onclick="interactPet('${p.id}', 'pat')">🐾撫摸</button>
+              </div>
+            </div>
+          `;
+        });
+        petPageContainer.innerHTML = petsPageHTML;
+      }
+
+      // 渲染獨立頁面上的地產概況
+      const buildingPageContainer = document.getElementById('building-grid-page-container');
+      if (buildingPageContainer) {
+        let bPageHTML = '';
+        cityBuildings.forEach(b => {
+          let level = Math.floor(grandTotalSum / b.baseCost);
+          bPageHTML += `
+            <div class="building-item">
+              <div class="building-info">
+                <div class="building-name">${b.name}</div>
+                <div class="building-lvl">Lv.${level}</div>
+                <div style="font-size:0.72rem; color:var(--text-sub);">門檻：$${b.baseCost.toLocaleString()}</div>
+              </div>
+              <div>
+                <span style="font-size:0.8rem; font-weight:700; color:${level > 0 ? 'var(--success-color)' : 'var(--text-sub)'};">
+                  ${level > 0 ? '已建設 🏰' : '未解鎖 🔒'}
+                </span>
+              </div>
+            </div>
+          `;
+        });
+        buildingPageContainer.innerHTML = bPageHTML;
+      }
 
       const openNodes = new Set();
       document.querySelectorAll('.tree-node.open').forEach(node => {
@@ -1657,7 +2167,6 @@
       const searchKey = document.getElementById('search-input').value.trim().toLowerCase();
       const selectedCat = document.getElementById('category-filter').value;
 
-      // 保持原始陣列最新插入置頂的順序
       let sortedRecords = monthRecords.slice();
 
       let filteredRecords = sortedRecords.filter(r => {
@@ -1728,6 +2237,124 @@
       return isNaN(parsedDate.getTime()) ? Date.now() : parsedDate.getTime();
     }
 
+    function checkAndProcessRecord(record, clearInputCallback) {
+      if (record.amount > 3000) {
+        pendingRecord = { record, clearInputCallback };
+        openCoolDownModal();
+      } else {
+        executeAddRecord(record, clearInputCallback);
+      }
+    }
+
+    function executeAddRecord(record, clearInputCallback) {
+      records.unshift(record);
+      currentPage = 1;
+      saveLocal();
+      if (clearInputCallback) clearInputCallback();
+      showToast(getRandomRoast());
+    }
+
+    function openCoolDownModal() {
+      coolSeconds = 3;
+      document.getElementById('draw-result-card').style.display = 'none';
+      document.getElementById('stick-box-anim').innerText = '🎍';
+      
+      const drawBtn = document.getElementById('btn-start-draw');
+      drawBtn.disabled = true;
+      drawBtn.innerText = `請先冷靜 3 秒... (${coolSeconds})`;
+      drawBtn.onclick = startDrawStick;
+
+      document.getElementById('timer-text').innerText = `冷靜倒數：${coolSeconds} 秒`;
+      document.getElementById('cool-down-modal').classList.add('active');
+
+      if (coolTimer) clearInterval(coolTimer);
+      coolTimer = setInterval(() => {
+        coolSeconds--;
+        if (coolSeconds > 0) {
+          document.getElementById('timer-text').innerText = `冷靜倒數：${coolSeconds} 秒`;
+          drawBtn.innerText = `請先冷靜 3 秒... (${coolSeconds})`;
+        } else {
+          clearInterval(coolTimer);
+          document.getElementById('timer-text').innerText = `冷靜時間結束，可以搖籤囉！`;
+          drawBtn.disabled = false;
+          drawBtn.innerText = `🎲 開始搖籤決策`;
+        }
+      }, 1000);
+    }
+
+    function startDrawStick() {
+      const stickBox = document.getElementById('stick-box-anim');
+      stickBox.classList.add('shaking');
+
+      setTimeout(() => {
+        stickBox.classList.remove('shaking');
+        stickBox.innerText = '📜';
+
+        let userSelectedBoys = JSON.parse(localStorage.getItem('deepspace_selected_boys') || "[]");
+        const allBoys = ["沈星回", "黎深", "祁煜", "秦徹", "夏以晝"];
+        if (userSelectedBoys.length === 0) userSelectedBoys = allBoys;
+        
+        const chosenBoy = userSelectedBoys[Math.floor(Math.random() * userSelectedBoys.length)];
+
+        const rand = Math.random() * 100;
+        let luck = "大吉";
+        if (rand < 30) {
+          luck = "大吉";
+        } else if (rand < 60) {
+          luck = "中吉";
+        } else if (rand < 75) {
+          luck = "吉";
+        } else if (rand < 90) {
+          luck = "凶";
+        } else {
+          luck = "大凶";
+        }
+
+        const quotesPool = boyFortuneQuotes[chosenBoy][luck];
+        const selectedQuote = quotesPool[Math.floor(Math.random() * quotesPool.length)];
+
+        const resultCard = document.getElementById('draw-result-card');
+        const luckDisplay = document.getElementById('result-luck');
+        const quoteDisplay = document.getElementById('result-quote');
+
+        luckDisplay.innerText = `${chosenBoy} 籤運：【${luck}】`;
+        quoteDisplay.innerText = selectedQuote;
+
+        if (luck.includes("凶")) {
+          luckDisplay.style.color = "var(--danger-color)";
+          resultCard.style.borderColor = "var(--danger-color)";
+          resultCard.style.background = "var(--danger-light)";
+        } else {
+          luckDisplay.style.color = "var(--success-color)";
+          resultCard.style.borderColor = "var(--success-color)";
+          resultCard.style.background = "var(--primary-light)";
+        }
+
+        resultCard.style.display = 'block';
+
+        const drawBtn = document.getElementById('btn-start-draw');
+        drawBtn.innerText = luck.includes("凶") ? "我不聽！硬要課金 💸" : "加持成功！確定加入 ✅";
+        drawBtn.onclick = confirmForceAddRecord;
+      }, 1200);
+    }
+
+    function confirmForceAddRecord() {
+      if (pendingRecord) {
+        executeAddRecord(pendingRecord.record, pendingRecord.clearInputCallback);
+        pendingRecord = null;
+      }
+      closeCoolDownModal(true);
+    }
+
+    function closeCoolDownModal(isAdded) {
+      if (coolTimer) clearInterval(coolTimer);
+      document.getElementById('cool-down-modal').classList.remove('active');
+      if (!isAdded) {
+        pendingRecord = null;
+        showToast("已冷靜下來，成功守護錢包！🌸");
+      }
+    }
+
     function addItem(name, unitPrice, inputId) {
       const input = document.getElementById(inputId);
       const qty = parseInt(input.value) || 1;
@@ -1741,11 +2368,8 @@
         date: getSelectedDateStr(),
         timestamp: getSelectedTimestamp()
       };
-      records.unshift(record);
-      currentPage = 1;
-      saveLocal();
-      input.value = "1";
-      showToast(getRandomRoast());
+      
+      checkAndProcessRecord(record, () => { input.value = "1"; });
     }
 
     function addCustomItem(name, inputId) {
@@ -1763,11 +2387,8 @@
         date: getSelectedDateStr(),
         timestamp: getSelectedTimestamp()
       };
-      records.unshift(record);
-      currentPage = 1;
-      saveLocal();
-      input.value = "";
-      showToast(getRandomRoast());
+
+      checkAndProcessRecord(record, () => { input.value = ""; });
     }
 
     function addOtherItem() {
@@ -1786,12 +2407,11 @@
         date: getSelectedDateStr(),
         timestamp: getSelectedTimestamp()
       };
-      records.unshift(record);
-      currentPage = 1;
-      saveLocal();
-      priceInput.value = "";
-      noteInput.value = "";
-      showToast(getRandomRoast());
+
+      checkAndProcessRecord(record, () => { 
+        priceInput.value = "";
+        noteInput.value = "";
+      });
     }
 
     function deleteRecord(id) {
@@ -1800,7 +2420,6 @@
       showToast("已成功刪除該筆消費！");
     }
 
-    // Canvas 導出高解析度 (Retina) 戰報分享圖片
     function generateShareImage(isAllTime = false) {
       const dpr = Math.min(window.devicePixelRatio || 2, 3);
       const baseWidth = 600;
@@ -1848,243 +2467,211 @@
       const textMain = computedStyle.getPropertyValue('--text-main').trim() || '#433952';
       const bgColor = computedStyle.getPropertyValue('--bg-color').trim() || '#f8f5fc';
 
-      // 背景漸層
       const grad = ctx.createLinearGradient(0, 0, baseWidth, baseHeight);
       grad.addColorStop(0, gradientStart);
       grad.addColorStop(1, gradientEnd);
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, baseWidth, baseHeight);
 
-      // 主卡片底圖
       ctx.fillStyle = cardBg;
-      ctx.roundRect ? ctx.roundRect(30, 30, 540, 690, 24) : ctx.fillRect(30, 30, 540, 690);
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.08)';
+      ctx.shadowBlur = 20;
+      ctx.shadowOffsetY = 10;
+      ctx.beginPath();
+      ctx.roundRect(30, 30, baseWidth - 60, baseHeight - 60, 20);
       ctx.fill();
+      ctx.shadowColor = 'transparent';
 
-      // 標題與個人資訊
       ctx.fillStyle = primaryDark;
-      ctx.font = 'bold 26px "Microsoft JhengHei", sans-serif';
+      ctx.font = 'bold 24px "Microsoft JhengHei", sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText(titleText, 300, 90);
+      ctx.fillText(titleText, baseWidth / 2, 85);
 
       ctx.fillStyle = textSub;
-      ctx.font = '17px "Microsoft JhengHei", sans-serif';
-      ctx.fillText(subtitleText, 300, 130);
+      ctx.font = '14px "Microsoft JhengHei", sans-serif';
+      ctx.fillText(subtitleText, baseWidth / 2, 115);
 
-      // 頭像框背景
       ctx.fillStyle = primaryLight;
       ctx.beginPath();
-      ctx.arc(300, 190, 36, 0, Math.PI * 2);
+      ctx.roundRect(60, 140, baseWidth - 120, 100, 16);
       ctx.fill();
 
-      const userAvatar = localStorage.getItem('deepspace_avatar') || '🌸';
-      ctx.font = '36px "Segoe UI Emoji", sans-serif';
-      ctx.fillText(userAvatar, 300, 202);
-
-      // 總金額區塊
-      ctx.fillStyle = bgColor;
-      if (ctx.roundRect) {
-        ctx.beginPath();
-        ctx.roundRect(60, 250, 480, 110, 16);
-        ctx.fill();
-      } else {
-        ctx.fillRect(60, 250, 480, 110);
-      }
-
       ctx.fillStyle = textSub;
-      ctx.font = '16px "Microsoft JhengHei", sans-serif';
-      ctx.fillText(isAllTime ? '全期間歷史總金額' : '本月累積總支出', 300, 285);
+      ctx.font = '14px "Microsoft JhengHei", sans-serif';
+      ctx.fillText('累積投入總金額', baseWidth / 2, 172);
 
       ctx.fillStyle = primaryDark;
-      ctx.font = 'bold 42px -apple-system, sans-serif';
-      ctx.fillText(`$${displayTotal.toLocaleString()}`, 300, 335);
+      ctx.font = 'bold 36px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+      ctx.fillText(`$${displayTotal.toLocaleString()}`, baseWidth / 2, 215);
 
-      // 主力項目
-      let topCategory = "無消費";
-      if (targetRecords.length > 0) {
-        const catSums = {};
-        targetRecords.forEach(r => { catSums[r.category] = (catSums[r.category] || 0) + r.amount; });
-        topCategory = Object.keys(catSums).reduce((a, b) => catSums[a] > catSums[b] ? a : b);
-      }
+      const catSums = {};
+      categories.forEach(c => catSums[c] = 0);
+      targetRecords.forEach(r => {
+        if (catSums[r.category] !== undefined) catSums[r.category] += r.amount;
+        else catSums['其他'] += r.amount;
+      });
 
-      ctx.fillStyle = textMain;
-      ctx.font = 'bold 18px "Microsoft JhengHei", sans-serif';
+      const activeCats = categories.filter(c => catSums[c] > 0)
+                                  .sort((a, b) => catSums[b] - catSums[a]);
+
       ctx.textAlign = 'left';
-      ctx.fillText(`🔥 ${isAllTime ? '全期間主力投入' : '本月主力投入'}：${topCategory}`, 70, 400);
-      ctx.fillText(`📊 總計消費筆數：${targetRecords.length} 筆`, 70, 435);
-      
-      if (!isAllTime) {
-        ctx.fillText(`🎯 預算使用率：${budgetTarget > 0 ? Math.round((displayTotal / budgetTarget) * 100) : 0}%`, 70, 470);
-      } else {
-        ctx.fillText(`📅 紀錄期間：記帳第一天至今`, 70, 470);
-      }
-
-      // 語錄卡片
-      ctx.fillStyle = primaryLight;
-      if (ctx.roundRect) {
-        ctx.beginPath();
-        ctx.roundRect(60, 510, 480, 130, 16);
-        ctx.fill();
-      } else {
-        ctx.fillRect(60, 510, 480, 130);
-      }
-
       ctx.fillStyle = primaryDark;
       ctx.font = 'bold 16px "Microsoft JhengHei", sans-serif';
-      ctx.fillText('💬 專屬語錄：', 80, 540);
+      ctx.fillText('📊 消費分類明細', 60, 275);
 
-      ctx.fillStyle = textMain;
-      ctx.font = '15px "Microsoft JhengHei", sans-serif';
-      const roastText = getRandomRoast();
-      
-      const maxWidth = 440;
-      let line = '';
-      let y = 570;
-      for (let i = 0; i < roastText.length; i++) {
-        let testLine = line + roastText[i];
-        let metrics = ctx.measureText(testLine);
-        if (metrics.width > maxWidth && i > 0) {
-          ctx.fillText(line, 80, y);
-          line = roastText[i];
-          y += 24;
-        } else {
-          line = testLine;
+      let startY = 305;
+      if (activeCats.length === 0) {
+        ctx.fillStyle = textSub;
+        ctx.font = '14px "Microsoft JhengHei", sans-serif';
+        ctx.fillText('尚無消費紀錄', 60, startY);
+      } else {
+        const showCats = activeCats.slice(0, 6);
+        showCats.forEach((cat) => {
+          const amt = catSums[cat];
+          const pct = displayTotal > 0 ? ((amt / displayTotal) * 100).toFixed(1) : '0.0';
+
+          ctx.fillStyle = bgColor;
+          ctx.beginPath();
+          ctx.roundRect(60, startY - 18, baseWidth - 120, 38, 10);
+          ctx.fill();
+
+          ctx.fillStyle = textMain;
+          ctx.font = '14px "Microsoft JhengHei", sans-serif';
+          ctx.fillText(cat, 75, startY + 6);
+
+          ctx.textAlign = 'right';
+          ctx.fillStyle = primaryDark;
+          ctx.font = 'bold 14px -apple-system, BlinkMacSystemFont, sans-serif';
+          ctx.fillText(`$${amt.toLocaleString()} (${pct}%)`, baseWidth - 75, startY + 6);
+
+          ctx.textAlign = 'left';
+          startY += 48;
+        });
+
+        if (activeCats.length > 6) {
+          ctx.fillStyle = textSub;
+          ctx.font = '12px "Microsoft JhengHei", sans-serif';
+          ctx.fillText(`...以及其他 ${activeCats.length - 6} 項分類`, 60, startY + 5);
         }
       }
-      ctx.fillText(line, 80, y);
 
       ctx.fillStyle = textSub;
-      ctx.font = '13px "Microsoft JhengHei", sans-serif';
+      ctx.font = '12px "Microsoft JhengHei", sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText('製作者：@maixh_016 | 戀與深空專屬記帳系統', 300, 690);
+      ctx.fillText('戀與深空專屬記帳系統 | @maixh_016', baseWidth / 2, baseHeight - 50);
 
-      const link = document.createElement('a');
-      const filePrefix = isAllTime ? `深空歷史總戰報` : `深空單月戰報_${selectedYear}${formattedMonth}`;
-      link.download = `${filePrefix}.png`;
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-      showToast("高解析度戰報圖片已生成下載！");
+      const imgData = canvas.toDataURL('image/png');
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", imgData);
+      downloadAnchor.setAttribute("download", `戀與深空課金戰報_${isAllTime ? '全期間' : selectedYearMonthStr}.png`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showToast("戰報圖片已開始下載！");
     }
+
+    let reportChartInstance = null;
 
     function navigateToReport(rangeVal) {
       if (!rangeVal) return;
       document.getElementById('page-home').classList.remove('active');
+      document.getElementById('page-pet-city').classList.remove('active');
       document.getElementById('page-report').classList.add('active');
       window.scrollTo(0, 0);
-      renderReportChart(rangeVal === 'ALL' ? 'ALL' : parseInt(rangeVal));
+
+      renderReportChart(rangeVal);
       document.getElementById('report-range-select').value = "";
     }
 
-    function navigateToHome() {
-      document.getElementById('page-report').classList.remove('active');
-      document.getElementById('page-home').classList.add('active');
-      window.scrollTo(0, 0);
-    }
-
-    let myChart = null;
     function renderReportChart(range) {
-      const titles = { 7: "近 7 天", 30: "近 1 個月", 180: "近 6 個月", 365: "近 1 年", 'ALL': "全部歷史紀錄" };
-      document.getElementById('report-page-title').innerText = `📊 ${titles[range] || ''}支出趨勢圖`;
+      const titleObj = {
+        '7': '近 7 天支出趨勢圖',
+        '30': '近 1 個月支出趨勢圖',
+        '180': '近 6 個月支出趨勢圖',
+        '365': '近 1 年支出趨勢圖',
+        'ALL': '全部歷史紀錄趨勢圖'
+      };
+      document.getElementById('report-page-title').innerText = `📊 ${titleObj[range] || '支出趨勢圖'}`;
 
-      const labels = [];
-      const dataMap = {};
       const now = new Date();
+      let startDate = new Date();
+      
+      if (range === '7') startDate.setDate(now.getDate() - 6);
+      else if (range === '30') startDate.setDate(now.getDate() - 29);
+      else if (range === '180') startDate.setDate(now.getDate() - 179);
+      else if (range === '365') startDate.setDate(now.getDate() - 364);
+      else if (range === 'ALL') startDate = new Date(0);
 
-      if (range === 'ALL') {
-        let minTime = now.getTime();
-        if (records.length > 0) {
-          records.forEach(r => {
-            let t = r.timestamp || now.getTime();
-            if (t < minTime) minTime = t;
-          });
-        }
-        let startDate = new Date(minTime);
-        startDate.setHours(0,0,0,0);
-        let endDate = new Date(now);
-        endDate.setHours(0,0,0,0);
+      const dateMap = {};
 
-        let curr = new Date(startDate);
-        while (curr <= endDate) {
-          const yearStr = (curr.getFullYear() !== now.getFullYear()) ? `${curr.getFullYear()}/` : '';
-          const monthDay = `${yearStr}${String(curr.getMonth() + 1).padStart(2, '0')}/${String(curr.getDate()).padStart(2, '0')}`;
-          labels.push(monthDay);
-          dataMap[monthDay] = 0;
-          curr.setDate(curr.getDate() + 1);
+      if (range === '7' || range === '30') {
+        let temp = new Date(startDate);
+        while (temp <= now) {
+          const key = `${String(temp.getMonth() + 1).padStart(2, '0')}/${String(temp.getDate()).padStart(2, '0')}`;
+          dateMap[key] = 0;
+          temp.setDate(temp.getDate() + 1);
         }
 
         records.forEach(r => {
-          let rDate = r.timestamp ? new Date(r.timestamp) : new Date();
-          const yearStr = (rDate.getFullYear() !== now.getFullYear()) ? `${rDate.getFullYear()}/` : '';
-          const key = `${yearStr}${String(rDate.getMonth() + 1).padStart(2, '0')}/${String(rDate.getDate()).padStart(2, '0')}`;
-          if (dataMap.hasOwnProperty(key)) {
-            dataMap[key] += r.amount;
+          const rDate = r.timestamp ? new Date(r.timestamp) : new Date();
+          if (rDate >= startDate && rDate <= now) {
+            const key = `${String(rDate.getMonth() + 1).padStart(2, '0')}/${String(rDate.getDate()).padStart(2, '0')}`;
+            if (dateMap[key] !== undefined) dateMap[key] += r.amount;
           }
         });
-
       } else {
-        const days = parseInt(range);
-        for (let i = days - 1; i >= 0; i--) {
-          const d = new Date(now);
-          d.setDate(d.getDate() - i);
-          const monthDay = `${String(d.getMonth() + 1).padStart(2, '0')}/${String(d.getDate()).padStart(2, '0')}`;
-          labels.push(monthDay);
-          dataMap[monthDay] = 0;
-        }
-
         records.forEach(r => {
-          let rDate = r.timestamp ? new Date(r.timestamp) : new Date();
-          const key = `${String(rDate.getMonth() + 1).padStart(2, '0')}/${String(rDate.getDate()).padStart(2, '0')}`;
-          if (dataMap.hasOwnProperty(key)) {
-            dataMap[key] += r.amount;
+          const rDate = r.timestamp ? new Date(r.timestamp) : new Date();
+          if (rDate >= startDate && rDate <= now) {
+            const key = `${rDate.getFullYear()}/${String(rDate.getMonth() + 1).padStart(2, '0')}`;
+            dateMap[key] = (dateMap[key] || 0) + r.amount;
           }
         });
       }
 
-      const dataValues = labels.map(l => dataMap[l]);
+      const labels = Object.keys(dateMap);
+      const dataValues = Object.values(dateMap);
+
       const computedStyle = getComputedStyle(document.documentElement);
       const primaryColor = computedStyle.getPropertyValue('--primary-color').trim() || '#9d8ec7';
-      const primaryDark = computedStyle.getPropertyValue('--primary-dark').trim() || '#705b9e';
-      const textMain = computedStyle.getPropertyValue('--text-main').trim() || '#433952';
+      const primaryLight = computedStyle.getPropertyValue('--primary-light').trim() || '#f0ebf8';
 
       const ctx = document.getElementById('trendChart').getContext('2d');
-      if (myChart) myChart.destroy();
 
-      myChart = new Chart(ctx, {
+      if (reportChartInstance) {
+        reportChartInstance.destroy();
+      }
+
+      reportChartInstance = new Chart(ctx, {
         type: 'line',
         data: {
           labels: labels,
           datasets: [{
-            label: '每日支出 ($)',
+            label: '消費金額 ($)',
             data: dataValues,
-            borderColor: primaryDark,
-            backgroundColor: primaryColor + '33',
+            borderColor: primaryColor,
+            backgroundColor: primaryLight,
+            borderWidth: 2,
             fill: true,
-            tension: 0.35,
-            pointRadius: labels.length > 60 ? 1 : 4,
-            pointBackgroundColor: primaryDark
+            tension: 0.3,
+            pointRadius: labels.length > 30 ? 2 : 4,
+            pointBackgroundColor: primaryColor
           }]
         },
         options: {
           responsive: true,
           maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
+          plugins: {
+            legend: { display: false }
+          },
           scales: {
             x: {
-              ticks: { 
-                color: textMain, 
-                font: { family: "'Microsoft JhengHei', sans-serif", weight: '600' },
-                autoSkip: true,
-                maxTicksLimit: 12
-              },
-              grid: { color: 'rgba(0,0,0,0.05)' }
+              grid: { display: false },
+              ticks: { font: { size: 10 }, maxRotation: 45 }
             },
             y: {
               beginAtZero: true,
-              ticks: { 
-                color: textMain, 
-                font: { family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif", weight: '600' },
-                callback: value => '$' + value 
-              },
-              grid: { color: 'rgba(0,0,0,0.05)' }
+              ticks: { font: { size: 10 } }
             }
           }
         }
