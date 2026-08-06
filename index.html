@@ -567,6 +567,35 @@
       align-items: center;
       gap: 4px;
       text-align: center;
+      position: relative;
+    }
+    /* 墓碑/淘汰狀態的卡片樣式 */
+    .pet-card-item.is-dead {
+      opacity: 0.6;
+      filter: grayscale(80%);
+      background: #e8e8e8;
+    }
+    /* 寵物卡片右上角的墓碑 toggle 按鈕 */
+    .btn-tombstone {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      background: rgba(255, 255, 255, 0.8);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      width: 22px;
+      height: 22px;
+      font-size: 0.72rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      z-index: 2;
+    }
+    .btn-tombstone:hover {
+      transform: scale(1.15);
+      background: #ffffff;
     }
     .pet-name-wrap {
       display: flex;
@@ -586,6 +615,7 @@
     .pet-status-tag { font-size: 0.68rem; font-weight: 700; padding: 1px 4px; border-radius: 4px; margin-top: 2px; }
     .status-happy { background: var(--primary-light); color: var(--primary-dark); }
     .status-angry { background: var(--danger-light); color: var(--danger-color); }
+    .status-dead { background: #d0d0d0; color: #555555; }
 
     .pet-actions { display: flex; gap: 4px; margin-top: 4px; width: 100%; justify-content: center; }
     .btn-pet-action {
@@ -598,6 +628,10 @@
       color: var(--primary-dark);
       font-weight: 600;
       white-space: nowrap;
+    }
+    .btn-pet-action:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
 
     .filter-bar { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: nowrap; }
@@ -1209,6 +1243,7 @@
       <div class="update-notice-list">
         <p style="font-weight:700; color:var(--primary-dark); margin-bottom:6px;">✨ 最新版本升級亮點：</p>
         <ul>
+          <li><strong>🪦 新增小動物生命狀態開關</strong>：可在寵物右上角點擊墓碑讓小動物進入紀念狀態，隨心決定哪些小動物活著！</li>
           <li><strong>🎨 戰報圖卡全面精美升級</strong>：全新 1920x1080 滿版排版、漸層視覺、各分類明細條列與高解析度導出！</li>
           <li><strong>💬 戰報圖卡加入男主專屬語錄</strong>：生成的當月與全期間戰報圖片皆附帶你所選男主的甜蜜陪伴語錄！</li>
           <li><strong>🐾 戰報整合寵物與建設元素</strong>：將最高好感度寵物小夥伴及臨空市地產建設進度完美融進戰報中！</li>
@@ -1320,20 +1355,45 @@
       { id: 'b4', name: '🏰 獵人專屬豪華別墅', baseCost: 6000, scale: 2.5 }
     ];
 
-    // 馬賽克像素寵物資料庫
+    // 馬賽克像素寵物資料庫 (新增 isDead 控制墓碑狀態)
     let pixelPets = JSON.parse(localStorage.getItem('deepspace_pets') || JSON.stringify([
-      { id: 'p1', name: '軟綿兔子', customName: '', icon: '🐇', exp: 0, level: 1, isAngry: false },
-      { id: 'p2', name: '冰霜雪人', customName: '', icon: '☃️', exp: 0, level: 1, isAngry: false },
-      { id: 'p3', name: '氣鼓鼓河豚', customName: '', icon: '🐡', exp: 0, level: 1, isAngry: false },
-      { id: 'p4', name: '夜空烏鴉', customName: '', icon: '🐦‍⬛', exp: 0, level: 1, isAngry: false },
-      { id: 'p5', name: '敏捷豹子', customName: '', icon: '🐆', exp: 0, level: 1, isAngry: false },
-      { id: 'p7', name: '孤傲狼狼', customName: '', icon: '🐺', exp: 0, level: 1, isAngry: false }
+      { id: 'p1', name: '軟綿兔子', customName: '', icon: '🐇', exp: 0, level: 1, isAngry: false, isDead: false },
+      { id: 'p2', name: '冰霜雪人', customName: '', icon: '☃️', exp: 0, level: 1, isAngry: false, isDead: false },
+      { id: 'p3', name: '氣鼓鼓河豚', customName: '', icon: '🐡', exp: 0, level: 1, isAngry: false, isDead: false },
+      { id: 'p4', name: '夜空烏鴉', customName: '', icon: '🐦‍⬛', exp: 0, level: 1, isAngry: false, isDead: false },
+      { id: 'p5', name: '敏捷豹子', customName: '', icon: '🐆', exp: 0, level: 1, isAngry: false, isDead: false },
+      { id: 'p7', name: '孤傲狼狼', customName: '', icon: '🐺', exp: 0, level: 1, isAngry: false, isDead: false }
     ]));
 
     pixelPets = pixelPets.filter(p => p.id !== 'p6' && p.name !== '忠誠小狗');
 
     function savePets() {
       localStorage.setItem('deepspace_pets', JSON.stringify(pixelPets));
+    }
+
+    // 切換寵物的死活/墓碑狀態
+    function togglePetDead(petId) {
+      const pet = pixelPets.find(p => p.id === petId);
+      if (!pet) return;
+      const petDisplayName = pet.customName || pet.name;
+
+      if (!pet.isDead) {
+        showConfirmModal(
+          '🪦 設定為紀念狀態',
+          `確定要將「${petDisplayName}」送往星空紀念（設為墓碑狀態）嗎？`,
+          function() {
+            pet.isDead = true;
+            savePets();
+            updateUI();
+            showToast(`已將 ${petDisplayName} 設為紀念狀態 🪦`);
+          }
+        );
+      } else {
+        pet.isDead = false;
+        savePets();
+        updateUI();
+        showToast(`✨ ${petDisplayName} 已復活恢復活力！`);
+      }
     }
 
     let petCoinsSpent = parseInt(localStorage.getItem('deepspace_pet_coins_spent') || '0');
@@ -1362,6 +1422,10 @@
     function interactPet(petId, type) {
       const pet = pixelPets.find(p => p.id === petId);
       if (!pet) return;
+      if (pet.isDead) {
+        showToast("這隻小動物目前為墓碑狀態，無法進行互動喔 🪦");
+        return;
+      }
       const petDisplayName = pet.customName || pet.name;
 
       if (type === 'feed') {
@@ -2033,13 +2097,22 @@
         let petsPageHTML = '';
         pixelPets.forEach(p => {
           const petDisplayName = p.customName || p.name;
-          const statusTag = p.isAngry 
-            ? `<span class="pet-status-tag status-angry">😡 生氣中</span>` 
-            : `<span class="pet-status-tag status-happy">😊 開心</span>`;
+          
+          let statusTag = '';
+          if (p.isDead) {
+            statusTag = `<span class="pet-status-tag status-dead">🪦 紀念中</span>`;
+          } else if (p.isAngry) {
+            statusTag = `<span class="pet-status-tag status-angry">😡 生氣中</span>`;
+          } else {
+            statusTag = `<span class="pet-status-tag status-happy">😊 開心</span>`;
+          }
+
+          const iconDisplay = p.isDead ? '🪦' : p.icon;
 
           petsPageHTML += `
-            <div class="pet-card-item">
-              <div class="pixel-pet-art">${p.icon}</div>
+            <div class="pet-card-item ${p.isDead ? 'is-dead' : ''}">
+              <button type="button" class="btn-tombstone" title="${p.isDead ? '復活/恢復活性' : '歸類為紀念/墓碑狀態'}" onclick="togglePetDead('${p.id}')">🪦</button>
+              <div class="pixel-pet-art">${iconDisplay}</div>
               <div class="pet-name-wrap">
                 <span class="pet-name">${petDisplayName}</span>
                 <button type="button" class="btn-rename" title="改名" onclick="renamePet('${p.id}')">✏️</button>
@@ -2047,8 +2120,8 @@
               <div class="pet-lvl">Lv.${p.level} (好感 ${p.exp})</div>
               ${statusTag}
               <div class="pet-actions">
-                <button type="button" class="btn-pet-action" onclick="interactPet('${p.id}', 'feed')">🍎餵食(2幣)</button>
-                <button type="button" class="btn-pet-action" onclick="interactPet('${p.id}', 'pat')">🐾撫摸</button>
+                <button type="button" class="btn-pet-action" ${p.isDead ? 'disabled' : ''} onclick="interactPet('${p.id}', 'feed')">🍎餵食(2幣)</button>
+                <button type="button" class="btn-pet-action" ${p.isDead ? 'disabled' : ''} onclick="interactPet('${p.id}', 'pat')">🐾撫摸</button>
               </div>
             </div>
           `;
@@ -2510,9 +2583,11 @@
       const selectedBoys = JSON.parse(localStorage.getItem('deepspace_selected_boys') || "[]");
       const boysStr = selectedBoys.length > 0 ? selectedBoys.join('、') : '深空男主們';
       
-      let topPet = pixelPets.slice().sort((a,b) => b.exp - a.exp)[0];
+      let alivePets = pixelPets.filter(p => !p.isDead);
+      let topPet = (alivePets.length > 0 ? alivePets : pixelPets).slice().sort((a,b) => b.exp - a.exp)[0];
       let topPetName = topPet ? (topPet.customName || topPet.name) : '無';
       let topPetLvl = topPet ? `Lv.${topPet.level}` : '';
+      let topPetIcon = topPet ? (topPet.isDead ? '🪦' : topPet.icon) : '🐾';
 
       ctx.fillStyle = primaryDark;
       ctx.font = 'bold 30px "Microsoft JhengHei", sans-serif';
@@ -2521,7 +2596,7 @@
       ctx.fillStyle = textMain;
       ctx.font = '26px "Microsoft JhengHei", sans-serif';
       ctx.fillText(`專屬陪伴男主：${boysStr}`, leftX + 35, 550);
-      ctx.fillText(`最高好感寵物：${topPet ? topPet.icon : '🐾'} ${topPetName} (${topPetLvl})`, leftX + 35, 595);
+      ctx.fillText(`最高好感寵物：${topPetIcon} ${topPetName} (${topPetLvl})`, leftX + 35, 595);
 
       const grandTotalSum = records.reduce((sum, item) => sum + item.amount, 0);
       const petCoinsEarned = Math.floor(grandTotalSum / 500);
